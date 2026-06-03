@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Econ-Management Paper Polish</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">📝 Econ-Mgmt Polish</a>
+      <div class="nav-links">
+        <a href="#features" data-en="Features" data-zh="功能">功能</a>
+        <a href="#install" data-en="Install" data-zh="安装">安装</a>
+        <a href="#usage" data-en="Usage" data-zh="用例">用例</a>
+        <a href="#structure" data-en="Structure" data-zh="结构">结构</a>
+        <a href="https://github.com/linkingoscar/econ-management-paper-polish" target="_blank">GitHub</a>
+        <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1 data-en="Econ-Management Paper Polish" data-zh="经管论文润色 Skill">经管论文润色 Skill</h1>
+      <p class="hero-sub" data-en="A universal academic paper skill for economics, management, finance, accounting, marketing, IS, and broader business-school disciplines. Works with any AI coding agent." data-zh="面向经济学、管理学、金融、会计、营销、信息系统等经管类学科的通用学术论文 Skill。兼容所有主流 AI 编程助手。">面向经济学、管理学、金融、会计、营销、信息系统等经管类学科的通用学术论文 Skill。兼容所有主流 AI 编程助手。</p>
+      <div class="hero-badges">
+        <span class="badge">MIT License</span>
+        <span class="badge" data-en="23 Reference Modules" data-zh="23 个参考模块">23 个参考模块</span>
+        <span class="badge" data-en="Universal Agent Support" data-zh="兼容所有 Agent">兼容所有 Agent</span>
+      </div>
+      <div class="hero-actions">
+        <a href="#install" class="btn btn-primary" data-en="Get Started" data-zh="快速开始">快速开始</a>
+        <a href="https://github.com/linkingoscar/econ-management-paper-polish" class="btn btn-outline" target="_blank">GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 data-en="Features" data-zh="核心功能">核心功能</h2>
+      <p class="section-desc" data-en="Not just &quot;making text sound academic&quot; — this skill identifies the disciplinary paradigm first, then applies specialized processing." data-zh="不只是「让文字更学术」——这个 skill 先识别论文所属范式，再进行专业化处理。">不只是「让文字更学术」——这个 skill 先识别论文所属范式，再进行专业化处理。</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">✏️</div>
+          <h3 data-en="Paper Polish" data-zh="论文润色">论文润色</h3>
+          <p data-en="Light polish, peer-style rewrite, AI-tone reduction, Chinese/English style adaptation." data-zh="轻润色、同行化改写、降 AI 味、中英文风格适配。">轻润色、同行化改写、降 AI 味、中英文风格适配。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧭</div>
+          <h3 data-en="Four-Quadrant Routing" data-zh="四象限路由">四象限路由</h3>
+          <p data-en="Chinese economics, English economics, Chinese management, English management — with subfield overlays." data-zh="中文经济学、英文经济学、中文管理学、英文管理学——叠加细分方向路由。">中文经济学、英文经济学、中文管理学、英文管理学——叠加细分方向路由。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3 data-en="Citation & Evidence" data-zh="文献与证据">文献与证据</h3>
+          <p data-en="Traceable sources only. Grade A/B/C/D evidence grading. APA 7 default output." data-zh="仅使用可追溯来源。A/B/C/D 证据分级。默认 APA 7 格式输出。">仅使用可追溯来源。A/B/C/D 证据分级。默认 APA 7 格式输出。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔬</div>
+          <h3 data-en="Method Diagnosis" data-zh="方法诊断">方法诊断</h3>
+          <p data-en="DID, event study, IV, RD, SCM, matching, mediation, text/ML, DML and more." data-zh="DID、事件研究、IV、RD、SCM、匹配、中介、文本/ML、DML 等方法适配判断。">DID、事件研究、IV、RD、SCM、匹配、中介、文本/ML、DML 等方法适配判断。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 data-en="Topic Advisory" data-zh="选题与改稿">选题与改稿</h3>
+          <p data-en="Contribution diagnosis, variable suggestions, conservative revision vs. radical pivot paths." data-zh="贡献诊断、变量建议、保守改稿路径 vs 激进转向路径。">贡献诊断、变量建议、保守改稿路径 vs 激进转向路径。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3 data-en="Reviewer Response" data-zh="返修回复">返修回复</h3>
+          <p data-en="Review comment decomposition, response tone, revision actions, and evidence supplementation." data-zh="审稿意见拆解、回应语气、修改动作和证据补充。">审稿意见拆解、回应语气、修改动作和证据补充。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📰</div>
+          <h3 data-en="Journal Adaptation" data-zh="期刊适配">期刊适配</h3>
+          <p data-en="Generate journal style cards from author guidelines and recent sample papers." data-zh="基于作者指南和近期样刊生成目标期刊 style card。">基于作者指南和近期样刊生成目标期刊 style card。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏗️</div>
+          <h3 data-en="Structure Rewrite" data-zh="结构改写">结构改写</h3>
+          <p data-en="Full section coverage: intro → lit review → theory → hypotheses → empirical → results → robustness → heterogeneity → discussion → conclusion." data-zh="全章节覆盖：引言→文献综述→理论→假设→实证→结果→稳健性→异质性→讨论→结论。">全章节覆盖：引言→文献综述→理论→假设→实证→结果→稳健性→异质性→讨论→结论。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section id="install" class="section section-alt">
+    <div class="container">
+      <h2 data-en="Installation" data-zh="安装方式">安装方式</h2>
+      <p class="section-desc" data-en="Clone the repo into your agent's skill/rules directory. Works with any agent that supports skill or system-prompt loading." data-zh="将仓库克隆到你的 Agent 的 skill/rules 目录即可。适用于任何支持 skill 或 system-prompt 加载的 Agent。">将仓库克隆到你的 Agent 的 skill/rules 目录即可。适用于任何支持 skill 或 system-prompt 加载的 Agent。</p>
+
+      <div class="install-grid">
+        <div class="install-card">
+          <h3>OpenCode</h3>
+          <code>git clone https://github.com/linkingoscar/econ-management-paper-polish.git \<br>&nbsp;&nbsp;~/.opencode/skills/econ-management-paper-polish</code>
+        </div>
+        <div class="install-card">
+          <h3>Claude Code</h3>
+          <code>git clone https://github.com/linkingoscar/econ-management-paper-polish.git \<br>&nbsp;&nbsp;~/.claude/skills/econ-management-paper-polish</code>
+        </div>
+        <div class="install-card">
+          <h3>Codex (OpenAI)</h3>
+          <code>git clone https://github.com/linkingoscar/econ-management-paper-polish.git \<br>&nbsp;&nbsp;~/.codex/skills/econ-management-paper-polish</code>
+        </div>
+        <div class="install-card">
+          <h3>Cursor</h3>
+          <code>git clone https://github.com/linkingoscar/econ-management-paper-polish.git \<br>&nbsp;&nbsp;.cursor/rules/econ-management-paper-polish</code>
+        </div>
+        <div class="install-card">
+          <h3>Windsurf</h3>
+          <code>git clone https://github.com/linkingoscar/econ-management-paper-polish.git \<br>&nbsp;&nbsp;.windsurf/rules/econ-management-paper-polish</code>
+        </div>
+        <div class="install-card">
+          <h3 data-en="Others" data-zh="其他 Agent">其他 Agent</h3>
+          <p class="install-note" data-en="Place in the agent's rules directory, or reference SKILL.md as custom instructions." data-zh="放入 Agent 的 rules 目录，或将 SKILL.md 作为自定义指令引用。">放入 Agent 的 rules 目录，或将 SKILL.md 作为自定义指令引用。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Usage -->
+  <section id="usage" class="section">
+    <div class="container">
+      <h2 data-en="Usage Examples" data-zh="使用示例">使用示例</h2>
+      <div class="usage-grid">
+        <div class="usage-card">
+          <div class="usage-tag" data-en="Light Polish" data-zh="轻润色">轻润色</div>
+          <p class="usage-zh">用 econ-management-paper-polish 帮我润色这段中文管理学论文引言，保留原意和引用。</p>
+          <p class="usage-en">Polish this Chinese management paper introduction, preserving the original meaning and citations.</p>
+        </div>
+        <div class="usage-card">
+          <div class="usage-tag" data-en="English Rewrite" data-zh="英文改写">英文改写</div>
+          <p class="usage-zh">按英文应用微观经济学 field journal 风格，帮我重写这段 introduction，突出 identification 和 economic magnitude。</p>
+          <p class="usage-en">Rewrite this introduction in English applied micro field-journal style, emphasizing identification and economic magnitude.</p>
+        </div>
+        <div class="usage-card">
+          <div class="usage-tag" data-en="Theory Backing" data-zh="理论背书">理论背书</div>
+          <p class="usage-zh">这段理论机制太弱，帮我诊断需要哪些理论背书，并检索可追溯文献，默认 APA。</p>
+          <p class="usage-en">This theoretical mechanism is weak. Diagnose what theory backing is needed and retrieve traceable references in APA format.</p>
+        </div>
+        <div class="usage-card">
+          <div class="usage-tag" data-en="Method Diagnosis" data-zh="方法诊断">方法诊断</div>
+          <p class="usage-zh">我现在用双向固定效应 DID，帮我判断这个实证策略是否合适，需要哪些稳健性和方法文献支持。</p>
+          <p class="usage-en">I'm using two-way FE DID. Judge whether this empirical strategy is appropriate and what robustness/method literature support is needed.</p>
+        </div>
+        <div class="usage-card">
+          <div class="usage-tag" data-en="Topic Advisory" data-zh="选题改稿">选题改稿</div>
+          <p class="usage-zh">这篇文章创新性不足。基于当前题目、数据和目标 CSSCI 管理类期刊，帮我给出保守改稿方向和激进转向方向。</p>
+          <p class="usage-en">This paper lacks novelty. Based on the current topic, data, and target CSSCI management journal, suggest conservative revision and radical pivot directions.</p>
+        </div>
+        <div class="usage-card">
+          <div class="usage-tag" data-en="Reviewer Response" data-zh="返修回复">返修回复</div>
+          <p class="usage-zh">根据这些审稿意见，帮我制定返修路线和 response letter，要求语气克制，不夸大修改效果。</p>
+          <p class="usage-en">Based on these reviewer comments, draft a revision plan and response letter with a restrained tone — do not overstate the improvements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Structure -->
+  <section id="structure" class="section section-alt">
+    <div class="container">
+      <h2 data-en="File Structure" data-zh="文件结构">文件结构</h2>
+      <div class="tree">
+<pre>
+econ-management-paper-polish/
+├── SKILL.md                           <span data-en="# Core skill definition" data-zh="# 核心 skill 定义"># 核心 skill 定义</span>
+├── README.md                          <span data-en="# Documentation" data-zh="# 项目文档"># 项目文档</span>
+├── LICENSE                            <span data-en="# MIT License" data-zh="# MIT 许可证"># MIT 许可证</span>
+├── CONTRIBUTING.md                    <span data-en="# Contribution guidelines" data-zh="# 贡献指南"># 贡献指南</span>
+├── .gitignore
+└── references/                        <span data-en="# 23 reference modules" data-zh="# 23 个参考模块"># 23 个参考模块</span>
+    ├── intake-and-modes.md            <span data-en="# Task mode selection" data-zh="# 任务模式选择"># 任务模式选择</span>
+    ├── discipline-router.md           <span data-en="# Discipline routing" data-zh="# 学科路由"># 学科路由</span>
+    ├── cn-economics-style.md          <span data-en="# Chinese economics style" data-zh="# 中文经济学风格"># 中文经济学风格</span>
+    ├── en-economics-style.md          <span data-en="# English economics style" data-zh="# 英文经济学风格"># 英文经济学风格</span>
+    ├── cn-management-style.md         <span data-en="# Chinese management style" data-zh="# 中文管理学风格"># 中文管理学风格</span>
+    ├── en-management-style.md         <span data-en="# English management style" data-zh="# 英文管理学风格"># 英文管理学风格</span>
+    ├── subfields-economics.md         <span data-en="# Economics subfields" data-zh="# 经济学细分方向"># 经济学细分方向</span>
+    ├── subfields-management.md        <span data-en="# Management subfields" data-zh="# 管理学细分方向"># 管理学细分方向</span>
+    ├── journal-families-econ.md       <span data-en="# Economics journal families" data-zh="# 经济学期刊族"># 经济学期刊族</span>
+    ├── journal-families-management.md <span data-en="# Management journal families" data-zh="# 管理学期刊族"># 管理学期刊族</span>
+    ├── journal-style-adaptation.md    <span data-en="# Journal style adaptation" data-zh="# 期刊风格适配"># 期刊风格适配</span>
+    ├── journal-style-card.md          <span data-en="# Style card generation" data-zh="# Style card 生成"># Style card 生成</span>
+    ├── field-style-packs.md           <span data-en="# Adjacent field packs" data-zh="# 相邻领域风格包"># 相邻领域风格包</span>
+    ├── source-access-policy.md        <span data-en="# Source access tiers" data-zh="# 来源访问层级"># 来源访问层级</span>
+    ├── evidence-citation-workflow.md  <span data-en="# Citation workflow" data-zh="# 引用工作流"># 引用工作流</span>
+    ├── evidence-grading.md            <span data-en="# Evidence grading" data-zh="# 证据分级"># 证据分级</span>
+    ├── theory-backing-router.md       <span data-en="# Theory backing" data-zh="# 理论背书"># 理论背书</span>
+    ├── empirical-method-router.md     <span data-en="# Empirical methods" data-zh="# 实证方法"># 实证方法</span>
+    ├── method-decision-tree.md        <span data-en="# Method decision tree" data-zh="# 方法决策树"># 方法决策树</span>
+    ├── section-patterns.md            <span data-en="# Section templates" data-zh="# 章节模板"># 章节模板</span>
+    ├── style-and-polish.md            <span data-en="# Style & polish rules" data-zh="# 风格润色规则"># 风格润色规则</span>
+    ├── quality-gates.md               <span data-en="# Quality gates" data-zh="# 质量门控"># 质量门控</span>
+    └── topic-revision-advisor.md      <span data-en="# Topic advisory" data-zh="# 选题改稿建议"># 选题改稿建议</span>
+</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section">
+    <div class="container">
+      <h2 data-en="How It Works" data-zh="工作流程">工作流程</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-content">
+            <h4 data-en="Identify Task Mode" data-zh="识别任务模式">识别任务模式</h4>
+            <p data-en="Polish / rewrite / theory / literature / method / topic / reviewer response" data-zh="润色 / 改写 / 理论 / 文献 / 方法 / 选题 / 返修">润色 / 改写 / 理论 / 文献 / 方法 / 选题 / 返修</p>
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-content">
+            <h4 data-en="Four-Quadrant Route" data-zh="四象限路由">四象限路由</h4>
+            <p data-en="CN Econ / EN Econ / CN Mgmt / EN Mgmt" data-zh="中文经济 / 英文经济 / 中文管理 / 英文管理">中文经济 / 英文经济 / 中文管理 / 英文管理</p>
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-content">
+            <h4 data-en="Subfield Overlay" data-zh="细分方向叠加">细分方向叠加</h4>
+            <p data-en="Labor / environment / strategy / OB/HR / IS / ..." data-zh="劳动 / 环境 / 战略 / OB/HR / IS / …">劳动 / 环境 / 战略 / OB/HR / IS / …</p>
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-content">
+            <h4 data-en="Journal Adapt" data-zh="目标期刊适配">目标期刊适配</h4>
+            <p data-en="Style card from author guidelines" data-zh="基于作者指南生成 style card">基于作者指南生成 style card</p>
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-content">
+            <h4 data-en="Execute & Output" data-zh="执行输出">执行输出</h4>
+            <p data-en="Revised text + evidence pack + APA refs" data-zh="修订文本 + 证据包 + APA 参考文献">修订文本 + 证据包 + APA 参考文献</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 data-en="Core Principles" data-zh="核心原则">核心原则</h2>
+      <div class="principles-grid">
+        <div class="principle">
+          <span class="principle-icon">🚫</span>
+          <p data-en="No fabrication — never invent citations, DOI, data, or journal requirements." data-zh="不编造——绝不虚构文献、DOI、数据或期刊要求。">不编造——绝不虚构文献、DOI、数据或期刊要求。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-icon">🔗</span>
+          <p data-en="Traceable sources — every new reference must come from a verifiable source." data-zh="可追溯——每条新增文献必须来自可验证的来源。">可追溯——每条新增文献必须来自可验证的来源。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-icon">🎓</span>
+          <p data-en="Discipline-aware — economics ≠ management ≠ finance. Respect paradigm differences." data-zh="学科感知——经济学 ≠ 管理学 ≠ 金融学，尊重范式差异。">学科感知——经济学 ≠ 管理学 ≠ 金融学，尊重范式差异。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-icon">📊</span>
+          <p data-en="Evidence grading — Grade A (full-text) to Grade D (unverifiable). Never overclaim." data-zh="证据分级——A 级（全文验证）到 D 级（不可验证），绝不过度声称。">证据分级——A 级（全文验证）到 D 级（不可验证），绝不过度声称。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-icon">🛡️</span>
+          <p data-en="Preserve intent — keep the user's claims, numbers, and contribution intact unless asked to change." data-zh="保留原意——除非用户明确要求，否则保留其论点、数据和贡献定位。">保留原意——除非用户明确要求，否则保留其论点、数据和贡献定位。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-icon">⚠️</span>
+          <p data-en="Flag, don't smooth — if a claim is unsupported, flag it instead of silently rewriting." data-zh="标记而非粉饰——如果论点缺乏支撑，标记出来而非悄悄改写。">标记而非粉饰——如果论点缺乏支撑，标记出来而非悄悄改写。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        <span data-en="Released under the " data-zh="基于 ">基于 </span><a href="https://github.com/linkingoscar/econ-management-paper-polish/blob/main/LICENSE">MIT License</a><span data-en="." data-zh=" 许可证发布。"> 许可证发布。</span>
+        <span data-en=" Built for the academic community in economics, management, and business research." data-zh=" 为经济学、管理学和商学研究的学术社区而建。"> 为经济学、管理学和商学研究的学术社区而建。</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
