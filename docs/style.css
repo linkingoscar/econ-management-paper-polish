@@ -442,6 +442,12 @@ a:hover {
   color: var(--text-muted);
 }
 
+.footer-version {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .nav-links a:not(:last-child) {
