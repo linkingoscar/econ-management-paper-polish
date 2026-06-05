@@ -11,9 +11,21 @@ description: >
   Triggers: 经管论文, 经济学论文, 管理论文, 实证论文, 论文润色, 学术润色,
   降AI味, 选题调整, 变量建议, 改稿方向, 研究前沿, 主流研究, 贡献定位,
   文献背书, 理论背书, 方法背书, 补充参考文献, 替代参考文献, APA格式, 返修回复,
+  研究流水线, 端到端, 从选题到投稿, 完整论文流程,
+  论点骨架, 核心论点, 论证链, 论点诊断,
+  RAG, 知识库, 文献库, 跨论文问答, 引用验证,
+  调研工作区, 文献池, 逐文精读, 文献整理,
+  LaTeX, tex, BibTeX, 期刊模板, 三线表,
+  可复现性, 复现检查, 数据透明度, 方法透明度,
+  修订矩阵, 返修跟踪, 风险清单,
   paper polish, paper review, citation help, methodology diagnosis,
-  reviewer response, literature augmentation.
-version: 1.0.0
+  reviewer response, literature augmentation,
+  research pipeline, end-to-end, paper spine, argument structure,
+  RAG knowledge base, cross-paper QA, citation verification,
+  survey workspace, paper pool, close reading,
+  LaTeX writing, BibTeX management, reproducibility audit,
+  revision matrix, risk register.
+version: 2.0.0
 license: MIT
 ---
 
@@ -227,3 +239,82 @@ Read these only when relevant:
   AI-tone reduction, sentence-level rewrites, and banned vague phrasing.
 - `references/quality-gates.md`: integrity checks for citations, numbers,
   identification, causal claims, tables, and reviewer risks.
+
+## Extended Capabilities (v2.0)
+
+The following modules were added in v2.0, inspired by leading academic research
+skills projects (nature-skills, academic-research-skills-codex, PaperSpine,
+PaperRAG, Cite Verity, LaTeX Writer, Survey Builder).
+
+### Paper Spine (论点骨架)
+
+When diagnosing or building argument structure, read:
+
+- `references/paper-spine.md`: core claim, contribution chain, hypothesis chain,
+  evidence map, and risk register for the manuscript.
+- `references/revision-matrix.md`: tracking revision actions during major revision
+  or reviewer response.
+- `references/risk-register.md`: identifying and classifying risks to the paper's
+  argument, methodology, evidence, and publication prospects.
+
+### Reproducibility Audit (可复现性审计)
+
+When checking reproducibility or transparency, read:
+
+- `references/reproducibility-audit.md`: overall reproducibility audit covering
+  data transparency, method transparency, result consistency, identification logic,
+  and robustness completeness.
+- `references/data-reproducibility.md`: detailed data-level checks for source
+  verification, sample construction, variable construction, and sample size consistency.
+- `references/method-reproducibility.md`: detailed method-level checks for model
+  specification, identification strategy, standard errors, and method-specific
+  requirements (DID, IV, RD, matching, mediation).
+
+### Research Pipeline (研究流水线)
+
+When supporting end-to-end research workflow, read:
+
+- `references/research-pipeline.md`: 8-stage pipeline from topic diagnosis to
+  final submission, with stage definitions and transition rules.
+- `references/pipeline-stage-gates.md`: quality gates between stages to ensure
+  prerequisites are met before proceeding.
+- `references/pipeline-delegation.md`: delegation rules for parallel subtask
+  execution (literature search, method diagnosis, style polish, quality audit,
+  peer review), with **step-by-step execution mode** for single-threaded agents
+  and **integrated mode** for agents without subagent support.
+
+### LaTeX Support (LaTeX写作支持)
+
+When working with .tex files or LaTeX formatting, read:
+
+- `references/latex-support.md`: LaTeX basics for academic writing, including
+  document structure, table formatting, equation formatting, figure formatting,
+  and citation management.
+- `references/latex-templates.md`: journal-specific LaTeX template guidance for
+  economics, management, finance, and accounting journals.
+- `references/latex-audit.md`: LaTeX quality audit checklist for document structure,
+  cross-references, citations, tables, figures, equations, and bibliography.
+
+### RAG Knowledge Base (RAG知识库)
+
+When building or querying a local literature knowledge base, read:
+
+- `references/rag-workflow.md`: RAG architecture, document processing, query types,
+  output formats, and **degradation modes** (Full RAG → Manual Index → BibTeX Search
+  → User-Guided Search) for environments without vector database infrastructure.
+- `references/rag-retrieval.md`: retrieval strategies including semantic search,
+  keyword search, hybrid search, and result ranking.
+- `references/rag-verification.md`: citation verification process to ensure RAG
+  results actually support the claims they are cited for.
+
+### Survey Workspace (调研工作区)
+
+When organizing research on a specific topic, read:
+
+- `references/survey-workspace.md`: workspace structure for long-term research
+  organization, including research question definition, paper pool, timeline,
+  method map, comparable group, and gap analysis.
+- `references/paper-pool.md`: detailed paper pool management with three-tier
+  classification (core, extended, peripheral) and entry templates.
+- `references/close-reading.md`: templates and guidelines for detailed reading
+  of individual papers, including extraction checklists and quality assessment.
