@@ -1,0 +1,6 @@
+interface:
+  display_name: "Econ-Management Paper Polish"
+  short_description: "Evidence-first economics and management paper support"
+  default_prompt: "Use $econ-management-paper-polish to audit or revise this economics/management paper while preserving numbers, variables, citations, and causal strength."
+policy:
+  allow_implicit_invocation: true

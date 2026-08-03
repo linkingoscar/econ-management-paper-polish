@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](#version-history)
+[![Version](https://img.shields.io/badge/Version-3.0.0--alpha.1-orange.svg)](#v30-reliability-core-alpha)
 
 **Full-lifecycle AI writing assistant for economics and management academic papers**
 
@@ -35,6 +35,37 @@ Econ-Management Paper Polish is an AI Skill designed specifically for academic p
 3. **Discipline-Aware** — Economics ≠ Management ≠ Finance — respect paradigm differences
 4. **Evidence Grading** — Grade A (full-text verified) to Grade D (unverifiable), never overclaim
 5. **Preserve Intent** — Unless requested, retain the user's claims, numbers, variables, and contribution positioning
+
+---
+
+## v3.0 Reliability Core (alpha)
+
+v3.0.0-alpha.1 focuses on whether an edit can be trusted and re-checked. It keeps
+the 41 legacy `references/` modules loadable while adding a small executable core:
+
+| Capability | Deliverable |
+|------------|-------------|
+| Routing and capability declaration | `references/v3-runtime-contract.md`; Verified / Documented / Conceptual modes |
+| Evidence ledger | `assets/evidence-pack.schema.json`, `scripts/build_evidence_pack.py` |
+| Deterministic audits | Numeric, citation, LaTeX, and before/after version checks |
+| Method safety layer | `references/v3-method-safety.md` with design-specific causal red lines |
+| Responsibility packs | 14 aggregated packs in `references/v3/`, with a 41-file legacy migration index |
+| Pluggable integrations | Crossref/OpenAlex search, persistent local RAG, serial/HTTP agent adapters |
+| Persistent validation | State schemas, evaluation fixtures, and GitHub Actions CI |
+
+From the repository root:
+
+```bash
+python scripts/validate_v3.py .
+python evals/run_smoke_tests.py
+python evals/run_extended_tests.py
+```
+
+These checks cover manuscript text, citations, and structure. Without original
+data, code, or a licensed database, the skill reports a transparency audit rather
+than claiming a replication. RAG and multi-agent execution remain documented
+capabilities with optional adapters. Live retrieval and model calls still require
+network access, credentials, and separate evidence verification.
 
 ---
 
@@ -76,13 +107,18 @@ Econ-Management Paper Polish is an AI Skill designed specifically for academic p
 
 ```
 econ-management-paper-polish/
-├── SKILL.md                           # Core skill definition and rules (v2.0)
+├── SKILL.md                           # Core skill definition and rules (v3 alpha)
 ├── README.md                          # Chinese documentation
 ├── README.en.md                       # English documentation
 ├── LICENSE                            # MIT License
 ├── CONTRIBUTING.md                    # Contribution guide
 ├── .gitignore
-└── references/                        # 41 reference modules
+├── agents/openai.yaml                 # Codex display/default prompt metadata
+├── adapters/                           # Source, RAG, and bounded agent adapters
+├── assets/                             # v3 JSON schemas and report templates
+├── scripts/                            # Dependency-free deterministic audits
+├── evals/                              # Fixtures and smoke tests
+└── references/                        # 41 legacy + v3 contract modules
     ├── Core Routing (6)
     ├── Writing Style (6)
     ├── Journal Adaptation (4)
@@ -135,6 +171,13 @@ git clone https://github.com/linkingoscar/econ-management-paper-polish.git \
 
 ```text
 Use econ-management-paper-polish to polish this Chinese management paper introduction, preserving the original meaning and citations.
+```
+
+To verify that a polish did not change protected tokens:
+
+```bash
+python scripts/check_numeric_consistency.py original.md revised.md --json
+python scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
 ```
 
 ---
@@ -314,6 +357,12 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 ---
 
 ## Version History
+
+### v3.0.0-alpha.1 (2026-08-03)
+
+Reliability core: routing and capability contracts, evidence-pack and journal-card
+schemas, deterministic manuscript/citation/LaTeX audits, method-safety guidance,
+fixtures, smoke tests, and CI. Legacy v2 references remain backward compatible.
 
 ### v2.0.0 (2026-06-05)
 

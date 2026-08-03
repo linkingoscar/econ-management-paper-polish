@@ -1,0 +1,1 @@
+The regression-discontinuity design targets a local effect at the cutoff. We report bandwidth sensitivity, manipulation diagnostics, continuity checks, and the precise estimand rather than claiming global validity.

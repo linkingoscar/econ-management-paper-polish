@@ -28,3 +28,6 @@ __pycache__/
 drafts/
 notes/
 *.local.md
+
+# Local RAG indexes and provider cache
+.rag/

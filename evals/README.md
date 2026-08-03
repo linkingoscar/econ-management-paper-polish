@@ -1,0 +1,28 @@
+# v3 Evaluation Set
+
+The smoke suite is intentionally dependency-free and runs in CI:
+
+```bash
+python evals/run_smoke_tests.py
+python evals/run_extended_tests.py
+```
+
+Current fixtures cover Chinese/English-compatible manuscript text, a citation
+key and BibTeX record, numeric-preservation pass/fail cases, a LaTeX package and
+cross-reference failure, an evidence pack, and a journal card. The release gates
+are designed for later expansion:
+
+| Gate | Alpha target |
+|---|---:|
+| Protected numeric/variable preservation on light polish | 100% |
+| Virtual or fabricated citations in fixtures | 0 |
+| Added claim IDs with source provenance | 100% |
+| Known table/text/LaTeX consistency errors detected | 95%+ |
+| Repository contract and internal links | 100% pass |
+
+Add a normal (non-error) case whenever adding a new detector so that stricter
+checks do not turn into false-positive generators.
+
+The extended suite is offline by design. Live Crossref/OpenAlex calls are an
+optional integration check and must never be required for CI; network failures are
+reported as capability limitations rather than converted into fabricated evidence.
