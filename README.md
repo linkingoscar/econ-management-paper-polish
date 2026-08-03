@@ -182,6 +182,12 @@ py scripts/compare_manuscript_versions.py original.md revised.md --variable Trea
 
 ## 版本历史
 
+### v3.0.0-alpha.1 (2026-08-03)
+
+可靠性核心：新增路由与能力声明、证据账本与 journal card schema、数字/引用/LaTeX
+确定性审计、方法安全层、14 个职责化 reference 包、Crossref/OpenAlex 检索、本地
+RAG、多代理适配器、扩展评测和 CI。旧版 41 个 reference 模块继续兼容。
+
 ### v2.0.0 (2026-06-05)
 
 新增 18 个模块：论点骨架、修订矩阵、风险清单、可复现性审计、研究流水线、阶段门控、子代理委派、LaTeX 支持、RAG 知识库、调研工作区等（详见上方功能表）。
