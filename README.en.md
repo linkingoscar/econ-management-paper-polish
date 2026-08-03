@@ -44,6 +44,15 @@ Econ-Management Paper Polish is an AI Skill designed specifically for academic p
 4. **Evidence Grading** — Grade A (full-text verified) to Grade D (unverifiable), never overclaim
 5. **Preserve Intent** — Unless requested, retain the user's claims, numbers, variables, and contribution positioning
 
+### De-AI Tone Reduction & Academic Integrity
+
+This project provides "de-AI" tone reduction with an explicit stance:
+
+1. **Definition** — De-AI means removing template-like academic filler (vague openings, empty signifiers such as "significant importance", mechanical parallel structure) and restoring discipline-specific substance (mechanisms, institutional context, sample details, table references) — text the way a field insider would naturally write it.
+2. **What we do not do** — We do not provide evasive rewriting aimed at AI-detection tools, and we do not optimize for detector scores. If a user asks to rewrite text so that it cannot be identified as AI-generated, decline and explain why.
+3. **Author responsibility** — All output must be verified by the author. If the target journal, institution, or publisher requires disclosure of AI assistance, disclose it. This follows from the same integrity framework as our no-fabricated-citations and no-overclaiming rules.
+4. **Stance** — Norms around AI use in academia are still evolving. This project takes the conservative position: better to decline than to help evade detection.
+
 ---
 
 ## Features
