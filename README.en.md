@@ -378,6 +378,8 @@ The v2.0 upgrade was inspired by the following open-source academic research ski
 | [LaTeX Writer](https://github.com/Listen-Sun/ieee-latex-writer) | 14 | LaTeX writing standards |
 | [Survey Builder](https://github.com/zane-gao/paper-survey-builder) | 12 | Survey workspace organization |
 
+*Star counts as of 2026-08-03.*
+
 Thanks to all open-source contributors for their innovation!
 
 ---
