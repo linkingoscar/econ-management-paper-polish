@@ -370,13 +370,13 @@ The v2.0 upgrade was inspired by the following open-source academic research ski
 
 | Project | Stars | What We Learned |
 |---------|-------|-----------------|
-| [nature-skills](https://github.com/Yuan1z0825/nature-skills) | 16.7k | Journal-specific writing standards |
-| [academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 2.9k | End-to-end research pipeline |
-| [PaperSpine](https://github.com/WUBING2023/PaperSpine) | 2.2k | Paper spine, revision matrix |
-| [PaperRAG](https://github.com/GeederX/paper-rag-skill) | — | RAG knowledge base |
-| [Cite Verity](https://github.com/kronzie/verity) | — | Cross-paper QA, citation verification |
-| [LaTeX Writer](https://github.com/Listen-Sun/ieee-latex-writer) | 8 | LaTeX writing standards |
-| [Survey Builder](https://github.com/zane-gao/paper-survey-builder) | 1 | Survey workspace organization |
+| [nature-skills](https://github.com/Yuan1z0825/nature-skills) | 32.9k | Journal-specific writing standards |
+| [academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 7.7k | End-to-end research pipeline |
+| [PaperSpine](https://github.com/WUBING2023/PaperSpine) | 4.6k | Paper spine, revision matrix |
+| [PaperRAG](https://github.com/GeederX/paper-rag-skill) | 0 | RAG knowledge base |
+| [Cite Verity](https://github.com/kronzie/verity) | 0 | Cross-paper QA, citation verification |
+| [LaTeX Writer](https://github.com/Listen-Sun/ieee-latex-writer) | 14 | LaTeX writing standards |
+| [Survey Builder](https://github.com/zane-gao/paper-survey-builder) | 12 | Survey workspace organization |
 
 Thanks to all open-source contributors for their innovation!
 
