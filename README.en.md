@@ -53,39 +53,6 @@ This project provides "de-AI" tone reduction with an explicit stance:
 3. **Author responsibility** — All output must be verified by the author. If the target journal, institution, or publisher requires disclosure of AI assistance, disclose it. This follows from the same integrity framework as our no-fabricated-citations and no-overclaiming rules.
 4. **Stance** — Norms around AI use in academia are still evolving. This project takes the conservative position: better to decline than to help evade detection.
 
----
-
-## v3.0 Reliability Core (alpha)
-
-v3.0.0-alpha.1 focuses on whether an edit can be trusted and re-checked. It keeps
-the 41 legacy `references/` modules loadable while adding a small executable core:
-
-| Capability | Deliverable |
-|------------|-------------|
-| Routing and capability declaration | `references/v3-runtime-contract.md`; Verified / Documented / Conceptual modes |
-| Evidence ledger | `assets/evidence-pack.schema.json`, `scripts/build_evidence_pack.py` |
-| Deterministic audits | Numeric, citation, LaTeX, and before/after version checks |
-| Method safety layer | `references/v3-method-safety.md` with design-specific causal red lines |
-| Responsibility packs | 14 aggregated packs in `references/v3/`, with a 41-file legacy migration index |
-| Pluggable integrations | Crossref/OpenAlex search, persistent local RAG, serial/HTTP agent adapters |
-| Persistent validation | State schemas, evaluation fixtures, and GitHub Actions CI |
-
-From the repository root:
-
-```bash
-python scripts/validate_v3.py .
-python evals/run_smoke_tests.py
-python evals/run_extended_tests.py
-```
-
-These checks cover manuscript text, citations, and structure. Without original
-data, code, or a licensed database, the skill reports a transparency audit rather
-than claiming a replication. RAG and multi-agent execution remain documented
-capabilities with optional adapters. Live retrieval and model calls still require
-network access, credentials, and separate evidence verification.
-
----
-
 ## Features
 
 ### v1.0 Core Capabilities (23 Modules)
@@ -117,6 +84,37 @@ network access, credentials, and separate evidence verification.
 | **LaTeX Support** | LaTeX writing standards, journal templates, format audit | LaTeX, three-line table, BibTeX | LaTeX Writer |
 | **RAG Knowledge Base** | Local PDF retrieval, semantic search, cross-paper QA, citation verification | RAG, knowledge base, cross-paper QA | PaperRAG / Cite Verity |
 | **Survey Workspace** | Literature pool management, main thread梳理, close reading, gap analysis | Survey workspace, literature organization | Survey Builder |
+
+---
+
+## v3.0 Reliability Core (alpha)
+
+v3.0.0-alpha.1 focuses on whether an edit can be trusted and re-checked. It keeps
+the 41 legacy `references/` modules loadable while adding a small executable core:
+
+| Capability | Deliverable |
+|------------|-------------|
+| Routing and capability declaration | `references/v3-runtime-contract.md`; Verified / Documented / Conceptual modes |
+| Evidence ledger | `assets/evidence-pack.schema.json`, `scripts/build_evidence_pack.py` |
+| Deterministic audits | Numeric, citation, LaTeX, and before/after version checks |
+| Method safety layer | `references/v3-method-safety.md` with design-specific causal red lines |
+| Responsibility packs | 14 aggregated packs in `references/v3/`, with a 41-file legacy migration index |
+| Pluggable integrations | Crossref/OpenAlex search, persistent local RAG, serial/HTTP agent adapters |
+| Persistent validation | State schemas, evaluation fixtures, and GitHub Actions CI |
+
+From the repository root:
+
+```bash
+python scripts/validate_v3.py .
+python evals/run_smoke_tests.py
+python evals/run_extended_tests.py
+```
+
+These checks cover manuscript text, citations, and structure. Without original
+data, code, or a licensed database, the skill reports a transparency audit rather
+than claiming a replication. RAG and multi-agent execution remain documented
+capabilities with optional adapters. Live retrieval and model calls still require
+network access, credentials, and separate evidence verification.
 
 ---
 
