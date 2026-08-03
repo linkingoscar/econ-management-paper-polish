@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence Pack",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "entries"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "claim", "source", "verification", "allowed_use"],
+        "properties": {
+          "claim_id": {"type": "string", "pattern": "^CLM-[0-9A-Za-z_-]+$"},
+          "claim": {"type": "string", "minLength": 1},
+          "source": {
+            "type": "object",
+            "required": ["title", "url"],
+            "properties": {
+              "title": {"type": "string", "minLength": 1},
+              "authors": {"type": "string"},
+              "year": {"type": ["integer", "string"]},
+              "venue": {"type": "string"},
+              "doi": {"type": "string"},
+              "url": {"type": "string", "pattern": "^https?://"}
+            },
+            "additionalProperties": true
+          },
+          "verification": {
+            "type": "object",
+            "required": ["level", "checked_at"],
+            "properties": {
+              "level": {"type": "string", "enum": ["full_text", "official_page", "metadata", "candidate", "rejected"]},
+              "checked_at": {"type": "string", "minLength": 1},
+              "location": {"type": "string"},
+              "support": {"type": "string"},
+              "limitations": {"type": "string"}
+            },
+            "additionalProperties": true
+          },
+          "allowed_use": {"type": "string", "enum": ["direct_citation", "background_only", "candidate_only", "do_not_cite"]},
+          "tags": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,1 @@
+We use an instrumental-variable design. The instrument must be relevant and satisfy exclusion; the estimate is local to compliers. A strong first stage alone does not establish validity. The sample includes 3,210 observations.

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Paper State",
+  "type": "object",
+  "required": ["schema_version", "paper_id", "routing", "risks", "revisions"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "paper_id": {"type": "string", "minLength": 1},
+    "routing": {"type": "object"},
+    "risks": {"type": "array", "items": {"type": "object"}},
+    "revisions": {"type": "array", "items": {"type": "object"}},
+    "evidence_pack": {"type": "string"},
+    "journal_card": {"type": "string"}
+  },
+  "additionalProperties": true
+}

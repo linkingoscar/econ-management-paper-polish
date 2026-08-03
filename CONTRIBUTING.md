@@ -60,6 +60,32 @@ When adding claims about journal requirements, method conventions, or field norm
 - Do not write "according to recent research" without a specific source.
 - If the claim is based on general field convention, say so explicitly.
 
+### v3 Reliability Checks
+
+Changes to the v3 contracts, scripts, schemas, or reference routing must pass the
+dependency-free repository and smoke checks from the repository root:
+
+```bash
+python scripts/validate_v3.py .
+python evals/run_smoke_tests.py
+```
+
+When adding a journal rule or methodological claim, include an official or primary
+source URL, a verification date, the applicable manuscript stage, and a clear
+status (`verified`, `inferred`, `stale`, or `unknown`). Do not mark candidate or
+rejected evidence as directly citable. If a script cannot run because a connector,
+database, or original data is unavailable, document that capability limitation
+instead of reporting a successful check.
+
+### v3 Reference Migration and Adapters
+
+New guidance belongs in one of the 14 packs under `references/v3/`. If it replaces
+or consolidates a legacy module, update `references/v3/legacy-index.md`; do not
+silently create a second routing rule in the old path. Provider adapters must return
+normalized metadata with provenance and must never mark a result as citable by
+themselves. RAG adapters must preserve source paths and retrieval context. Agent
+adapters must support bounded serial execution or an explicit documented fallback.
+
 ### Naming Conventions
 
 - File names: lowercase, hyphen-separated, `.md` extension.

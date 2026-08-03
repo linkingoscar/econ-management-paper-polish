@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
-[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](#版本历史)
+[![Version](https://img.shields.io/badge/Version-3.0.0--alpha.1-orange.svg)](#v30-可靠性核心alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -52,6 +52,35 @@ Econ-Management Paper Polish 是一个专为经管类学术论文设计的AI Ski
 2. **不做什么** — 不提供任何针对 AI 检测器的规避手段，不以"通过检测"为优化目标。若用户要求改写至无法被识别为 AI 生成，应拒绝并说明理由。
 3. **作者责任** — 所有输出需作者自行核实；若目标期刊、学校或出版社要求披露 AI 辅助，应如实披露。这与本项目"不造假引用、不夸大证据"的原则同属一套诚信框架。
 4. **立场** — 学术机构对 AI 使用的规范仍在演进，本项目选择保守立场：宁可不帮，不帮规避。
+
+---
+
+## v3.0 可靠性核心（alpha）
+
+v3.0.0-alpha.1 先解决“能不能信、能不能复核”，不假装把 41 个旧参考模块
+变成可执行系统。本次升级保持旧版 `references/` 兼容，同时加入：
+
+| 能力 | 可交付物 |
+|------|----------|
+| 路由与能力声明 | `references/v3-runtime-contract.md`；Verified / Documented / Conceptual 三档 |
+| 证据账本 | `assets/evidence-pack.schema.json`、`scripts/build_evidence_pack.py` |
+| 确定性审计 | 数字、引用、LaTeX、修订前后变量/数字检查脚本 |
+| 方法安全层 | `references/v3-method-safety.md`，明确 DID、IV、RD、面板、调查、实验、定性研究的边界 |
+| 职责化知识层 | `references/v3/` 下 14 个聚合包；41 个旧模块由 `legacy-index.md` 映射并保留兼容 |
+| 可插拔集成 | Crossref/OpenAlex 检索、可持久化本地 RAG、串行/HTTP 多代理适配器 |
+| 可持续验证 | `assets/` 状态 schema、`evals/` fixtures、GitHub Actions CI |
+
+从仓库根目录运行：
+
+```bash
+py scripts/validate_v3.py .
+py evals/run_smoke_tests.py
+py evals/run_extended_tests.py
+```
+
+脚本能验证的是文本、引用和结构一致性；没有原始数据、代码或付费数据库时，
+不会把“审计”包装成真实复现。RAG 和多代理已经提供可选适配器，但真实检索
+和模型调用仍需网络、凭据和独立的证据核验。
 
 ---
 
@@ -125,6 +154,13 @@ git clone https://github.com/linkingoscar/econ-management-paper-polish.git \
 
 ```text
 用 econ-management-paper-polish 帮我润色这段中文管理学论文引言，保留原意和引用。
+```
+
+如需检查润色是否意外改动数字或变量，可在论文文件旁运行：
+
+```bash
+py scripts/check_numeric_consistency.py original.md revised.md --json
+py scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
 ```
 
 ---

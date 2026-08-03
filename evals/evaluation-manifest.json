@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "suite": "v3-extended-local",
+  "network_tests": false,
+  "fixtures": [
+    "did_zh.md",
+    "iv_en.md",
+    "rd_en.md",
+    "survey_zh.md",
+    "experiment_en.md",
+    "qualitative_zh.md"
+  ],
+  "gates": {
+    "legacy_files_mapped": 41,
+    "v3_reference_packs": 14,
+    "provider_normalization": 100,
+    "rag_ingest_and_retrieval": 100,
+    "agent_dependency_validation": 100,
+    "protected_numeric_preservation": 100,
+    "known_error_detection": 95
+  }
+}

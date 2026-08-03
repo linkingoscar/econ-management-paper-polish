@@ -1,0 +1,20 @@
+name: v3 validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate repository contract
+        run: python scripts/validate_v3.py .
+      - name: Run dependency-free smoke tests
+        run: python evals/run_smoke_tests.py
+      - name: Run expanded offline migration and adapter tests
+        run: python evals/run_extended_tests.py

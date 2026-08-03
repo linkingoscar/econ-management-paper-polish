@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Journal Style Card",
+  "type": "object",
+  "required": ["schema_version", "target_outlet", "verification_basis", "checked_at", "claims"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "target_outlet": {"type": "string", "minLength": 1},
+    "article_type": {"type": "string"},
+    "language": {"type": "string"},
+    "verification_basis": {"type": "string", "minLength": 1},
+    "checked_at": {"type": "string", "minLength": 1},
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim", "value", "source_url", "status", "applies_to", "stage"],
+        "properties": {
+          "claim": {"type": "string", "minLength": 1},
+          "value": {"type": "string", "minLength": 1},
+          "source_url": {"type": "string", "pattern": "^https?://"},
+          "status": {"type": "string", "enum": ["verified", "inferred", "stale", "unknown"]},
+          "applies_to": {"type": "string", "minLength": 1},
+          "stage": {"type": "string", "enum": ["submission", "revision", "accepted-manuscript", "production", "all", "unknown"]},
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

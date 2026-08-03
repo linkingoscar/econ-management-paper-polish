@@ -25,8 +25,6 @@ description: >
   survey workspace, paper pool, close reading,
   LaTeX writing, BibTeX management, reproducibility audit,
   revision matrix, risk register.
-version: 2.0.0
-license: MIT
 ---
 
 # Econ and Management Paper Polish
@@ -51,6 +49,54 @@ loading, including but not limited to:
 - **Aider** — place in repo root or reference via `/add`
 
 See `README.md` for agent-specific installation instructions.
+
+## v3.0 Runtime Contract (reliability core)
+
+The current implementation is **v3.0.0-alpha.1**. The 41 v2 reference modules
+remain available for backward-compatible loading; the v3 core adds explicit
+contracts around routing, evidence, deterministic audits, and capability limits.
+For any non-trivial task:
+
+1. Create a routing card and state why non-obvious discipline, method, language,
+   outlet, and task choices were made. Let the user override the card and record
+   the override rather than silently re-routing later.
+2. Declare the actual capability mode: **Verified** (a script/source check ran),
+   **Documented** (the workflow is described but not executed), or
+   **Conceptual** (required infrastructure, data, or connector is unavailable).
+   A text audit is never a claim of data or code replication.
+3. Read `references/v3/README.md` and load only the relevant v3 responsibility packs
+   (`01`–`14`) before acting. The four root contracts
+   (`references/v3-runtime-contract.md`, `references/v3-evidence-ledger.md`,
+   `references/v3-method-safety.md`, `references/v3-audit-contract.md`) remain the
+   cross-cutting red lines.
+4. Run deterministic checks before asserting that numbers, variables, citations,
+   cross-references, or LaTeX are consistent. The model explains findings and
+   proposes repairs; it does not replace the check.
+
+Useful commands (run from the skill root) are:
+
+```text
+py scripts/check_numeric_consistency.py original.md revised.md --json
+py scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
+py scripts/check_citations.py manuscript.tex --bib references.bib --strict --json
+py scripts/audit_latex.py manuscript.tex --strict --json
+py scripts/build_evidence_pack.py evidence-input.json --output evidence-pack.json --json
+py scripts/validate_journal_card.py journal-card.json --max-age-days 365 --json
+py scripts/search_literature.py "staggered difference in differences" --provider both --json
+py scripts/rag_search.py --index .rag/index.json --ingest references --query "parallel trends" --json
+py scripts/run_agent_pipeline.py tasks.json --dry-run --json
+py scripts/validate_v3.py .
+```
+
+The v3 method-safety red lines are mandatory: an event study is not by itself a
+proof of parallel trends; staggered adoption and heterogeneous effects need an
+estimator-specific design; matching, controls, Heckman, or mediation are not
+automatic cures for endogeneity; and survey, experimental, qualitative, and
+review designs use their own quality gates. Follow the chain
+`data structure → source of variation → estimand → assumptions → diagnostics →
+estimator → unresolved threats → reporting` and bind method claims to traceable
+sources. Use `assets/evidence-pack.schema.json`, `assets/journal-card.schema.json`,
+and `assets/paper-state.schema.json` when state must persist across turns.
 
 ## Core Rules
 
@@ -186,143 +232,33 @@ For a polishing request, default to:
 For a review request, lead with issues ordered by severity. Include exact quoted
 fragments only when short and necessary.
 
-## Reference Files
+## v3 Default Reference Packs
 
-Read these only when relevant:
+Load from `references/v3/` rather than loading every legacy file:
 
-- `references/intake-and-modes.md`: task-mode selection for light polish, rewrite,
-  theory reconstruction, literature augmentation, method diagnosis, journal adaptation,
-  reviewer response, and full-manuscript audit.
-- `references/discipline-router.md`: how to classify economics, management, and
-  related business-school subfields before editing.
-- `references/field-style-packs.md`: adjacent-field refinements for finance,
-  accounting, marketing, IS, operations, public management, tourism/service, and
-  mixed papers after choosing a four-quadrant route.
-- `references/cn-economics-style.md`: Chinese economics/CSSCI writing route,
-  including policy-background-to-research-question conversion and empirical result style.
-- `references/en-economics-style.md`: English economics writing route, including
-  identification-first framing, economic magnitude, and field-journal prose.
-- `references/cn-management-style.md`: Chinese management/CSSCI writing route,
-  including constructs, mechanisms, hypotheses, theory contribution, and management
-  implications.
-- `references/en-management-style.md`: English management writing route, including
-  theory-driven contribution, constructs, boundary conditions, and discussion style.
-- `references/subfields-economics.md`: economics subfield router for applied micro,
-  labor, development, environment, regional/urban, IO/digital, public finance, trade,
-  macro, and political economy.
-- `references/subfields-management.md`: management subfield router for strategy,
-  organization theory, OB/HR, innovation/entrepreneurship, governance/ESG, marketing,
-  IS, operations, public management, and tourism/service.
-- `references/journal-families-econ.md`: economics outlet-family heuristics for
-  general, applied/field, policy, finance-economics boundary, Chinese CSSCI, and
-  working-paper/seminar style.
-- `references/journal-families-management.md`: management outlet-family heuristics
-  for general management, strategy, OB/HR, organization theory, marketing, IS,
-  operations, Chinese CSSCI, and English field journals.
-- `references/journal-style-adaptation.md`: how to adapt Chinese CSSCI-style writing
-  and English field-journal writing by outlet family.
-- `references/journal-style-card.md`: target-journal style-card workflow based on
-  author guidelines and recent sample papers.
-- `references/topic-revision-advisor.md`: topic adjustment, research-direction
-  recommendation, variable advice, manuscript repositioning, and evidence-backed
-  revision roadmap.
-- `references/source-access-policy.md`: source-access tiers and downgrade rules
-  for Zotero, CNKI, school databases, publisher pages, public web, and unavailable
-  sources.
-- `references/evidence-citation-workflow.md`: how to search, verify, add, replace,
-  and format references with traceable sources.
-- `references/evidence-grading.md`: confidence grading for newly added, replacement,
-  candidate, and rejected references.
-- `references/theory-backing-router.md`: how to support constructs, mechanisms,
-  hypotheses, boundary conditions, and competing explanations with verified theory
-  literature.
-- `references/empirical-method-router.md`: how to choose and justify empirical
-  methods using current field literature and method-specific checks.
-- `references/method-decision-tree.md`: empirical method decision tree based on
-  data structure, source of variation, identification threat, and journal fit.
-- `references/section-patterns.md`: section-specific structures for introduction,
-  theory, hypotheses, empirical strategy, results, robustness, heterogeneity,
-  discussion, abstract, and reviewer response.
-- `references/style-and-polish.md`: Chinese and English academic style rules,
-  AI-tone reduction, sentence-level rewrites, and banned vague phrasing.
-- `references/quality-gates.md`: integrity checks for citations, numbers,
-  identification, causal claims, tables, and reviewer risks.
+- `01-intake-routing.md`: routing card, discipline/subfield, language, and task mode.
+- `02-writing-style.md`: Chinese/English economics/management and adjacent-field style.
+- `03-journal-adaptation.md`: source-backed outlet adaptation and journal cards.
+- `04-evidence-sources.md`: source tiers, claim IDs, evidence grading, and theory support.
+- `05-methods-identification.md`: data structure, estimand, identification, and safety gates.
+- `06-argument-structure.md`: paper spine, contribution chain, and section patterns.
+- `07-results-quality.md`: claim-evidence, numbers, causal language, and audit gates.
+- `08-revision-risk.md`: reviewer response, risk register, and revision lifecycle.
+- `09-research-pipeline.md`: eight stages, gates, and bounded delegation.
+- `10-latex-typesetting.md`: LaTeX structure, templates, and structural audit boundaries.
+- `11-rag-retrieval.md`: retrieval, chunk provenance, verification, and degradation modes.
+- `12-literature-workspace.md`: survey, paper pool, and close-reading artifacts.
+- `13-reproducibility-data.md`: data/method/result transparency and replication ceilings.
+- `14-integrations-and-capability.md`: source, RAG, and agent adapter contracts.
 
-## Extended Capabilities (v2.0)
+The old 41 modules are mapped in `references/v3/legacy-index.md` and remain
+loadable for compatibility; do not add new v3 rules only to a legacy file.
 
-The following modules were added in v2.0, inspired by leading academic research
-skills projects (nature-skills, academic-research-skills-codex, PaperSpine,
-PaperRAG, Cite Verity, LaTeX Writer, Survey Builder).
+## Compatibility Layer
 
-### Paper Spine (论点骨架)
-
-When diagnosing or building argument structure, read:
-
-- `references/paper-spine.md`: core claim, contribution chain, hypothesis chain,
-  evidence map, and risk register for the manuscript.
-- `references/revision-matrix.md`: tracking revision actions during major revision
-  or reviewer response.
-- `references/risk-register.md`: identifying and classifying risks to the paper's
-  argument, methodology, evidence, and publication prospects.
-
-### Reproducibility Audit (可复现性审计)
-
-When checking reproducibility or transparency, read:
-
-- `references/reproducibility-audit.md`: overall reproducibility audit covering
-  data transparency, method transparency, result consistency, identification logic,
-  and robustness completeness.
-- `references/data-reproducibility.md`: detailed data-level checks for source
-  verification, sample construction, variable construction, and sample size consistency.
-- `references/method-reproducibility.md`: detailed method-level checks for model
-  specification, identification strategy, standard errors, and method-specific
-  requirements (DID, IV, RD, matching, mediation).
-
-### Research Pipeline (研究流水线)
-
-When supporting end-to-end research workflow, read:
-
-- `references/research-pipeline.md`: 8-stage pipeline from topic diagnosis to
-  final submission, with stage definitions and transition rules.
-- `references/pipeline-stage-gates.md`: quality gates between stages to ensure
-  prerequisites are met before proceeding.
-- `references/pipeline-delegation.md`: delegation rules for parallel subtask
-  execution (literature search, method diagnosis, style polish, quality audit,
-  peer review), with **step-by-step execution mode** for single-threaded agents
-  and **integrated mode** for agents without subagent support.
-
-### LaTeX Support (LaTeX写作支持)
-
-When working with .tex files or LaTeX formatting, read:
-
-- `references/latex-support.md`: LaTeX basics for academic writing, including
-  document structure, table formatting, equation formatting, figure formatting,
-  and citation management.
-- `references/latex-templates.md`: journal-specific LaTeX template guidance for
-  economics, management, finance, and accounting journals.
-- `references/latex-audit.md`: LaTeX quality audit checklist for document structure,
-  cross-references, citations, tables, figures, equations, and bibliography.
-
-### RAG Knowledge Base (RAG知识库)
-
-When building or querying a local literature knowledge base, read:
-
-- `references/rag-workflow.md`: RAG architecture, document processing, query types,
-  output formats, and **degradation modes** (Full RAG → Manual Index → BibTeX Search
-  → User-Guided Search) for environments without vector database infrastructure.
-- `references/rag-retrieval.md`: retrieval strategies including semantic search,
-  keyword search, hybrid search, and result ranking.
-- `references/rag-verification.md`: citation verification process to ensure RAG
-  results actually support the claims they are cited for.
-
-### Survey Workspace (调研工作区)
-
-When organizing research on a specific topic, read:
-
-- `references/survey-workspace.md`: workspace structure for long-term research
-  organization, including research question definition, paper pool, timeline,
-  method map, comparable group, and gap analysis.
-- `references/paper-pool.md`: detailed paper pool management with three-tier
-  classification (core, extended, peripheral) and entry templates.
-- `references/close-reading.md`: templates and guidelines for detailed reading
-  of individual papers, including extraction checklists and quality assessment.
+The original 41 files remain available at `references/*.md` for existing installs.
+Their migration map is `references/v3/legacy-index.md`; new guidance belongs in the
+14 v3 packs and should not fork rules in a legacy file. The root contracts, schemas,
+adapters, scripts, and tests are the executable reliability surface. Run
+`py scripts/validate_v3.py .`, `py evals/run_smoke_tests.py`, and
+`py evals/run_extended_tests.py` before distributing a modified skill.
