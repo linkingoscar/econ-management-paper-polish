@@ -3,6 +3,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
 [![Version](https://img.shields.io/badge/Version-3.0.0--alpha.1-orange.svg)](#v30-reliability-core-alpha)
+[![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
+[![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
+[![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
+[![Claude Code](https://img.shields.io/badge/Claude-Code-CC0000?logo=anthropic&logoColor=white)](#)
+[![Codex](https://img.shields.io/badge/Codex-OpenAI-000000?logo=openai&logoColor=white)](#)
+[![Cursor](https://img.shields.io/badge/Cursor-Compatible-000000?logo=cursor&logoColor=white)](#)
+[![RAG](https://img.shields.io/badge/RAG-Knowledge-4CAF50?logo=google&logoColor=white)](#)
+[![LaTeX](https://img.shields.io/badge/LaTeX-Supported-008080?logo=latex&logoColor=white)](#)
 
 **Full-lifecycle AI writing assistant for economics and management academic papers**
 
@@ -35,6 +43,15 @@ Econ-Management Paper Polish is an AI Skill designed specifically for academic p
 3. **Discipline-Aware** — Economics ≠ Management ≠ Finance — respect paradigm differences
 4. **Evidence Grading** — Grade A (full-text verified) to Grade D (unverifiable), never overclaim
 5. **Preserve Intent** — Unless requested, retain the user's claims, numbers, variables, and contribution positioning
+
+### De-AI Tone Reduction & Academic Integrity
+
+This project provides "de-AI" tone reduction with an explicit stance:
+
+1. **Definition** — De-AI means removing template-like academic filler (vague openings, empty signifiers such as "significant importance", mechanical parallel structure) and restoring discipline-specific substance (mechanisms, institutional context, sample details, table references) — text the way a field insider would naturally write it.
+2. **What we do not do** — We do not provide evasive rewriting aimed at AI-detection tools, and we do not optimize for detector scores. If a user asks to rewrite text so that it cannot be identified as AI-generated, decline and explain why.
+3. **Author responsibility** — All output must be verified by the author. If the target journal, institution, or publisher requires disclosure of AI assistance, disclose it. This follows from the same integrity framework as our no-fabricated-citations and no-overclaiming rules.
+4. **Stance** — Norms around AI use in academia are still evolving. This project takes the conservative position: better to decline than to help evade detection.
 
 ---
 
@@ -411,13 +428,15 @@ The v2.0 upgrade was inspired by the following open-source academic research ski
 
 | Project | Stars | What We Learned |
 |---------|-------|-----------------|
-| [nature-skills](https://github.com/Yuan1z0825/nature-skills) | 16.7k | Journal-specific writing standards |
-| [academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 2.9k | End-to-end research pipeline |
-| [PaperSpine](https://github.com/WUBING2023/PaperSpine) | 2.2k | Paper spine, revision matrix |
-| [PaperRAG](https://github.com/GeederX/paper-rag-skill) | — | RAG knowledge base |
-| [Cite Verity](https://github.com/kronzie/verity) | — | Cross-paper QA, citation verification |
-| [LaTeX Writer](https://github.com/Listen-Sun/ieee-latex-writer) | 8 | LaTeX writing standards |
-| [Survey Builder](https://github.com/zane-gao/paper-survey-builder) | 1 | Survey workspace organization |
+| [nature-skills](https://github.com/Yuan1z0825/nature-skills) | 32.9k | Journal-specific writing standards |
+| [academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 7.7k | End-to-end research pipeline |
+| [PaperSpine](https://github.com/WUBING2023/PaperSpine) | 4.6k | Paper spine, revision matrix |
+| [PaperRAG](https://github.com/GeederX/paper-rag-skill) | 0 | RAG knowledge base |
+| [Cite Verity](https://github.com/kronzie/verity) | 0 | Cross-paper QA, citation verification |
+| [LaTeX Writer](https://github.com/Listen-Sun/ieee-latex-writer) | 14 | LaTeX writing standards |
+| [Survey Builder](https://github.com/zane-gao/paper-survey-builder) | 12 | Survey workspace organization |
+
+*Star counts as of 2026-08-03.*
 
 Thanks to all open-source contributors for their innovation!
 

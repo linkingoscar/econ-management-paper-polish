@@ -1,12 +1,13 @@
 # Econ-Management Paper Polish
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
+[![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
 [![Version](https://img.shields.io/badge/Version-3.0.0--alpha.1-orange.svg)](#v30-可靠性核心alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
-[![Multi-Agent](https://img.shields.io/badge/Multi-Agent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
+[![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-CC0000?logo=anthropic&logoColor=white)](#)
+[![Codex](https://img.shields.io/badge/Codex-OpenAI-000000?logo=openai&logoColor=white)](#)
 [![Cursor](https://img.shields.io/badge/Cursor-Compatible-000000?logo=cursor&logoColor=white)](#)
 [![RAG](https://img.shields.io/badge/RAG-Knowledge-4CAF50?logo=google&logoColor=white)](#)
 [![LaTeX](https://img.shields.io/badge/LaTeX-Supported-008080?logo=latex&logoColor=white)](#)
@@ -42,6 +43,15 @@ Econ-Management Paper Polish 是一个专为经管类学术论文设计的AI Ski
 3. **学科感知** — 经济学 ≠ 管理学 ≠ 金融学，尊重范式差异
 4. **证据分级** — Grade A（全文验证）到 Grade D（不可验证），绝不过度宣称
 5. **保留意图** — 除非用户要求，保留用户的主张、数字、变量和贡献定位
+
+### 降AI味与学术诚信
+
+本项目提供"降AI味"能力，立场明确：
+
+1. **定义** — 降AI味指消除模板化套话（空泛开头、"具有重要意义"式表态、机械排比），恢复学科具体性（机制、制度背景、样本细节、表列引用），让文本回到领域内行家自然写作的样态。
+2. **不做什么** — 不提供任何针对 AI 检测器的规避手段，不以"通过检测"为优化目标。若用户要求改写至无法被识别为 AI 生成，应拒绝并说明理由。
+3. **作者责任** — 所有输出需作者自行核实；若目标期刊、学校或出版社要求披露 AI 辅助，应如实披露。这与本项目"不造假引用、不夸大证据"的原则同属一套诚信框架。
+4. **立场** — 学术机构对 AI 使用的规范仍在演进，本项目选择保守立场：宁可不帮，不帮规避。
 
 ---
 
@@ -169,6 +179,18 @@ py scripts/compare_manuscript_versions.py original.md revised.md --variable Trea
 | **Cline** | `.clinerules/` | ✅ 支持 |
 | **GitHub Copilot** | 自定义指令 | ✅ 支持 |
 | **Aider** | 仓库根目录 | ✅ 支持 |
+
+---
+
+## 版本历史
+
+### v2.0.0 (2026-06-05)
+
+新增 18 个模块：论点骨架、修订矩阵、风险清单、可复现性审计、研究流水线、阶段门控、子代理委派、LaTeX 支持、RAG 知识库、调研工作区等（详见上方功能表）。
+
+### v1.0.0 (2026-05-01)
+
+首发 23 个核心模块：四象限路由、细分方向路由、目标期刊适配、引用工作流、证据分级、方法诊断决策树、质量门控检查。
 
 ---
 

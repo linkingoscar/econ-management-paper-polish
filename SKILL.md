@@ -124,6 +124,14 @@ and `assets/paper-state.schema.json` when state must persist across turns.
    GB/T 7714, Chicago, journal style, or another format.
 9. If required context is missing, write the best revision using placeholders such as
    `[需补充数据来源]`, `[check table number]`, or `[citation needed]`.
+10. De-AI policy: "De-AI" means removing template-like academic filler and
+    restoring discipline-specific substance (mechanisms, institutional context,
+    sample details, table references). It does not mean disguising AI-written
+    text to evade AI-detection tools. Do not provide rewrites whose purpose is
+    to pass an AI detector, and never optimize for detector scores. If a user
+    explicitly asks to make text undetectable as AI-generated, decline and
+    explain why. Authors remain responsible for verifying output and for
+    disclosing AI assistance when their institution or target journal requires it.
 
 ## First Step
 
