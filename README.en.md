@@ -118,6 +118,23 @@ network access, credentials, and separate evidence verification.
 
 ---
 
+## v3.1 Research and Upgrade Plan (proposed)
+
+v3.1 keeps the project centered on economics/management paper writing and revision,
+not on becoming a general autonomous research platform. The external landscape
+study therefore prioritizes claim–evidence alignment, dynamic journal adaptation,
+method-safe rewriting, reviewer issue lifecycles, protected edits, and writing
+benchmarks. Retrieval, RAG, and multi-agent features remain supporting layers.
+
+* [v3.1 landscape research report](docs/v3.1-landscape-research.md)
+* [v3.1 detailed upgrade plan](docs/v3.1-upgrade-plan.md)
+
+These documents describe a proposed design, not a claim that all v3.1 capabilities
+are implemented. The plan records release gates, migration steps, and features that
+will not be copied from external projects.
+
+---
+
 ## File Structure
 
 ```
