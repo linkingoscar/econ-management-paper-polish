@@ -1,12 +1,13 @@
 # Econ-Management Paper Polish
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](#version-history)
+[![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
+[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](#版本历史)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-CC0000?logo=anthropic&logoColor=white)](#)
+[![Codex](https://img.shields.io/badge/Codex-OpenAI-000000?logo=openai&logoColor=white)](#)
 [![Cursor](https://img.shields.io/badge/Cursor-Compatible-000000?logo=cursor&logoColor=white)](#)
 [![RAG](https://img.shields.io/badge/RAG-Knowledge-4CAF50?logo=google&logoColor=white)](#)
 [![LaTeX](https://img.shields.io/badge/LaTeX-Supported-008080?logo=latex&logoColor=white)](#)
@@ -133,6 +134,18 @@ git clone https://github.com/linkingoscar/econ-management-paper-polish.git \
 | **Cline** | `.clinerules/` | ✅ 支持 |
 | **GitHub Copilot** | 自定义指令 | ✅ 支持 |
 | **Aider** | 仓库根目录 | ✅ 支持 |
+
+---
+
+## 版本历史
+
+### v2.0.0 (2026-06-05)
+
+新增 18 个模块：论点骨架、修订矩阵、风险清单、可复现性审计、研究流水线、阶段门控、子代理委派、LaTeX 支持、RAG 知识库、调研工作区等（详见上方功能表）。
+
+### v1.0.0 (2026-05-01)
+
+首发 23 个核心模块：四象限路由、细分方向路由、目标期刊适配、引用工作流、证据分级、方法诊断决策树、质量门控检查。
 
 ---
 
