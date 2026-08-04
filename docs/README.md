@@ -7,6 +7,6 @@
 
 调研报告仍是设计依据；升级计划的 M0–M4 写作基础、meaning/compile/recall、方法
 风险卡、many-to-many evidence、完整 apply/rollback、freshness gates、response-letter
-提交前校验和本地 synthetic dogfood 已在 v3.1.0-alpha.3 落地。真实/匿名论文
+提交前校验和本地 synthetic dogfood 已在 v3.1.0（alpha.1–alpha.4）落地。真实/匿名论文
 dogfooding、作者 rubric、真实 TeX 编译和语义级期刊适配仍是 beta 前置条件，不应视为
 已全部实现。

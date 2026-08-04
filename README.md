@@ -123,7 +123,7 @@ py scripts/validate_repro_lock.py . --json
 ## v3.1 写作可靠性基础（alpha）
 
 v3.1 仍以“经管论文写作与返修 Skill”为核心，不把项目扩张为通用自主科研平台。
-本次 alpha.2 已把检查器串成可恢复的写作闭环：workspace/intake/route card、候选
+本次 alpha（alpha.1–alpha.4）已把检查器串成可恢复的写作闭环：workspace/intake/route card、候选
 paper spine、protected snapshot、checkpoint 和 JSONL revision journal；many-to-many
 evidence ledger、source withdrawal impact、corpus license/freshness/sample gate、
 加权且带 locator 的 section style profile、原句重合审计和结构化 revision plan；方法
@@ -256,36 +256,17 @@ py scripts/run_contract_suite.py --json
 
 ## 版本历史
 
-### v3.1.0-alpha.4 (2026-08-04)
+### v3.1.0（写作可靠性核心，alpha.1–alpha.4） (2026-08-04)
 
-将可替代的笼统人工确认改为可审计 AI gate：固定风险分类、artifact SHA-256、逐项
-证据、隔离 review 和确定性 adjudication。低风险需一次复核，中风险需两次一致复核；
-style profile 和候选 paper spine 已接线。高风险学术语义即使 AI 一致同意也强制
-`author-required`。新增 original/revised writing review bundle，v3.1 synthetic writing
-checks 扩展为 32 项。
-
-### v3.1.0-alpha.3 (2026-08-04)
-
-在 alpha.2 之上完成非人工可自动化收口：证据与期刊卡 freshness gate、revision matrix
-CSV/JSON、response-letter 提交前 placeholder/issue/evidence 校验、10 个临时工作区
-synthetic dogfood case、跨平台 UTF-8/路径/LaTeX capability smoke、26 项 v3.1 writing
-测试和统一 contract suite。真实论文、作者语义确认、人工 rubric 和外部 TeX/数据库
-仍不宣称已完成。
-
-### v3.1.0-alpha.2 (2026-08-04)
-
-按 v3.1-upgrade-plan 完成 alpha 闭环：workspace/intake/route/checkpoint/journal、
-候选 paper spine、protected snapshot/hash/anchor、many-to-many evidence ledger 与
-impact、corpus/style license/freshness/overlap gates、section style revision plan、
-方法风险卡与保守改写报告、bounded apply/rollback、issue transition、response-letter
-scaffold、gold/mutation benchmark、Skill 包装子集和 adapter repro lock。
-该版本仍不自动决定理论/识别/贡献，不把合成测试或文本审计包装成真实复现。
-
-### v3.1.0-alpha.1 (2026-08-04)
-
-写作可靠性基础：corpus manifest、style card/profile、paper spine、claim–evidence
-检查、review ledger、风险预路由、受保护 patch 验证、语义/方法语言闸门、LaTeX
-compile guard、issue recall、provenance 扫描、契约 schema 和离线 fixture。
+这是 v3.1 的统一 alpha 版本记录：在 v3.0 可靠性契约之上，依次完成了 writing
+workspace/intake/route/checkpoint/journal、候选 paper spine、protected
+snapshot/hash/anchor、many-to-many evidence ledger、corpus/style 授权与 freshness/
+overlap gates、section style revision plan、方法风险卡与保守改写、bounded
+apply/rollback、issue transition、response-letter scaffold、gold/mutation benchmark、
+synthetic dogfood、跨平台/LaTeX capability smoke、统一 contract suite，以及哈希绑定的
+AI review packet、隔离复核和确定性 adjudication。当前 GitHub 可安装标签为
+`v3.1.0-alpha.4`；32 项写作契约测试通过，但真实论文 dogfooding、live provider、
+真实 TeX 和高风险学术内容仍保持作者责任，因此整体仍标记为 alpha。
 
 ### v3.0.0-alpha.1 (2026-08-03)
 

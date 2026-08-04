@@ -125,7 +125,8 @@ network access, credentials, and separate evidence verification.
 ## v3.1 Writing Reliability Foundation (alpha)
 
 v3.1 keeps the project centered on economics/management paper writing and revision,
-not on becoming a general autonomous research platform. Alpha.2 connects the checks
+not on becoming a general autonomous research platform. The consolidated alpha.1–alpha.4
+release connects the checks
 into a recoverable writing loop: workspace/intake/route cards, candidate paper spine,
 protected snapshots, checkpoints and a JSONL revision journal; many-to-many evidence
 ledger and source-impact checks; corpus authorization/freshness/sample gates; role-
@@ -455,41 +456,19 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 
 ## Version History
 
-### v3.1.0-alpha.4 (2026-08-04)
+### v3.1.0 (Writing Reliability Core, alpha.1–alpha.4) (2026-08-04)
 
-Replaced blanket human-confirmation steps where safe with auditable AI gates: fixed
-risk classes, artifact SHA-256 binding, per-check evidence, isolated reviews, and
-deterministic adjudication. Low risk requires one review and medium risk two unanimous
-reviews; style profiles and candidate paper spines are wired in. High-risk scholarly
-meaning remains `author-required` even under unanimous AI review. An original/revised
-writing-review bundle supports provisional effect rubrics, and the synthetic v3.1
-writing suite now contains 32 checks.
-
-### v3.1.0-alpha.3 (2026-08-04)
-
-Completed the non-human automation closure on top of alpha.2: evidence and journal-card
-freshness gates, CSV/JSON revision matrices, submission-time response-letter validation,
-ten temporary-workspace synthetic dogfood cases, portable UTF-8/path/LaTeX capability
-smoke, 26 writing-contract checks, and a unified contract suite. Real papers, author
-semantic confirmation, human rubrics, external TeX, and external databases remain
-explicitly unclaimed.
-
-### v3.1.0-alpha.2 (2026-08-04)
-
-Completed the alpha loop described in `v3.1-upgrade-plan.md`: workspace/intake/route/
-checkpoint/journal, candidate paper spine, protected snapshot/hash/anchor, many-to-many
-evidence ledger and impact report, corpus/style authorization and overlap gates, section
-style revision plan, method risk cards and conservative rewrite report, bounded
-apply/rollback, issue transitions, response-letter scaffold, gold/mutation benchmark,
-Skill package validation, and adapter repro lock. This release still does not decide
-theory, identification, or contribution, and does not present synthetic tests as replication.
-
-### v3.1.0-alpha.1 (2026-08-04)
-
-Writing reliability foundation: corpus manifests, draft-by-default style cards/profiles,
-paper spine, claim–evidence checks, review ledger, conservative issue routing, protected
-patch reports/verification, meaning and method-language gates, LaTeX compile guard, issue
-recall, provenance scanning, contract schemas, writing fixtures, and CI coverage.
+This is the consolidated v3.1 alpha history. On top of the v3.0 reliability contracts,
+it added the writing workspace/intake/route/checkpoint/journal, candidate paper spine,
+protected snapshot/hash/anchor, many-to-many evidence ledger, corpus/style authorization
+and freshness/overlap gates, section style revision plans, method risk cards and
+conservative rewrites, bounded apply/rollback, issue transitions, response-letter
+scaffolding, gold/mutation benchmarks, synthetic dogfooding, cross-platform/LaTeX
+capability smoke, a unified contract suite, and hash-bound AI review packets with
+isolated review and deterministic adjudication. The installable GitHub tag is
+`v3.1.0-alpha.4`; the 32-check writing suite passes, while real-paper dogfooding, live
+providers, real TeX, and high-risk scholarly decisions remain author-controlled, so the
+release remains an alpha.
 
 ### v3.0.0-alpha.1 (2026-08-03)
 
