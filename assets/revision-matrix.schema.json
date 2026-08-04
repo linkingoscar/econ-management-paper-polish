@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/revision-matrix.schema.json",
+  "title": "Revision Matrix",
+  "type": "object",
+  "required": ["schema_version", "status", "generated_at", "source_ledger", "rows", "counts", "errors"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "status": {"enum": ["pass", "fail"]},
+    "generated_at": {"type": "string", "minLength": 1},
+    "source_ledger": {"type": "string", "minLength": 1},
+    "rows": {"type": "array", "items": {"type": "object"}},
+    "counts": {"type": "object"},
+    "errors": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

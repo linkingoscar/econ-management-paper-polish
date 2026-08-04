@@ -232,6 +232,35 @@ def main() -> int:
         expect(process.returncode != 0 and payload["status"] == "fail" and payload["ledger"]["rejections"], "unsafe direct citation should be rejected")
         checks.append("evidence/many-to-many-ledger-and-rejections")
 
+        process, payload = run("audit_evidence_freshness.py", str(evidence_ledger), "--max-age-days", "365")
+        expect(process.returncode == 0 and payload["status"] == "pass" and payload["counts"]["fresh"] == 2, "fresh evidence bindings should pass the freshness gate")
+        stale_ledger = deepcopy(ledger)
+        stale_ledger["entries"][0]["verification"]["checked_at"] = "2020-01-01"
+        stale_ledger_path = temp / "evidence-ledger-stale.json"
+        stale_ledger_path.write_text(json.dumps(stale_ledger, ensure_ascii=False, indent=2), encoding="utf-8")
+        process, payload = run("audit_evidence_freshness.py", str(stale_ledger_path), "--max-age-days", "365")
+        expect(process.returncode != 0 and payload["status"] == "fail" and payload["counts"]["direct_citation_blocked"] == 1, "stale direct-citation evidence must be blocked")
+        checks.append("evidence/freshness-and-stale-direct-citation-gate")
+
+        journal_card = {
+            "schema_version": "1.0",
+            "target_outlet": "Fixture Journal",
+            "verification_basis": "official author guideline fixture",
+            "checked_at": "2026-08-04",
+            "claims": [{"claim": "submission language", "value": "English", "source_url": "https://example.org/fixture-journal", "status": "verified", "applies_to": "research article", "stage": "submission"}],
+        }
+        journal_card_path = temp / "journal-card.json"
+        journal_card_path.write_text(json.dumps(journal_card, ensure_ascii=False, indent=2), encoding="utf-8")
+        process, payload = run("audit_journal_freshness.py", str(journal_card_path), "--max-age-days", "365")
+        expect(process.returncode == 0 and payload["status"] == "pass" and payload["counts"]["claims"] == 1, "fresh journal card should pass the freshness gate")
+        stale_card = deepcopy(journal_card)
+        stale_card["checked_at"] = "2020-01-01"
+        stale_card_path = temp / "journal-card-stale.json"
+        stale_card_path.write_text(json.dumps(stale_card, ensure_ascii=False, indent=2), encoding="utf-8")
+        process, payload = run("audit_journal_freshness.py", str(stale_card_path), "--max-age-days", "365")
+        expect(process.returncode != 0 and payload["status"] == "fail", "stale journal card must block dynamic adaptation")
+        checks.append("journal/freshness-and-stale-adaptation-gate")
+
         ledger_path = temp / "review-ledger.json"
         process, payload = run(
             "build_issue_ledger.py",
@@ -282,6 +311,24 @@ def main() -> int:
             "--output", str(temp / "invalid-transition.json"), "--actor", "fixture-author", "--rationale", "Should fail.",
         )
         expect(process.returncode != 0 and payload["status"] == "fail", "illegal direct issue closure must fail")
+        matrix_json = temp / "revision-matrix.json"
+        matrix_csv = temp / "revision-matrix.csv"
+        process, payload = run("build_revision_matrix.py", str(issue_closed), "--output", str(matrix_json))
+        expect(process.returncode == 0 and payload["status"] == "pass" and matrix_json.is_file(), "revision matrix JSON should derive from the ledger")
+        process, payload = run("build_revision_matrix.py", str(issue_closed), "--output", str(matrix_csv))
+        expect(process.returncode == 0 and payload["status"] == "pass" and matrix_csv.read_text(encoding="utf-8").startswith("issue_id,"), "revision matrix CSV should be exportable")
+        scaffold = temp / "response-scaffold.md"
+        process, payload = run("build_response_letter.py", str(issue_closed), "--output", str(scaffold))
+        process, payload = run("validate_response_letter.py", str(issue_closed), str(scaffold))
+        expect(process.returncode != 0 and payload["status"] == "fail" and payload["counts"]["placeholders"] > 0, "response scaffold must not pass submission validation")
+        single_closed = json.loads(issue_closed.read_text(encoding="utf-8"))
+        single_closed["issues"] = [single_closed["issues"][0]]
+        single_closed_path = temp / "review-ledger-single-closed.json"
+        single_closed_path.write_text(json.dumps(single_closed, ensure_ascii=False, indent=2), encoding="utf-8")
+        complete_letter = temp / "response-complete.md"
+        complete_letter.write_text("## ISS-001\n\nReviewer comment addressed.\n\nAuthor response: We clarified the scope and retained all protected values.\n\nChange made: The wording was updated in the method section.\n\nEvidence: apply-report.json\n", encoding="utf-8")
+        process, payload = run("validate_response_letter.py", str(single_closed_path), str(complete_letter))
+        expect(process.returncode == 0 and payload["status"] == "pass", "complete response letter should pass submission validation")
         checks.append("revision/issue-transitions-and-response-letter")
 
         process, payload = run(
@@ -483,6 +530,8 @@ def main() -> int:
         expect(len(journal_lines) >= 4, "workflow must persist stage events")
         process, payload = run("validate_revision_journal.py", str(workspace / "revision-journal.jsonl"))
         expect(process.returncode == 0 and payload["status"] == "pass", "revision journal should validate as append-only JSONL")
+        process, payload = run("run_platform_smoke.py", "--root", str(ROOT))
+        expect(process.returncode == 0 and payload["status"] == "pass" and payload["capabilities"]["utf8"] == "Verified", "portable platform smoke should pass with honest TeX capability reporting")
         checks.append("engineering/workspace-route-checkpoint-workflow")
 
     print(f"v3.1 writing tests passed ({len(checks)} checks)")

@@ -12,6 +12,10 @@ from writing_contract import (
     load_json,
     validate_capability_report,
     validate_corpus_gate_report,
+    validate_contract_suite_report,
+    validate_dogfood_manifest,
+    validate_environment_report,
+    validate_evidence_freshness_report,
     validate_evidence_ledger,
     validate_checkpoint,
     validate_corpus_manifest,
@@ -23,6 +27,9 @@ from writing_contract import (
     validate_style_card,
     validate_style_profile,
     validate_style_overlap_report,
+    validate_journal_freshness_report,
+    validate_response_validation_report,
+    validate_revision_matrix,
     validate_workspace_manifest,
 )
 
@@ -42,6 +49,13 @@ VALIDATORS = {
     "evidence-ledger": validate_evidence_ledger,
     "corpus-gate-report": validate_corpus_gate_report,
     "style-overlap-report": validate_style_overlap_report,
+    "evidence-freshness-report": validate_evidence_freshness_report,
+    "journal-freshness-report": validate_journal_freshness_report,
+    "environment-report": validate_environment_report,
+    "dogfood-manifest": validate_dogfood_manifest,
+    "response-validation-report": validate_response_validation_report,
+    "revision-matrix": validate_revision_matrix,
+    "contract-suite-report": validate_contract_suite_report,
 }
 
 

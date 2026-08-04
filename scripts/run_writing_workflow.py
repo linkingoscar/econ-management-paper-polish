@@ -136,7 +136,7 @@ def workflow(workspace: Path, variables: list[str], allow_unresolved_route: bool
             errors.append("bounded verification failed")
         for script, stage in (("build_method_safety_report.py", "method-language"),):
             code, payload, stderr = run_script(root, script, [str(current)])
-            checks.append({"stage": stage, "status": payload.get("status", "fail"), "mode": "Verified", "artifact": "stdout", "errors": payload.get("errors", [])})
+            checks.append({"stage": stage, "status": payload.get("status", "fail"), "mode": "Verified", "artifact": "stdout", "output": payload, "errors": payload.get("errors", [])})
             append_event(journal_path, run_id, stage, payload.get("status", "fail"), f"run {stage} gate", output=payload, errors=payload.get("errors", []))
             if payload.get("status") != "pass":
                 errors.append(f"{stage} gate failed")

@@ -41,6 +41,13 @@ REQUIRED_FILES = (
     "assets/evidence-ledger.schema.json",
     "assets/corpus-gate-report.schema.json",
     "assets/style-overlap-report.schema.json",
+    "assets/evidence-freshness-report.schema.json",
+    "assets/journal-freshness-report.schema.json",
+    "assets/environment-report.schema.json",
+    "assets/dogfood-manifest.schema.json",
+    "assets/response-validation-report.schema.json",
+    "assets/revision-matrix.schema.json",
+    "assets/contract-suite-report.schema.json",
     "assets/method-safety-card.schema.json",
     "assets/method-safety-cards.json",
     "assets/repro-lock.schema.json",
@@ -115,6 +122,13 @@ REQUIRED_FILES = (
     "scripts/validate_repro_lock.py",
     "scripts/plan_style_revision.py",
     "scripts/check_evidence_impact.py",
+    "scripts/audit_evidence_freshness.py",
+    "scripts/audit_journal_freshness.py",
+    "scripts/run_platform_smoke.py",
+    "scripts/run_dogfood_suite.py",
+    "scripts/build_revision_matrix.py",
+    "scripts/validate_response_letter.py",
+    "scripts/run_contract_suite.py",
     "scripts/build_method_safety_report.py",
     "evals/run_smoke_tests.py",
     "evals/run_extended_tests.py",
@@ -221,6 +235,13 @@ def validate_root(root: Path) -> list[str]:
         "assets/evidence-ledger.schema.json",
         "assets/corpus-gate-report.schema.json",
         "assets/style-overlap-report.schema.json",
+        "assets/evidence-freshness-report.schema.json",
+        "assets/journal-freshness-report.schema.json",
+        "assets/environment-report.schema.json",
+        "assets/dogfood-manifest.schema.json",
+        "assets/response-validation-report.schema.json",
+        "assets/revision-matrix.schema.json",
+        "assets/contract-suite-report.schema.json",
         "assets/method-safety-card.schema.json",
         "assets/repro-lock.schema.json",
         "assets/style-revision-plan.schema.json",
@@ -266,6 +287,19 @@ def validate_root(root: Path) -> list[str]:
                     errors.append(f"evals/evaluation-manifest.json missing {key} fixture")
         except (OSError, json.JSONDecodeError) as exc:
             errors.append(f"evals/evaluation-manifest.json: invalid JSON ({exc})")
+    dogfood_manifest = root / "evals" / "dogfood" / "manifest.json"
+    if dogfood_manifest.is_file():
+        try:
+            payload = json.loads(dogfood_manifest.read_text(encoding="utf-8"))
+            if payload.get("schema_version") != "1.0" or payload.get("policy") != "synthetic-fixtures-only" or not isinstance(payload.get("cases"), list) or not payload.get("cases"):
+                errors.append("evals/dogfood/manifest.json has an invalid contract")
+            else:
+                for case in payload["cases"]:
+                    source = case.get("source") if isinstance(case, dict) else None
+                    if not isinstance(source, str) or not (root / source).is_file():
+                        errors.append(f"evals/dogfood manifest source missing: {source}")
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"evals/dogfood/manifest.json: invalid JSON ({exc})")
     errors.extend(validate_internal_links(root))
     return errors
 

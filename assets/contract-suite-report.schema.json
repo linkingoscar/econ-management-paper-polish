@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/contract-suite-report.schema.json",
+  "title": "Unified Contract Suite Report",
+  "type": "object",
+  "required": ["schema_version", "status", "generated_at", "environment", "commands", "counts", "limitations"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "status": {"enum": ["pass", "fail"]},
+    "generated_at": {"type": "string", "minLength": 1},
+    "environment": {"type": "object"},
+    "commands": {"type": "array", "items": {"type": "object"}},
+    "counts": {"type": "object"},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

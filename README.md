@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.2-orange.svg)](#v31-写作可靠性基础alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.3-orange.svg)](#v31-写作可靠性基础alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -128,7 +128,9 @@ paper spine、protected snapshot、checkpoint 和 JSONL revision journal；many-
 evidence ledger、source withdrawal impact、corpus license/freshness/sample gate、
 加权且带 locator 的 section style profile、原句重合审计和结构化 revision plan；方法
 风险卡与保守改写报告；bounded apply/rollback、hash/anchor 校验、issue 状态迁移和
-response-letter scaffold；gold/mutation benchmark、Skill 包装校验和 adapter repro lock。
+response-letter scaffold；证据/期刊新鲜度门、返修矩阵与 response-letter 提交前校验；
+本地 synthetic dogfood、跨平台/LaTeX 能力报告、26 项写作契约测试、gold/mutation
+benchmark、统一 contract suite、Skill 包装校验和 adapter repro lock。
 检索、RAG 与多代理仍只作为这些写作能力的支撑。
 
 * [v3.1 外部项目调研报告](docs/v3.1-landscape-research.md)
@@ -136,9 +138,10 @@ response-letter scaffold；gold/mutation benchmark、Skill 包装校验和 adapt
 
 已实现能力仍属于 alpha：脚本负责确定性扫描、契约校验和候选 diff，不自动替作者
 决定理论、识别、结果或贡献。style profile 默认是 draft，必须人工确认；TeX 编译器
-缺失时只报告 Documented，不把结构审计冒充真实编译。当前 benchmark 的 24 项检查和
-gold/mutation 指标均为本地合成 fixture；真实/匿名论文 dogfooding、跨平台 smoke test
-和期刊效果人工 rubric 仍是进入 beta 前的工作。
+缺失时只报告 Documented，不把结构审计冒充真实编译。当前 benchmark 的 26 项检查、
+10 个本地 synthetic dogfood case 和 gold/mutation 指标均为公开 fixture；它们验证的是
+工作流接线与确定性闸门，不是作者声音、因果裁决或期刊效果。真实/匿名论文与期刊效果
+人工 rubric 仍是进入 beta 前的工作。
 
 ---
 
@@ -196,6 +199,8 @@ py scripts/build_style_profile.py style-cards --output style-profile.json --json
 py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
 py scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
 py scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
+py scripts/audit_evidence_freshness.py evidence-ledger.json --max-age-days 365 --json
+py scripts/audit_journal_freshness.py journal-card.json --max-age-days 365 --json
 py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
 py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
 py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
@@ -203,6 +208,8 @@ py scripts/apply_bounded_patch.py original.md revised.md --output applied.md --v
 py scripts/rollback_bounded_patch.py original.md --output rollback.md --json
 py scripts/transition_issue.py review-ledger.json ISS-001 proposed --output review-ledger-proposed.json --actor author --rationale "..." --json
 py scripts/build_response_letter.py review-ledger.json --output response-letter.md --json
+py scripts/build_revision_matrix.py review-ledger.json --output revision-matrix.csv --json
+py scripts/validate_response_letter.py review-ledger-closed.json response-letter-submission.md --json
 py scripts/meaning_audit.py original.md revised.md --json
 py scripts/check_method_language.py manuscript.md --json
 py scripts/build_method_safety_report.py manuscript.md --json
@@ -212,9 +219,14 @@ py scripts/validate_style_profile_gate.py style-profile.json --json
 py scripts/plan_style_revision.py manuscript.md style-profile-confirmed.json --section method --output style-revision-plan.json --json
 py scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
 py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
+py scripts/run_dogfood_suite.py --json
+py scripts/run_platform_smoke.py --json
+py scripts/run_contract_suite.py --json
 ```
 
-这些命令只生成可检查的状态和候选 diff，不会自动覆盖论文正文。
+这些命令只生成可检查的状态和候选 diff，不会自动覆盖论文正文。`run_dogfood_suite.py`
+只把仓库内的 synthetic fixture 复制到临时工作区，用于回归工作流接线，不等同于真实
+论文 dogfooding；如需保存机器可读报告，请显式传入 `--output` 并放在仓库外。
 
 ---
 
@@ -224,7 +236,7 @@ py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
 
 | 代理 | 安装路径 | 状态 |
 |------|---------|------|
-| **Codex (OpenAI)** | `.codex/skills/` | **Verified（本地包契约 + Windows 24 项写作测试）** |
+| **Codex (OpenAI)** | `.codex/skills/` | **Verified（本地包契约 + Windows 26 项写作测试 + synthetic dogfood）** |
 | **OpenCode** | `.opencode/skills/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
 | **Claude Code** | `.claude/skills/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
 | **Cursor** | `.cursor/rules/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
@@ -236,6 +248,14 @@ py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
 ---
 
 ## 版本历史
+
+### v3.1.0-alpha.3 (2026-08-04)
+
+在 alpha.2 之上完成非人工可自动化收口：证据与期刊卡 freshness gate、revision matrix
+CSV/JSON、response-letter 提交前 placeholder/issue/evidence 校验、10 个临时工作区
+synthetic dogfood case、跨平台 UTF-8/路径/LaTeX capability smoke、26 项 v3.1 writing
+测试和统一 contract suite。真实论文、作者语义确认、人工 rubric 和外部 TeX/数据库
+仍不宣称已完成。
 
 ### v3.1.0-alpha.2 (2026-08-04)
 

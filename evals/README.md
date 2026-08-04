@@ -31,12 +31,15 @@ paper-spine IDs and reverse-outline candidates, reviewer issue routing and state
 transitions, protected bounded patches with apply/rollback, lexical meaning changes,
 evidence-ledger many-to-many bindings, method risk-card explanations in Chinese and
 English, LaTeX structural/compile capability reporting, issue-ID recall, package and
-repro-lock validation, and the dynamic style-profile human gate. It currently runs
-24 checks. `evals/gold/writing-cases.json` and `evals/mutations/writing-mutations.json`
+repro-lock validation, freshness gates, response-letter validation, and the dynamic
+style-profile human gate. It currently runs 26 checks. The local
+`evals/dogfood/manifest.json` drives ten temporary-workspace workflow cases (eight
+expected complete and two expected author-required blocks). `evals/gold/writing-cases.json` and `evals/mutations/writing-mutations.json`
 provide explicit expected statuses so the benchmark reports true/false positives and
 negatives instead of treating process exit as a quality score. It uses synthetic
 fixtures and never uploads a paper; a passing fixture is not evidence of real-paper
-performance.
+performance. `scripts/run_contract_suite.py` is the single serial entry point for the
+repository/package/repro/smoke/benchmark/platform/dogfood gates.
 
 The extended suite is offline by design. Live Crossref/OpenAlex calls are an
 optional integration check and must never be required for CI; network failures are

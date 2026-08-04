@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/environment-report.schema.json",
+  "title": "Execution Environment Report",
+  "type": "object",
+  "required": ["schema_version", "status", "generated_at", "runtime", "checks", "capabilities", "errors", "limitations"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "status": {"enum": ["pass", "fail"]},
+    "generated_at": {"type": "string", "minLength": 1},
+    "runtime": {"type": "object"},
+    "checks": {"type": "array", "items": {"type": "object"}},
+    "capabilities": {"type": "object"},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

@@ -35,7 +35,7 @@ See `README.md` for agent-specific installation instructions.
 
 ## v3.0 Runtime Contract (reliability core)
 
-The current implementation is **v3.1.0-alpha.1** on top of the v3.0 reliability
+The current implementation is **v3.1.0-alpha.3** on top of the v3.0 reliability
 core. The 41 v2 reference modules remain available for backward-compatible loading;
 the v3 core adds explicit
 contracts around routing, evidence, deterministic audits, and capability limits.
@@ -77,6 +77,8 @@ py scripts/build_paper_spine.py --manuscript manuscript.md --paper-id paper-001 
 py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
 py scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
 py scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
+py scripts/audit_evidence_freshness.py evidence-ledger.json --max-age-days 365 --json
+py scripts/audit_journal_freshness.py journal-card.json --max-age-days 365 --json
 py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
 py scripts/route_review_issues.py review-ledger.json --output review-ledger-routed.json --json
 py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
@@ -85,6 +87,8 @@ py scripts/apply_bounded_patch.py original.md revised.md --output manuscript.app
 py scripts/rollback_bounded_patch.py original.md --output manuscript.rollback.md --json
 py scripts/transition_issue.py review-ledger.json ISS-001 proposed --output review-ledger-proposed.json --actor author --rationale "..." --json
 py scripts/build_response_letter.py review-ledger.json --output response-letter.md --json
+py scripts/build_revision_matrix.py review-ledger.json --output revision-matrix.csv --json
+py scripts/validate_response_letter.py review-ledger-closed.json response-letter-submission.md --json
 py scripts/meaning_audit.py original.md revised.md --json
 py scripts/check_method_language.py manuscript.md --json
 py scripts/build_method_safety_report.py manuscript.md --json
@@ -96,6 +100,9 @@ py scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
 py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
 py scripts/validate_revision_journal.py paper-workspace/revision-journal.jsonl --json
 py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
+py scripts/run_dogfood_suite.py --json
+py scripts/run_platform_smoke.py --json
+py scripts/run_contract_suite.py --json
 py scripts/scan_skill_provenance.py provenance-manifest.json --json
 py scripts/validate_skill_package.py . --json
 py scripts/validate_repro_lock.py . --json
@@ -144,7 +151,9 @@ scripts/compile_guard.py, scripts/check_issue_recall.py,
 scripts/validate_style_profile_gate.py, scripts/check_claim_evidence.py, and
 scripts/validate_writing_contract.py for deterministic scaffolding and checks.
 These scripts do not decide whether a claim is true and do not apply prose patches
-automatically. Read references/v3-writing-contract.md,
+automatically. Freshness gates block stale direct evidence and journal profiles;
+`run_dogfood_suite.py` exercises only repository-owned synthetic fixtures in temporary
+workspaces and is not real-paper quality evidence. Read references/v3-writing-contract.md,
 references/v3-corpus-and-style.md, references/v3-argument-evidence.md,
 references/v3-review-ledger.md, and
 references/v3-capability-and-provenance.md when the corresponding mode is used.

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/response-validation-report.schema.json",
+  "title": "Response Letter Validation Report",
+  "type": "object",
+  "required": ["schema_version", "status", "ledger", "letter", "counts", "errors", "warnings"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "status": {"enum": ["pass", "fail"]},
+    "ledger": {"type": "string", "minLength": 1},
+    "letter": {"type": "string", "minLength": 1},
+    "counts": {"type": "object"},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

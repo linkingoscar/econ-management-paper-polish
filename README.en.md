@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.2-orange.svg)](#v31-writing-reliability-foundation-alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.3-orange.svg)](#v31-writing-reliability-foundation-alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -131,8 +131,11 @@ protected snapshots, checkpoints and a JSONL revision journal; many-to-many evid
 ledger and source-impact checks; corpus authorization/freshness/sample gates; role-
 weighted section style profiles, overlap screening and structural revision plans;
 method risk cards with conservative rewrites; bounded apply/rollback, issue transitions,
-response-letter scaffolds, gold/mutation metrics, package validation and an adapter
-repro lock. Retrieval, RAG, and multi-agent features remain supporting layers.
+response-letter scaffolds, evidence/journal freshness gates, revision-matrix and
+submission-ready response validation, a local synthetic dogfood harness, portable
+platform/LaTeX capability reporting, 26 writing-contract checks, gold/mutation metrics,
+package validation, a unified contract suite, and an adapter repro lock. Retrieval, RAG,
+and multi-agent features remain supporting layers.
 
 * [v3.1 landscape research report](docs/v3.1-landscape-research.md)
 * [v3.1 detailed upgrade plan](docs/v3.1-upgrade-plan.md)
@@ -141,9 +144,11 @@ The implemented capabilities are still alpha: scripts perform deterministic scan
 contract validation, and candidate diffs; they do not decide theory, identification,
 results, or contribution for the author. A style profile is `draft` by default and
 requires human confirmation; when no TeX compiler is installed, the report is
-`Documented` rather than a claimed compile. The 24 checks and gold/mutation metrics
-are synthetic local fixtures; real/anonymous-paper dogfooding, cross-platform smoke
-tests, and a human journal-effectiveness rubric remain beta prerequisites.
+`Documented` rather than a claimed compile. The 26 checks, ten synthetic dogfood cases,
+and gold/mutation metrics are repository-owned fixtures; they verify workflow wiring and
+deterministic gates rather than author voice, causal adjudication, or journal effectiveness.
+Real/anonymous-paper dogfooding and a human journal-effectiveness rubric remain beta
+prerequisites.
 
 ---
 
@@ -233,6 +238,8 @@ python scripts/build_style_profile.py style-cards --output style-profile.json --
 python scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
 python scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
 python scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
+python scripts/audit_evidence_freshness.py evidence-ledger.json --max-age-days 365 --json
+python scripts/audit_journal_freshness.py journal-card.json --max-age-days 365 --json
 python scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
 python scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
 python scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
@@ -240,6 +247,8 @@ python scripts/apply_bounded_patch.py original.md revised.md --output applied.md
 python scripts/rollback_bounded_patch.py original.md --output rollback.md --json
 python scripts/transition_issue.py review-ledger.json ISS-001 proposed --output review-ledger-proposed.json --actor author --rationale "..." --json
 python scripts/build_response_letter.py review-ledger.json --output response-letter.md --json
+python scripts/build_revision_matrix.py review-ledger.json --output revision-matrix.csv --json
+python scripts/validate_response_letter.py review-ledger-closed.json response-letter-submission.md --json
 python scripts/meaning_audit.py original.md revised.md --json
 python scripts/check_method_language.py manuscript.md --json
 python scripts/build_method_safety_report.py manuscript.md --json
@@ -249,10 +258,16 @@ python scripts/validate_style_profile_gate.py style-profile.json --json
 python scripts/plan_style_revision.py manuscript.md style-profile-confirmed.json --section method --output style-revision-plan.json --json
 python scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
 python scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
+python scripts/run_dogfood_suite.py --json
+python scripts/run_platform_smoke.py --json
+python scripts/run_contract_suite.py --json
 ```
 
 These commands produce inspectable state and candidate diffs; they do not overwrite
-the manuscript automatically.
+the manuscript automatically. `run_dogfood_suite.py` copies only repository-owned
+synthetic fixtures into temporary workspaces; it is a workflow regression harness,
+not real-paper dogfooding. Use `--output` explicitly if you want to save its report
+outside the repository.
 
 ---
 
@@ -419,7 +434,7 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 
 | Agent | Install Path | Status |
 |-------|-------------|--------|
-| **Codex (OpenAI)** | `.codex/skills/` | **Verified (local package contract + Windows 23-check suite)** |
+| **Codex (OpenAI)** | `.codex/skills/` | **Verified (local package contract + Windows 26-check suite + synthetic dogfood)** |
 | **OpenCode** | `.opencode/skills/` | **Documented (installation path; no host smoke in this repo)** |
 | **Claude Code** | `.claude/skills/` | **Documented (installation path; no host smoke in this repo)** |
 | **Cursor** | `.cursor/rules/` | **Documented (installation path; no host smoke in this repo)** |
@@ -431,6 +446,15 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 ---
 
 ## Version History
+
+### v3.1.0-alpha.3 (2026-08-04)
+
+Completed the non-human automation closure on top of alpha.2: evidence and journal-card
+freshness gates, CSV/JSON revision matrices, submission-time response-letter validation,
+ten temporary-workspace synthetic dogfood cases, portable UTF-8/path/LaTeX capability
+smoke, 26 writing-contract checks, and a unified contract suite. Real papers, author
+semantic confirmation, human rubrics, external TeX, and external databases remain
+explicitly unclaimed.
 
 ### v3.1.0-alpha.2 (2026-08-04)
 

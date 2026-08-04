@@ -28,3 +28,9 @@ jobs:
         run: python evals/run_v31_writing_tests.py
       - name: Run writing gold and mutation benchmark
         run: python scripts/run_writing_benchmark.py --json
+      - name: Run local dogfood workflow harness
+        run: python scripts/run_dogfood_suite.py --json
+      - name: Run portable platform and LaTeX capability smoke
+        run: python scripts/run_platform_smoke.py --json
+      - name: Run unified contract suite
+        run: python scripts/run_contract_suite.py --json

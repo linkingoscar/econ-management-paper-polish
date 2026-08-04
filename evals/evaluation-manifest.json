@@ -11,7 +11,9 @@
     "rd_en.md",
     "survey_zh.md",
     "experiment_en.md",
-    "qualitative_zh.md"
+    "qualitative_zh.md",
+    "gold/fixtures/en-econ-long-method.md",
+    "gold/fixtures/zh-management-long-discussion.md"
   ],
   "gates": {
     "legacy_files_mapped": 41,

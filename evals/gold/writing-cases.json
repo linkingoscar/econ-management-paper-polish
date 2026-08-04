@@ -11,5 +11,7 @@
     {"id":"G-ZH-MGMT-RESULTS-SAFE","path":"evals/gold/fixtures/zh-management-results.md","detector":"method-language","expected":"pass","discipline":"management","language":"zh-CN","section":"results"},
     {"id":"G-EN-ECON-METHOD-SAFE-2","path":"evals/gold/fixtures/en-econ-method.md","detector":"method-language","expected":"pass","discipline":"economics","language":"en-US","section":"method"},
     {"id":"G-EN-MGMT-RESPONSE-SAFE","path":"evals/gold/fixtures/en-management-response.md","detector":"method-language","expected":"pass","discipline":"management","language":"en-US","section":"response-letter"}
+    ,{"id":"G-EN-ECON-LONG-METHOD-SAFE","path":"evals/gold/fixtures/en-econ-long-method.md","detector":"method-language","expected":"pass","discipline":"economics","language":"en-US","section":"long-method"}
+    ,{"id":"G-ZH-MGMT-LONG-DISCUSSION-SAFE","path":"evals/gold/fixtures/zh-management-long-discussion.md","detector":"method-language","expected":"pass","discipline":"management","language":"zh-CN","section":"long-discussion"}
   ]
 }

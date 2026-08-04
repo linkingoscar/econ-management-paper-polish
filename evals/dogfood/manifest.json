@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "suite": "v3.1-local-writing-workflow-dogfood",
+  "policy": "synthetic-fixtures-only",
+  "cases": [
+    {"id": "DF-01-DID-ZH", "source": "evals/fixtures/expanded/did_zh.md", "discipline": "economics", "language": "zh-CN", "method": "staggered-did", "section": "method", "expected_workflow": "pass"},
+    {"id": "DF-02-IV-EN", "source": "evals/fixtures/expanded/iv_en.md", "discipline": "economics", "language": "en-US", "method": "iv", "section": "method", "expected_workflow": "pass"},
+    {"id": "DF-03-RD-EN", "source": "evals/fixtures/expanded/rd_en.md", "discipline": "economics", "language": "en-US", "method": "rd", "section": "method", "expected_workflow": "pass"},
+    {"id": "DF-04-SURVEY-ZH", "source": "evals/fixtures/expanded/survey_zh.md", "discipline": "management", "language": "zh-CN", "method": "survey", "section": "method", "expected_workflow": "pass"},
+    {"id": "DF-05-EXPERIMENT-EN", "source": "evals/fixtures/expanded/experiment_en.md", "discipline": "management", "language": "en-US", "method": "experiment", "section": "method", "expected_workflow": "pass"},
+    {"id": "DF-06-QUALITATIVE-ZH", "source": "evals/fixtures/expanded/qualitative_zh.md", "discipline": "management", "language": "zh-CN", "method": "qualitative", "section": "method", "expected_workflow": "pass"},
+    {"id": "DF-07-PAPER-INTRO", "source": "evals/fixtures/writing/target-a.md", "discipline": "economics", "language": "en-US", "method": "panel", "section": "introduction", "expected_workflow": "pass"},
+    {"id": "DF-08-PAPER-RESULTS", "source": "evals/fixtures/writing/target-b.md", "discipline": "management", "language": "en-US", "method": "observational", "section": "results", "expected_workflow": "pass"},
+    {"id": "DF-09-OVERCLAIM-EN", "source": "evals/fixtures/method-safety/overclaim-en.md", "discipline": "economics", "language": "en-US", "method": "staggered-did", "section": "method", "expected_workflow": "fail", "expected_reason": "method-language gate must remain author-required"},
+    {"id": "DF-10-OVERCLAIM-ZH", "source": "evals/fixtures/method-safety/overclaim-zh.md", "discipline": "management", "language": "zh-CN", "method": "event-study", "section": "method", "expected_workflow": "fail", "expected_reason": "method-language gate must remain author-required"}
+  ]
+}

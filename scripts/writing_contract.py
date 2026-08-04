@@ -445,3 +445,124 @@ def validate_style_overlap_report(value: Any) -> list[str]:
     if not isinstance(value.get("overlaps", []), list):
         errors.append("overlaps must be an array")
     return errors
+
+
+def validate_evidence_freshness_report(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["evidence freshness report must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("status") not in {"pass", "fail"}:
+        errors.append("status must be pass or fail")
+    if not nonempty(value.get("generated_at")):
+        errors.append("generated_at must be a non-empty string")
+    if not isinstance(value.get("max_age_days"), int) or value.get("max_age_days") < 0:
+        errors.append("max_age_days must be a non-negative integer")
+    if not isinstance(value.get("counts"), dict):
+        errors.append("counts must be an object")
+    if not isinstance(value.get("findings", []), list):
+        errors.append("findings must be an array")
+    for key in ("errors", "warnings"):
+        if not isinstance(value.get(key, []), list):
+            errors.append(f"{key} must be an array")
+    return errors
+
+
+def validate_journal_freshness_report(value: Any) -> list[str]:
+    return validate_evidence_freshness_report(value)
+
+
+def validate_environment_report(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["environment report must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("status") not in {"pass", "fail"}:
+        errors.append("status must be pass or fail")
+    if not nonempty(value.get("generated_at")):
+        errors.append("generated_at must be a non-empty string")
+    for key in ("runtime", "capabilities"):
+        if not isinstance(value.get(key), dict):
+            errors.append(f"{key} must be an object")
+    if not isinstance(value.get("checks", []), list):
+        errors.append("checks must be an array")
+    for key in ("errors", "limitations"):
+        if not isinstance(value.get(key, []), list):
+            errors.append(f"{key} must be an array")
+    return errors
+
+
+def validate_dogfood_manifest(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["dogfood manifest must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("policy") != "synthetic-fixtures-only":
+        errors.append("policy must be synthetic-fixtures-only")
+    cases = value.get("cases")
+    if not isinstance(cases, list) or not cases:
+        errors.append("cases must be a non-empty array")
+    return errors
+
+
+def validate_response_validation_report(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["response validation report must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("status") not in {"pass", "fail"}:
+        errors.append("status must be pass or fail")
+    for key in ("ledger", "letter"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if not isinstance(value.get("counts"), dict):
+        errors.append("counts must be an object")
+    for key in ("errors", "warnings"):
+        if not isinstance(value.get(key, []), list):
+            errors.append(f"{key} must be an array")
+    return errors
+
+
+def validate_revision_matrix(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["revision matrix must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("status") not in {"pass", "fail"}:
+        errors.append("status must be pass or fail")
+    for key in ("generated_at", "source_ledger"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if not isinstance(value.get("rows"), list):
+        errors.append("rows must be an array")
+    if not isinstance(value.get("counts"), dict):
+        errors.append("counts must be an object")
+    if not isinstance(value.get("errors", []), list):
+        errors.append("errors must be an array")
+    return errors
+
+
+def validate_contract_suite_report(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["contract suite report must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("status") not in {"pass", "fail"}:
+        errors.append("status must be pass or fail")
+    if not nonempty(value.get("generated_at")):
+        errors.append("generated_at must be a non-empty string")
+    if not isinstance(value.get("environment"), dict):
+        errors.append("environment must be an object")
+    if not isinstance(value.get("commands"), list):
+        errors.append("commands must be an array")
+    if not isinstance(value.get("counts"), dict):
+        errors.append("counts must be an object")
+    if not isinstance(value.get("limitations", []), list):
+        errors.append("limitations must be an array")
+    return errors

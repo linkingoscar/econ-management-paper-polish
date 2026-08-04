@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/evidence-freshness-report.schema.json",
+  "title": "Evidence Freshness Report",
+  "type": "object",
+  "required": ["schema_version", "status", "generated_at", "max_age_days", "counts", "findings", "errors", "warnings"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "status": {"enum": ["pass", "fail"]},
+    "generated_at": {"type": "string", "minLength": 1},
+    "max_age_days": {"type": "integer", "minimum": 0},
+    "counts": {"type": "object"},
+    "findings": {"type": "array", "items": {"type": "object"}},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}
