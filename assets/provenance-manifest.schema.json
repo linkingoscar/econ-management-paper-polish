@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Skill Component Provenance Manifest",
+  "type": "object",
+  "required": ["component", "source_url", "source_commit", "license", "capabilities", "status", "last_tested"],
+  "properties": {
+    "component": {"type": "string", "minLength": 1},
+    "source_url": {"type": "string", "pattern": "^https?://"},
+    "source_commit": {"type": "string", "minLength": 1},
+    "license": {"type": "string", "minLength": 1},
+    "capabilities": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "credentials": {"type": ["string", "null"]},
+    "status": {"type": "string", "enum": ["verified", "documented", "conceptual"]},
+    "last_tested": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

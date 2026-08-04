@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
-[![Version](https://img.shields.io/badge/Version-3.0.0--alpha.1-orange.svg)](#v30-可靠性核心alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.1-orange.svg)](#v31-写作可靠性基础alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -108,6 +108,8 @@ v3.0.0-alpha.1 先解决“能不能信、能不能复核”，不假装把 41 �
 py scripts/validate_v3.py .
 py evals/run_smoke_tests.py
 py evals/run_extended_tests.py
+py evals/run_v31_writing_tests.py
+py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 ```
 
 脚本能验证的是文本、引用和结构一致性；没有原始数据、代码或付费数据库时，
@@ -116,17 +118,19 @@ py evals/run_extended_tests.py
 
 ---
 
-## v3.1 升级研究与计划（设计中）
+## v3.1 写作可靠性基础（alpha）
 
 v3.1 仍以“经管论文写作与返修 Skill”为核心，不把项目扩张为通用自主科研平台。
-外部项目调研重点放在论点—证据对齐、目标期刊动态适配、方法安全改写、审稿问题
-生命周期、受保护修改和写作评测；检索、RAG 与多代理只作为这些写作能力的支撑。
+本次 alpha 已落地第一批写作基础设施：corpus manifest、style card/profile、
+paper spine、claim–evidence 检查、review ledger、风险预路由、受保护 patch
+验证、provenance 扫描和写作 benchmark。检索、RAG 与多代理仍只作为这些写作能力的支撑。
 
 * [v3.1 外部项目调研报告](docs/v3.1-landscape-research.md)
 * [v3.1 超详细升级计划](docs/v3.1-upgrade-plan.md)
 
-上述文档是 Proposed 设计，不代表 README 中所有能力已经实现；发布门槛、迁移
-步骤和明确不照搬的范围均记录在升级计划中。
+已实现能力仍属于 alpha：脚本负责确定性扫描、契约校验和候选 diff，不自动替作者
+决定理论、识别、结果或贡献；下一批工作是 claim–evidence 接线、方法安全写作
+fixture、meaning/compile/recall gate 和更完整的动态期刊人工门控。
 
 ---
 
@@ -175,6 +179,20 @@ py scripts/check_numeric_consistency.py original.md revised.md --json
 py scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
 ```
 
+v3.1 写作基础可以按需运行：
+
+```bash
+py scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
+py scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-card.json --json
+py scripts/build_style_profile.py style-cards --output style-profile.json --json
+py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
+py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
+py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
+py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
+```
+
+这些命令只生成可检查的状态和候选 diff，不会自动覆盖论文正文。
+
 ---
 
 ## 兼容性
@@ -195,6 +213,13 @@ py scripts/compare_manuscript_versions.py original.md revised.md --variable Trea
 ---
 
 ## 版本历史
+
+### v3.1.0-alpha.1 (2026-08-04)
+
+写作可靠性基础：新增 corpus manifest、style card/profile、paper spine、claim–evidence
+检查、review ledger、风险预路由、受保护 patch 报告/验证、provenance 扫描、契约
+schema、写作 fixture 和 CI 测试。
+该版本不自动应用高风险修改，也不把文本审计包装成真实复现。
 
 ### v3.0.0-alpha.1 (2026-08-03)
 

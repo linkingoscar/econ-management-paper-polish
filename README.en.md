@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-3.0.0--alpha.1-orange.svg)](#v30-reliability-core-alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.1-orange.svg)](#v31-writing-reliability-foundation-alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -108,6 +108,8 @@ From the repository root:
 python scripts/validate_v3.py .
 python evals/run_smoke_tests.py
 python evals/run_extended_tests.py
+python evals/run_v31_writing_tests.py
+python scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 ```
 
 These checks cover manuscript text, citations, and structure. Without original
@@ -118,20 +120,23 @@ network access, credentials, and separate evidence verification.
 
 ---
 
-## v3.1 Research and Upgrade Plan (proposed)
+## v3.1 Writing Reliability Foundation (alpha)
 
 v3.1 keeps the project centered on economics/management paper writing and revision,
-not on becoming a general autonomous research platform. The external landscape
-study therefore prioritizes claim–evidence alignment, dynamic journal adaptation,
-method-safe rewriting, reviewer issue lifecycles, protected edits, and writing
-benchmarks. Retrieval, RAG, and multi-agent features remain supporting layers.
+not on becoming a general autonomous research platform. This alpha implements the
+first writing foundation: corpus manifests, style cards/profiles, paper spine,
+claim–evidence checks, review ledgers, conservative issue routing, protected patch
+verification, provenance scanning, and a writing benchmark. Retrieval, RAG, and
+multi-agent features remain supporting layers.
 
 * [v3.1 landscape research report](docs/v3.1-landscape-research.md)
 * [v3.1 detailed upgrade plan](docs/v3.1-upgrade-plan.md)
 
-These documents describe a proposed design, not a claim that all v3.1 capabilities
-are implemented. The plan records release gates, migration steps, and features that
-will not be copied from external projects.
+The implemented capabilities are still alpha: scripts perform deterministic scans,
+contract validation, and candidate diffs; they do not decide theory, identification,
+results, or contribution for the author. Next work covers claim–evidence wiring,
+method-safety writing fixtures, meaning/compile/recall gates, and stronger journal
+adaptation confirmation.
 
 ---
 
@@ -211,6 +216,21 @@ To verify that a polish did not change protected tokens:
 python scripts/check_numeric_consistency.py original.md revised.md --json
 python scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
 ```
+
+The v3.1 writing foundation can be run incrementally:
+
+```bash
+python scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
+python scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-card.json --json
+python scripts/build_style_profile.py style-cards --output style-profile.json --json
+python scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
+python scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
+python scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
+python scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
+```
+
+These commands produce inspectable state and candidate diffs; they do not overwrite
+the manuscript automatically.
 
 ---
 
@@ -389,6 +409,13 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 ---
 
 ## Version History
+
+### v3.1.0-alpha.1 (2026-08-04)
+
+Writing reliability foundation: corpus manifests, style cards/profiles, paper spine,
+claim–evidence checks, review ledger, conservative issue routing, protected patch
+reports/verification, provenance scanning, contract schemas, writing fixtures, and CI coverage. High-risk edits are not applied automatically,
+and text audits are not presented as replication.
 
 ### v3.0.0-alpha.1 (2026-08-03)
 

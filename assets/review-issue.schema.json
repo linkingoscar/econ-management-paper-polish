@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writing Review Issue",
+  "type": "object",
+  "required": ["schema_version", "issue_id", "statement", "category", "severity", "decision", "status", "preserve", "history"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "issue_id": {"type": "string", "minLength": 1},
+    "source": {"type": "object"},
+    "statement": {"type": "string", "minLength": 1},
+    "category": {"type": "string", "minLength": 1},
+    "severity": {"type": "string", "enum": ["cosmetic", "moderate", "major", "blocking"]},
+    "decision": {"type": "string", "enum": ["safe-fix", "author-required", "invalid", "unresolved"]},
+    "proposed_action": {"type": "string"},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "preserve": {"type": "array", "items": {"type": "string"}},
+    "status": {"type": "string", "enum": ["raised", "triaged", "proposed", "applied", "verified", "closed", "blocked"]},
+    "history": {"type": "array", "items": {"type": "object"}}
+  },
+  "additionalProperties": true
+}

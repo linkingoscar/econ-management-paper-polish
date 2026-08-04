@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Paper Spine And Claim Map",
+  "type": "object",
+  "required": ["schema_version", "paper_id", "contribution_chain", "open_questions"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "paper_id": {"type": "string", "minLength": 1},
+    "research_question": {"type": ["string", "null"]},
+    "main_claim": {"type": ["string", "null"]},
+    "contribution_chain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "claim", "section", "evidence", "method_dependency", "risk"],
+        "properties": {
+          "claim_id": {"type": "string", "minLength": 1},
+          "claim": {"type": "string", "minLength": 1},
+          "section": {"type": "string", "minLength": 1},
+          "evidence": {"type": "array", "items": {"type": "string"}},
+          "method_dependency": {"type": "array", "items": {"type": "string"}},
+          "risk": {"type": "string", "enum": ["low", "medium", "high", "unknown"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "open_questions": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

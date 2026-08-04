@@ -10,7 +10,13 @@
     "risks": {"type": "array", "items": {"type": "object"}},
     "revisions": {"type": "array", "items": {"type": "object"}},
     "evidence_pack": {"type": "string"},
-    "journal_card": {"type": "string"}
+    "journal_card": {"type": "string"},
+    "paper_spine": {"type": "string"},
+    "corpus_manifest": {"type": "string"},
+    "style_profile": {"type": "string"},
+    "review_ledger": {"type": "string"},
+    "revision_journal": {"type": "string"},
+    "capability_report": {"type": "string"}
   },
   "additionalProperties": true
 }

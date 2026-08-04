@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deterministic Writing Style Card",
+  "type": "object",
+  "required": ["schema_version", "style_card_id", "source_id", "section", "observations", "confidence", "copy_boundary"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "style_card_id": {"type": "string", "minLength": 1},
+    "source_id": {"type": "string", "minLength": 1},
+    "section": {"type": "string", "minLength": 1},
+    "observations": {"type": "object"},
+    "locators": {"type": "array", "items": {"type": "object"}},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "unknown"]},
+    "copy_boundary": {"type": "string", "const": "structural-only"},
+    "extractor": {"type": "string"}
+  },
+  "additionalProperties": true
+}

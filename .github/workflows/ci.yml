@@ -18,3 +18,5 @@ jobs:
         run: python evals/run_smoke_tests.py
       - name: Run expanded offline migration and adapter tests
         run: python evals/run_extended_tests.py
+      - name: Run v3.1 writing foundation tests
+        run: python evals/run_v31_writing_tests.py

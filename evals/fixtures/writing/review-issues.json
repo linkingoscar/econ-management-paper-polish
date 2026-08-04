@@ -1,0 +1,16 @@
+{
+  "issues": [
+    {
+      "source": {"kind": "reviewer", "id": "R1-C1", "locator": "p3"},
+      "statement": "The paragraph repeats the research gap and contribution.",
+      "category": "presentation",
+      "severity": "moderate"
+    },
+    {
+      "source": {"kind": "reviewer", "id": "R2-C4", "locator": "p8"},
+      "statement": "The event-study sentence says that the graph proves parallel trends.",
+      "category": "method-safety",
+      "severity": "major"
+    }
+  ]
+}

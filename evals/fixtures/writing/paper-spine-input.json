@@ -1,0 +1,15 @@
+{
+  "paper_id": "paper-writing-fixture",
+  "research_question": "How does exposure affect investment timing?",
+  "main_claim": "Exposure is associated with a local change in investment timing.",
+  "contribution_chain": [
+    {
+      "claim": "Exposure is associated with investment timing.",
+      "section": "introduction",
+      "evidence": ["table-2", "CLM-method-1"],
+      "method_dependency": ["local-threshold-design"],
+      "risk": "medium"
+    }
+  ],
+  "open_questions": ["Add the data source and external-validity limitation."]
+}

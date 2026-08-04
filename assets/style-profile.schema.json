@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aggregated Writing Style Profile",
+  "type": "object",
+  "required": ["schema_version", "style_profile_id", "inputs", "priority_order", "rules", "conflicts", "reviewed_at"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "style_profile_id": {"type": "string", "minLength": 1},
+    "inputs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "priority_order": {
+      "type": "array",
+      "const": ["P1-preserve", "P2-target", "P3-secondary", "P4-static", "P5-cleanup"]
+    },
+    "rules": {"type": "array", "items": {"type": "object"}},
+    "conflicts": {"type": "array", "items": {"type": "object"}},
+    "reviewed_at": {"type": "string", "minLength": 1},
+    "recheck_after": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

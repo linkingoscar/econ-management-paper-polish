@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writing Foundation Benchmark Report",
+  "type": "object",
+  "required": ["schema_version", "suite", "generated_at", "environment", "metrics", "failures"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "suite": {"type": "string", "const": "v3.1-writing-foundation"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "environment": {"type": "object"},
+    "metrics": {"type": "object"},
+    "failures": {"type": "array", "items": {"type": "object"}},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

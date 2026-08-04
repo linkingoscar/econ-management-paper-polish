@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writing Corpus Manifest",
+  "type": "object",
+  "required": ["schema_version", "corpus_id", "created_at", "purpose", "items", "rejections"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "corpus_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "enum": ["journal-adaptation", "writing-style", "evidence"]},
+    "source_policy": {"type": "object"},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "path", "role", "sha256", "readable", "extraction", "license_status", "use"],
+        "properties": {
+          "source_id": {"type": "string", "pattern": "^SRC-[0-9A-Za-z_-]+$"},
+          "path": {"type": "string", "minLength": 1},
+          "role": {"type": "string", "enum": ["target-journal", "field-or-topic", "author-or-lab-exemplar", "author-guideline", "other"]},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "readable": {"type": "boolean"},
+          "extraction": {"type": "string", "enum": ["fulltext", "metadata-only", "unsupported"]},
+          "pages": {"type": ["integer", "null"], "minimum": 0},
+          "license_status": {"type": "string", "minLength": 1},
+          "use": {"type": "string", "enum": ["structural-style-only", "journal-rule", "user-provided-evidence", "metadata-only"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "rejections": {"type": "array", "items": {"type": "object"}}
+  },
+  "additionalProperties": false
+}

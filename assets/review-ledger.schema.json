@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writing Review Ledger",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "issues"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "issues": {"type": "array", "items": {"$ref": "review-issue.schema.json"}},
+    "counts": {"type": "object"},
+    "gates": {"type": "object"}
+  },
+  "additionalProperties": true
+}

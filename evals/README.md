@@ -5,6 +5,7 @@ The smoke suite is intentionally dependency-free and runs in CI:
 ```bash
 python evals/run_smoke_tests.py
 python evals/run_extended_tests.py
+python evals/run_v31_writing_tests.py
 ```
 
 Current fixtures cover Chinese/English-compatible manuscript text, a citation
@@ -22,6 +23,10 @@ are designed for later expansion:
 
 Add a normal (non-error) case whenever adding a new detector so that stricter
 checks do not turn into false-positive generators.
+
+The v3.1 writing suite covers corpus manifest rejection logging, deterministic
+style-card/profile extraction, paper-spine IDs, reviewer issue routing, and
+protected bounded patches. It uses synthetic fixtures and never uploads a paper.
 
 The extended suite is offline by design. Live Crossref/OpenAlex calls are an
 optional integration check and must never be required for CI; network failures are

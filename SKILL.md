@@ -52,8 +52,9 @@ See `README.md` for agent-specific installation instructions.
 
 ## v3.0 Runtime Contract (reliability core)
 
-The current implementation is **v3.0.0-alpha.1**. The 41 v2 reference modules
-remain available for backward-compatible loading; the v3 core adds explicit
+The current implementation is **v3.1.0-alpha.1** on top of the v3.0 reliability
+core. The 41 v2 reference modules remain available for backward-compatible loading;
+the v3 core adds explicit
 contracts around routing, evidence, deterministic audits, and capability limits.
 For any non-trivial task:
 
@@ -85,6 +86,17 @@ py scripts/validate_journal_card.py journal-card.json --max-age-days 365 --json
 py scripts/search_literature.py "staggered difference in differences" --provider both --json
 py scripts/rag_search.py --index .rag/index.json --ingest references --query "parallel trends" --json
 py scripts/run_agent_pipeline.py tasks.json --dry-run --json
+py scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
+py scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-cards/STY-0001.json --json
+py scripts/build_style_profile.py style-cards --output style-profile.json --json
+py scripts/build_paper_spine.py --paper-id paper-001 --output paper-spine.json --json
+py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
+py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
+py scripts/route_review_issues.py review-ledger.json --output review-ledger-routed.json --json
+py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
+py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
+py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
+py scripts/scan_skill_provenance.py provenance-manifest.json --json
 py scripts/validate_v3.py .
 ```
 
@@ -97,6 +109,43 @@ review designs use their own quality gates. Follow the chain
 estimator → unresolved threats → reporting` and bind method claims to traceable
 sources. Use `assets/evidence-pack.schema.json`, `assets/journal-card.schema.json`,
 and `assets/paper-state.schema.json` when state must persist across turns.
+
+## v3.1 Writing Foundation (P0)
+
+The v3.1 upgrade remains writing-first. Research retrieval, RAG, and agents are
+supporting layers for clearer arguments, safer method prose, traceable citations,
+journal adaptation, and reviewer response; they are not an autonomous research
+platform.
+
+For a substantive writing task, create or update these artifacts as applicable:
+
+1. paper-spine.json: research question, contribution chain, section, evidence,
+   method dependency, and risk for each author-supplied claim.
+2. corpus-manifest.json and style-card.json: file identity, role, hash,
+   extraction level, structural observations, confidence, and structural-only
+   copy boundary.
+3. style-profile.json: observed rhetorical/paragraph/citation patterns, conflicts,
+   P1 preservation priority, and recheck date. Do not generate a phrase bank.
+4. review-ledger.json: reviewer issue, severity, decision, protected fields,
+   status history, and unresolved limitation.
+5. A bounded diff plus deterministic audit before proposing a manuscript change.
+
+Use scripts/prepare_corpus.py, scripts/extract_style_card.py,
+scripts/build_style_profile.py, scripts/build_paper_spine.py,
+scripts/build_issue_ledger.py, scripts/route_review_issues.py,
+scripts/propose_bounded_patch.py, scripts/check_claim_evidence.py, and
+scripts/validate_writing_contract.py for deterministic scaffolding and checks.
+These scripts do not decide whether a claim is true and do not apply prose patches
+automatically. Read references/v3-writing-contract.md,
+references/v3-corpus-and-style.md, references/v3-argument-evidence.md,
+references/v3-review-ledger.md, and
+references/v3-capability-and-provenance.md when the corresponding mode is used.
+
+Dynamic journal adaptation has two gates: first build and inspect a structural
+style profile from supplied/verified materials; only then revise a specified section.
+P1 facts, citations, equations, variables, numbers, results, contribution claims,
+and limitations override every style preference. Methodological, theoretical,
+causal, result, or contribution changes remain author-required by default.
 
 ## Core Rules
 
@@ -253,6 +302,17 @@ Load from `references/v3/` rather than loading every legacy file:
 
 The old 41 modules are mapped in `references/v3/legacy-index.md` and remain
 loadable for compatibility; do not add new v3 rules only to a legacy file.
+
+## v3.1 Contract References
+
+The v3.1 writing contracts live at the reference root because they extend the
+cross-cutting runtime without creating a fifteenth default pack:
+
+- v3-writing-contract.md: writing modes, output contract, and protected fields.
+- v3-corpus-and-style.md: corpus manifest, style cards, profile, and copy boundary.
+- v3-argument-evidence.md: paper spine and claim-evidence map.
+- v3-review-ledger.md: reviewer issue lifecycle and bounded revision.
+- v3-capability-and-provenance.md: capability modes and component provenance.
 
 ## Compatibility Layer
 

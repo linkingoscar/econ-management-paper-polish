@@ -28,3 +28,13 @@ the pack explicitly points to a detail that has not yet been migrated.
 The normal load order is `01` → one or more task packs → `04`/`05` when evidence or
 methods are involved → `07`/`13` before a final audit. Do not load every pack for a
 line-polish request.
+
+## v3.1 writing contracts
+
+The writing-first alpha extends these packs with root-level contracts:
+
+- `../v3-writing-contract.md`: writing modes, protected fields, and output contract.
+- `../v3-corpus-and-style.md`: corpus manifest, style cards, profiles, and copy boundary.
+- `../v3-argument-evidence.md`: paper spine and claim-evidence checks.
+- `../v3-review-ledger.md`: reviewer issue lifecycle and bounded revision.
+- `../v3-capability-and-provenance.md`: capability and provenance boundaries.

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-04T00:00:00Z",
+  "entries": [
+    {
+      "claim_id": "CLM-method-1",
+      "claim": "A local design identifies a local effect under stated assumptions.",
+      "source": {
+        "title": "Synthetic Methods Note",
+        "url": "https://example.org/methods"
+      },
+      "verification": {
+        "level": "full_text",
+        "checked_at": "2026-08-04",
+        "support": "Identification section"
+      },
+      "allowed_use": "direct_citation"
+    }
+  ]
+}
