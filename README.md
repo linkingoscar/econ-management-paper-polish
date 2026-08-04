@@ -192,48 +192,26 @@ py scripts/check_numeric_consistency.py original.md revised.md --json
 py scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
 ```
 
-v3.1 写作基础可以按需运行：
+v3.1 的正常用法仍然是直接对话，不要求用户手工串联几十个脚本。把论文、目标期刊、
+审稿意见或返修版本交给 Skill，它会按需编排路由、证据、风格、方法安全和修订审计。
+
+如果需要显式启动一个可恢复工作区，只需运行入口脚本：
 
 ```bash
-py scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
-py scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-card.json --json
-py scripts/build_style_profile.py style-cards --output style-profile.json --json
-py scripts/build_ai_review_packet.py style-profile.json --kind style-profile --output style-review-packet.json --json
-py scripts/run_ai_reviews.py style-review-packet.json --output-dir ai-reviews --json
-py scripts/adjudicate_ai_reviews.py style-review-packet.json ai-reviews/ai-review-1.json ai-reviews/ai-review-2.json --output style-decision.json --json
-py scripts/build_writing_review_bundle.py original.md revised.md --style-profile style-profile.json --output writing-review-bundle.json --json
-py scripts/build_ai_review_packet.py writing-review-bundle.json --kind writing-rubric --output writing-rubric-packet.json --json
-py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
-py scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
-py scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
-py scripts/audit_evidence_freshness.py evidence-ledger.json --max-age-days 365 --json
-py scripts/audit_journal_freshness.py journal-card.json --max-age-days 365 --json
-py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
-py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
-py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
-py scripts/apply_bounded_patch.py original.md revised.md --output applied.md --variable Treatment --json
-py scripts/rollback_bounded_patch.py original.md --output rollback.md --json
-py scripts/transition_issue.py review-ledger.json ISS-001 proposed --output review-ledger-proposed.json --actor author --rationale "..." --json
-py scripts/build_response_letter.py review-ledger.json --output response-letter.md --json
-py scripts/build_revision_matrix.py review-ledger.json --output revision-matrix.csv --json
-py scripts/validate_response_letter.py review-ledger-closed.json response-letter-submission.md --json
-py scripts/meaning_audit.py original.md revised.md --json
-py scripts/check_method_language.py manuscript.md --json
-py scripts/build_method_safety_report.py manuscript.md --json
-py scripts/compile_guard.py manuscript.tex --strict --json
-py scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
-py scripts/validate_style_profile_gate.py style-profile.json --ai-decision style-decision.json --json
-py scripts/plan_style_revision.py manuscript.md style-profile.json --ai-decision style-decision.json --section method --output style-revision-plan.json --json
 py scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
 py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
-py scripts/run_dogfood_suite.py --json
-py scripts/run_platform_smoke.py --json
-py scripts/run_contract_suite.py --json
 ```
 
-这些命令只生成可检查的状态和候选 diff，不会自动覆盖论文正文。`run_dogfood_suite.py`
-只把仓库内的 synthetic fixture 复制到临时工作区，用于回归工作流接线，不等同于真实
-论文 dogfooding；如需保存机器可读报告，请显式传入 `--output` 并放在仓库外。
+数字/变量保护仍可单独检查：
+
+```bash
+py scripts/check_numeric_consistency.py original.md revised.md --json
+py scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
+```
+
+其余脚本是 Skill 的内部实现和 CI/开发者工具，不是用户必须学习的操作面板；详见
+[`scripts/`](scripts/)、各脚本的 `--help` 和 [v3.1 升级计划](docs/v3.1-upgrade-plan.md)。
+所有入口只生成可检查的状态、报告和候选 diff，不会自动覆盖论文正文。
 
 ---
 

@@ -160,30 +160,22 @@ prerequisites.
 
 ```
 econ-management-paper-polish/
-├── SKILL.md                           # Core skill definition and rules (v3 alpha)
-├── README.md                          # Chinese documentation
-├── README.en.md                       # English documentation
-├── LICENSE                            # MIT License
-├── CONTRIBUTING.md                    # Contribution guide
-├── .gitignore
-├── agents/openai.yaml                 # Codex display/default prompt metadata
-├── adapters/                           # Source, RAG, and bounded agent adapters
-├── assets/                             # v3 JSON schemas and report templates
-├── scripts/                            # Dependency-free deterministic audits
-├── evals/                              # Fixtures and smoke tests
-└── references/                        # 41 legacy + v3 contract modules
-    ├── Core Routing (6)
-    ├── Writing Style (6)
-    ├── Journal Adaptation (4)
-    ├── Citation & Evidence (4)
-    ├── Method Diagnosis (2)
-    ├── Quality Gates (1)
-    ├── v2.0: Paper Spine (3)
-    ├── v2.0: Reproducibility Audit (3)
-    ├── v2.0: Research Pipeline (3)
-    ├── v2.0: LaTeX Support (3)
-    ├── v2.0: RAG Knowledge Base (3)
-    └── v2.0: Survey Workspace (3)
+├── SKILL.md                           # Core skill definition and routing
+├── README.md / README.en.md           # Chinese and English documentation
+├── LICENSE / CONTRIBUTING.md          # License and contribution guide
+├── .github/workflows/ci.yml           # CI, contract tests, and Pages checks
+├── agents/openai.yaml                 # Agent display metadata
+├── adapters/                          # Search, local RAG, and agent adapters
+│   ├── providers/                     # Crossref and OpenAlex
+│   ├── rag/                           # Local markdown index
+│   └── agents/                        # Serial and OpenAI-compatible agents
+├── assets/                            # JSON schemas and report templates
+├── scripts/                           # Deterministic writing and audit commands
+├── evals/                             # Smoke, benchmark, writing tests, and dogfood harness
+├── docs/                              # GitHub Pages and v3.1 research/upgrade documents
+└── references/                        # 41 legacy modules plus v3 contracts and packs
+    ├── v3-*.md                        # Runtime, audit, evidence, method, and writing contracts
+    └── v3/                             # 14 progressive-loading responsibility packs
 ```
 
 ---
@@ -233,50 +225,29 @@ python scripts/check_numeric_consistency.py original.md revised.md --json
 python scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
 ```
 
-The v3.1 writing foundation can be run incrementally:
+The normal v3.1 experience is still a conversation, not a requirement to hand-chain
+dozens of scripts. Give the Skill the manuscript, target outlet, reviewer comments, or
+revision, and it orchestrates routing, evidence, style, method safety, and revision audits
+as needed.
+
+If you want to explicitly start a recoverable writing workspace, use the two entry points:
 
 ```bash
-python scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
-python scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-card.json --json
-python scripts/build_style_profile.py style-cards --output style-profile.json --json
-python scripts/build_ai_review_packet.py style-profile.json --kind style-profile --output style-review-packet.json --json
-python scripts/run_ai_reviews.py style-review-packet.json --output-dir ai-reviews --json
-python scripts/adjudicate_ai_reviews.py style-review-packet.json ai-reviews/ai-review-1.json ai-reviews/ai-review-2.json --output style-decision.json --json
-python scripts/build_writing_review_bundle.py original.md revised.md --style-profile style-profile.json --output writing-review-bundle.json --json
-python scripts/build_ai_review_packet.py writing-review-bundle.json --kind writing-rubric --output writing-rubric-packet.json --json
-python scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
-python scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
-python scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
-python scripts/audit_evidence_freshness.py evidence-ledger.json --max-age-days 365 --json
-python scripts/audit_journal_freshness.py journal-card.json --max-age-days 365 --json
-python scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
-python scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
-python scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
-python scripts/apply_bounded_patch.py original.md revised.md --output applied.md --variable Treatment --json
-python scripts/rollback_bounded_patch.py original.md --output rollback.md --json
-python scripts/transition_issue.py review-ledger.json ISS-001 proposed --output review-ledger-proposed.json --actor author --rationale "..." --json
-python scripts/build_response_letter.py review-ledger.json --output response-letter.md --json
-python scripts/build_revision_matrix.py review-ledger.json --output revision-matrix.csv --json
-python scripts/validate_response_letter.py review-ledger-closed.json response-letter-submission.md --json
-python scripts/meaning_audit.py original.md revised.md --json
-python scripts/check_method_language.py manuscript.md --json
-python scripts/build_method_safety_report.py manuscript.md --json
-python scripts/compile_guard.py manuscript.tex --strict --json
-python scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
-python scripts/validate_style_profile_gate.py style-profile.json --ai-decision style-decision.json --json
-python scripts/plan_style_revision.py manuscript.md style-profile.json --ai-decision style-decision.json --section method --output style-revision-plan.json --json
 python scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
 python scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
-python scripts/run_dogfood_suite.py --json
-python scripts/run_platform_smoke.py --json
-python scripts/run_contract_suite.py --json
 ```
 
-These commands produce inspectable state and candidate diffs; they do not overwrite
-the manuscript automatically. `run_dogfood_suite.py` copies only repository-owned
-synthetic fixtures into temporary workspaces; it is a workflow regression harness,
-not real-paper dogfooding. Use `--output` explicitly if you want to save its report
-outside the repository.
+Protected numbers and variables can be checked independently:
+
+```bash
+python scripts/check_numeric_consistency.py original.md revised.md --json
+python scripts/compare_manuscript_versions.py original.md revised.md --variable Treatment --json
+```
+
+The remaining scripts are internal implementation and CI/developer tools, not a user-facing
+control panel. See [`scripts/`](scripts/), each command's `--help`, and the [v3.1 upgrade plan](docs/v3.1-upgrade-plan.md).
+All entry points produce inspectable state, reports, or candidate diffs; they do not overwrite
+the manuscript automatically.
 
 ---
 
