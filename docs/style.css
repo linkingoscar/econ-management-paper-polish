@@ -252,6 +252,13 @@ a:hover {
   line-height: 1.6;
 }
 
+.feature-card > a {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 /* ===== Install ===== */
 .install-grid {
   display: grid;

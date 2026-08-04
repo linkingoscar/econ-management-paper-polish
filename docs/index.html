@@ -18,6 +18,7 @@
         <a href="#install" data-en="Install" data-zh="安装">安装</a>
         <a href="#usage" data-en="Usage" data-zh="用例">用例</a>
         <a href="#structure" data-en="Structure" data-zh="结构">结构</a>
+        <a href="#versions" data-en="Versions" data-zh="版本">版本</a>
         <a href="https://github.com/linkingoscar/econ-management-paper-polish" target="_blank">GitHub</a>
         <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
       </div>
@@ -31,7 +32,7 @@
       <p class="hero-sub" data-en="A universal academic paper skill for economics, management, finance, accounting, marketing, IS, and broader business-school disciplines. Works with any AI coding agent." data-zh="面向经济学、管理学、金融、会计、营销、信息系统等经管类学科的通用学术论文 Skill。兼容所有主流 AI 编程助手。">面向经济学、管理学、金融、会计、营销、信息系统等经管类学科的通用学术论文 Skill。兼容所有主流 AI 编程助手。</p>
       <div class="hero-badges">
         <span class="badge">MIT License</span>
-        <span class="badge" data-en="41 Reference Modules" data-zh="41 个参考模块">41 个参考模块</span>
+        <span class="badge" data-en="41 legacy modules + v3.1 core" data-zh="41 个旧模块 + v3.1 核心">41 个旧模块 + v3.1 核心</span>
         <span class="badge" data-en="v3.1 Writing Reliability Core (alpha)" data-zh="v3.1 写作可靠性核心（alpha）">v3.1 写作可靠性核心（alpha）</span>
         <span class="badge" data-en="Universal Agent Support" data-zh="兼容所有 Agent">兼容所有 Agent</span>
       </div>
@@ -127,6 +128,41 @@
     </div>
   </section>
 
+  <!-- v3.0 Reliability Core (historical base) -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 data-en="v3.0 Reliability Core (alpha, historical base)" data-zh="v3.0 可靠性核心（alpha，历史基础）">v3.0 可靠性核心（alpha，历史基础）</h2>
+      <p class="section-desc" data-en="The backward-compatible runtime and audit foundation inherited by v3.1: explicit routing, traceable evidence, deterministic checks, method-safety boundaries, and honest capability degradation." data-zh="v3.1 继承的向后兼容运行时与审计基础：显式路由、可追溯证据、确定性检查、方法安全边界和诚实能力降级。">v3.1 继承的向后兼容运行时与审计基础：显式路由、可追溯证据、确定性检查、方法安全边界和诚实能力降级。</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🧭</div>
+          <h3 data-en="Routing & capability contracts" data-zh="路由与能力契约">路由与能力契约</h3>
+          <p data-en="Route cards plus Verified / Documented / Conceptual limits make every run's scope explicit." data-zh="路由卡与 Verified / Documented / Conceptual 能力边界，让每次运行的范围可见。">路由卡与 Verified / Documented / Conceptual 能力边界，让每次运行的范围可见。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 data-en="Deterministic manuscript audits" data-zh="确定性论文审计">确定性论文审计</h3>
+          <p data-en="Numbers, citations, LaTeX structure, and before/after manuscript changes are checked by scripts." data-zh="由脚本检查数字、引用、LaTeX 结构和修订前后论文变化。">由脚本检查数字、引用、LaTeX 结构和修订前后论文变化。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3 data-en="Method-safety boundaries" data-zh="方法安全边界">方法安全边界</h3>
+          <p data-en="Causal language is bounded by design-specific assumptions; text audits never claim data replication." data-zh="按研究设计和关键假设约束因果语言；文本审计不冒充数据复现。">按研究设计和关键假设约束因果语言；文本审计不冒充数据复现。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3 data-en="Responsibility packs" data-zh="职责化知识包">职责化知识包</h3>
+          <p data-en="Fourteen v3 responsibility packs replace all-at-once loading while legacy v2 references remain compatible." data-zh="14 个 v3 职责化知识包替代一次性加载，同时兼容保留 v2 旧参考模块。">14 个 v3 职责化知识包替代一次性加载，同时兼容保留 v2 旧参考模块。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔌</div>
+          <h3 data-en="Pluggable integrations" data-zh="可插拔集成">可插拔集成</h3>
+          <p data-en="Crossref/OpenAlex metadata search, local RAG, and bounded agent adapters with explicit degradation." data-zh="Crossref/OpenAlex 元数据检索、本地 RAG 和带明确降级路径的多代理适配器。">Crossref/OpenAlex 元数据检索、本地 RAG 和带明确降级路径的多代理适配器。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- v2.0 New Features -->
   <section class="section section-alt">
     <div class="container">
@@ -177,11 +213,45 @@
     </div>
   </section>
 
+  <!-- Version history -->
+  <section id="versions" class="section">
+    <div class="container">
+      <h2 data-en="Version History" data-zh="版本历史">版本历史</h2>
+      <p class="section-desc" data-en="The page keeps the current writing-first release separate from its reliability foundation and earlier feature releases." data-zh="本页面将当前写作优先版本、可靠性基础版本和更早的功能版本分开呈现。">本页面将当前写作优先版本、可靠性基础版本和更早的功能版本分开呈现。</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3 data-en="v3.1.0 — Writing Reliability Core (alpha.1–alpha.4)" data-zh="v3.1.0 — 写作可靠性核心（alpha.1–alpha.4）">v3.1.0 — 写作可靠性核心（alpha.1–alpha.4）</h3>
+          <p data-en="Current release (2026-08-04): recoverable writing workspaces, evidence and style ledgers, protected revisions, deterministic writing gates, and auditable AI review packets." data-zh="当前版本（2026-08-04）：可恢复写作工作区、证据与风格账本、受保护修订、确定性写作门控和可审计 AI 审核包。">当前版本（2026-08-04）：可恢复写作工作区、证据与风格账本、受保护修订、确定性写作门控和可审计 AI 审核包。</p>
+          <a href="https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.4" target="_blank" data-en="Release notes ↗" data-zh="发布说明 ↗">发布说明 ↗</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3 data-en="v3.0.0-alpha.1 — Reliability Core" data-zh="v3.0.0-alpha.1 — 可靠性核心">v3.0.0-alpha.1 — 可靠性核心</h3>
+          <p data-en="Historical foundation (2026-08-03): explicit routing and capability limits, traceable evidence, deterministic manuscript audits, method-safety boundaries, progressive v3 packs, and adapters." data-zh="历史基础（2026-08-03）：显式路由与能力边界、可追溯证据、确定性论文审计、方法安全边界、渐进加载 v3 知识包与适配器。">历史基础（2026-08-03）：显式路由与能力边界、可追溯证据、确定性论文审计、方法安全边界、渐进加载 v3 知识包与适配器。</p>
+          <a href="https://github.com/linkingoscar/econ-management-paper-polish#v30-%E5%8F%AF%E9%9D%A0%E6%80%A7%E6%A0%B8%E5%BF%83alpha" target="_blank" data-en="Read the foundation notes ↗" data-zh="查看基础说明 ↗">查看基础说明 ↗</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧰</div>
+          <h3 data-en="v2.0.0 — Research Workflow Expansion" data-zh="v2.0.0 — 研究工作流扩展">v2.0.0 — 研究工作流扩展</h3>
+          <p data-en="Historical feature release (2026-06-05): paper spine, revision matrix, reproducibility audit, research pipeline, LaTeX, RAG, survey workspace, and delegation modules." data-zh="历史功能版本（2026-06-05）：论点骨架、修订矩阵、可复现性审计、研究流水线、LaTeX、RAG、调研工作区和委派模块。">历史功能版本（2026-06-05）：论点骨架、修订矩阵、可复现性审计、研究流水线、LaTeX、RAG、调研工作区和委派模块。</p>
+          <a href="https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v2.0.0" target="_blank" data-en="Release notes ↗" data-zh="发布说明 ↗">发布说明 ↗</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌱</div>
+          <h3 data-en="v1.0.0 — Core Academic Writing Skill" data-zh="v1.0.0 — 学术写作核心 Skill">v1.0.0 — 学术写作核心 Skill</h3>
+          <p data-en="Initial release (2026-05-01): four-quadrant routing, subfield overlays, journal adaptation, citation workflow, evidence grading, method diagnosis, and quality gates." data-zh="首发版本（2026-05-01）：四象限路由、细分方向叠加、期刊适配、引用工作流、证据分级、方法诊断和质量门控。">首发版本（2026-05-01）：四象限路由、细分方向叠加、期刊适配、引用工作流、证据分级、方法诊断和质量门控。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Install -->
   <section id="install" class="section section-alt">
     <div class="container">
       <h2 data-en="Installation" data-zh="安装方式">安装方式</h2>
       <p class="section-desc" data-en="Clone the repo into your agent's skill/rules directory. Works with any agent that supports skill or system-prompt loading." data-zh="将仓库克隆到你的 Agent 的 skill/rules 目录即可。适用于任何支持 skill 或 system-prompt 加载的 Agent。">将仓库克隆到你的 Agent 的 skill/rules 目录即可。适用于任何支持 skill 或 system-prompt 加载的 Agent。</p>
+      <p class="install-note" data-en="The default clone follows main (current v3.1 Writing Reliability Core). For reproducible installs, use --branch v3.1.0-alpha.4; the frozen v2 release is --branch v2.0.0." data-zh="默认克隆 main（当前 v3.1 写作可靠性核心）。如需可复现安装，使用 --branch v3.1.0-alpha.4；冻结的 v2 版本使用 --branch v2.0.0。">默认克隆 main（当前 v3.1 写作可靠性核心）。如需可复现安装，使用 --branch v3.1.0-alpha.4；冻结的 v2 版本使用 --branch v2.0.0。</p>
 
       <div class="install-grid">
         <div class="install-card">
@@ -253,6 +323,16 @@
           <p class="usage-en">Diagnose the paper's argument structure, check if the core claim, contribution chain, and hypothesis chain are clear, and identify evidence gaps and risks.</p>
         </div>
         <div class="usage-card">
+          <div class="usage-tag" data-en="Writing Reliability" data-zh="写作可靠性">写作可靠性</div>
+          <p class="usage-zh">按 v3.1 写作可靠性流程检查这篇论文：保护数字、变量和引用，绑定证据，生成可恢复的修订计划。</p>
+          <p class="usage-en">Run the v3.1 writing-reliability workflow: protect numbers, variables, and citations, bind evidence, and produce a recoverable revision plan.</p>
+        </div>
+        <div class="usage-card">
+          <div class="usage-tag" data-en="Auditable AI Review" data-zh="可审计 AI 复核">可审计 AI 复核</div>
+          <p class="usage-zh">为 style profile 或 paper spine 生成哈希绑定审核包，运行隔离 AI 复核并输出确定性裁决。</p>
+          <p class="usage-en">Create a hash-bound review packet for a style profile or paper spine, run isolated AI reviews, and produce a deterministic gate decision.</p>
+        </div>
+        <div class="usage-card">
           <div class="usage-tag" data-en="Reproducibility" data-zh="可复现性">可复现性</div>
           <p class="usage-zh">帮我检查这篇论文的可复现性，包括数据透明度、方法透明度、结果一致性、识别逻辑和稳健性完整性。</p>
           <p class="usage-en">Check the paper's reproducibility, including data transparency, method transparency, result consistency, identification logic, and robustness completeness.</p>
@@ -278,77 +358,28 @@
       <div class="tree">
 <pre>
 econ-management-paper-polish/
-├── SKILL.md                           <span data-en="# Core skill definition" data-zh="# 核心 skill 定义"># 核心 skill 定义</span>
-├── README.md                          <span data-en="# Documentation" data-zh="# 项目文档"># 项目文档</span>
-├── LICENSE                            <span data-en="# MIT License" data-zh="# MIT 许可证"># MIT 许可证</span>
-├── CONTRIBUTING.md                    <span data-en="# Contribution guidelines" data-zh="# 贡献指南"># 贡献指南</span>
-├── .gitignore
-└── references/                        <span data-en="# 41 reference modules" data-zh="# 41 个参考模块"># 41 个参考模块</span>
-    │
-    ├── <span data-en="# Core Routing (6)" data-zh="# 核心路由 (6)">【核心路由】 (6个)</span>
-    │   ├── intake-and-modes.md
-    │   ├── discipline-router.md
-    │   ├── subfields-economics.md
-    │   ├── subfields-management.md
-    │   ├── field-style-packs.md
-    │   └── source-access-policy.md
-    │
-    ├── <span data-en="# Writing Style (6)" data-zh="# 写作风格 (6)">【写作风格】 (6个)</span>
-    │   ├── cn-economics-style.md
-    │   ├── en-economics-style.md
-    │   ├── cn-management-style.md
-    │   ├── en-management-style.md
-    │   ├── style-and-polish.md
-    │   └── section-patterns.md
-    │
-    ├── <span data-en="# Journal Adaptation (4)" data-zh="# 期刊适配 (4)">【期刊适配】 (4个)</span>
-    │   ├── journal-families-econ.md
-    │   ├── journal-families-management.md
-    │   ├── journal-style-adaptation.md
-    │   └── journal-style-card.md
-    │
-    ├── <span data-en="# Citation & Evidence (4)" data-zh="# 文献引用 (4)">【文献引用】 (4个)</span>
-    │   ├── evidence-citation-workflow.md
-    │   ├── evidence-grading.md
-    │   ├── theory-backing-router.md
-    │   └── topic-revision-advisor.md
-    │
-    ├── <span data-en="# Method Diagnosis (2)" data-zh="# 方法诊断 (2)">【方法诊断】 (2个)</span>
-    │   ├── empirical-method-router.md
-    │   └── method-decision-tree.md
-    │
-    ├── <span data-en="# Quality Gate (1)" data-zh="# 质量门控 (1)">【质量门控】 (1个)</span>
-    │   └── quality-gates.md
-    │
-    ├── <span data-en="# v2.0: Paper Spine (3) ★" data-zh="# v2.0: 论点骨架 (3) ★">【v2.0: 论点骨架】 (3个) ★</span>
-    │   ├── paper-spine.md
-    │   ├── revision-matrix.md
-    │   └── risk-register.md
-    │
-    ├── <span data-en="# v2.0: Reproducibility (3) ★" data-zh="# v2.0: 可复现性 (3) ★">【v2.0: 可复现性审计】 (3个) ★</span>
-    │   ├── reproducibility-audit.md
-    │   ├── data-reproducibility.md
-    │   └── method-reproducibility.md
-    │
-    ├── <span data-en="# v2.0: Pipeline (3) ★" data-zh="# v2.0: 流水线 (3) ★">【v2.0: 研究流水线】 (3个) ★</span>
-    │   ├── research-pipeline.md
-    │   ├── pipeline-stage-gates.md
-    │   └── pipeline-delegation.md
-    │
-    ├── <span data-en="# v2.0: LaTeX (3) ★" data-zh="# v2.0: LaTeX (3) ★">【v2.0: LaTeX支持】 (3个) ★</span>
-    │   ├── latex-support.md
-    │   ├── latex-templates.md
-    │   └── latex-audit.md
-    │
-    ├── <span data-en="# v2.0: RAG (3) ★" data-zh="# v2.0: RAG (3) ★">【v2.0: RAG知识库】 (3个) ★</span>
-    │   ├── rag-workflow.md
-    │   ├── rag-retrieval.md
-    │   └── rag-verification.md
-    │
-    └── <span data-en="# v2.0: Survey (3) ★" data-zh="# v2.0: 调研 (3) ★">【v2.0: 调研工作区】 (3个) ★</span>
-        ├── survey-workspace.md
-        ├── paper-pool.md
-        └── close-reading.md
+├── SKILL.md                           <span data-en="# Core skill definition and routing" data-zh="# 核心 skill 定义与路由"># 核心 skill 定义与路由</span>
+├── README.md / README.en.md           <span data-en="# Chinese and English documentation" data-zh="# 中英文项目文档"># 中英文项目文档</span>
+├── LICENSE / CONTRIBUTING.md          <span data-en="# License and contribution guide" data-zh="# 许可证与贡献指南"># 许可证与贡献指南</span>
+├── agents/openai.yaml                 <span data-en="# Agent display metadata" data-zh="# Agent 展示元数据"># Agent 展示元数据</span>
+├── adapters/                          <span data-en="# Search, local RAG, and agent adapters" data-zh="# 检索、本地 RAG 与 Agent 适配器"># 检索、本地 RAG 与 Agent 适配器</span>
+│   ├── providers/                     <span data-en="# Crossref and OpenAlex" data-zh="# Crossref 与 OpenAlex"># Crossref 与 OpenAlex</span>
+│   ├── rag/                           <span data-en="# Local markdown index" data-zh="# 本地 Markdown 索引"># 本地 Markdown 索引</span>
+│   └── agents/                        <span data-en="# Serial and OpenAI-compatible agents" data-zh="# Serial 与 OpenAI-compatible Agent"># Serial 与 OpenAI-compatible Agent</span>
+├── assets/                            <span data-en="# JSON schemas and report templates" data-zh="# JSON schema 与报告模板"># JSON schema 与报告模板</span>
+├── scripts/                           <span data-en="# 60 deterministic writing and audit commands" data-zh="# 60 个确定性写作与审计脚本"># 60 个确定性写作与审计脚本</span>
+│   ├── <span data-en="# Writing workspace, evidence, style, method, and revision gates" data-zh="# 写作工作区、证据、风格、方法与修订门控"># 写作工作区、证据、风格、方法与修订门控</span>
+│   └── <span data-en="# AI review packets, isolated reviews, and deterministic adjudication" data-zh="# AI 审核包、隔离复核与确定性裁决"># AI 审核包、隔离复核与确定性裁决</span>
+├── evals/                             <span data-en="# Smoke, benchmark, writing tests, and dogfood harness" data-zh="# Smoke、benchmark、写作测试与 dogfood harness"># Smoke、benchmark、写作测试与 dogfood harness</span>
+├── docs/                              <span data-en="# GitHub Pages and v3.1 research/upgrade documents" data-zh="# GitHub Pages 与 v3.1 调研/升级文档"># GitHub Pages 与 v3.1 调研/升级文档</span>
+│   ├── index.html / style.css / script.js
+│   ├── v3.1-landscape-research.md
+│   └── v3.1-upgrade-plan.md
+└── references/                        <span data-en="# 41 legacy modules plus v3 contract packs" data-zh="# 41 个旧模块与 v3 契约知识包"># 41 个旧模块与 v3 契约知识包</span>
+    ├── <span data-en="# 41 legacy v1/v2 reference modules" data-zh="# 41 个 v1/v2 旧参考模块"># 41 个 v1/v2 旧参考模块</span>
+    └── v3/                             <span data-en="# 14 progressive-loading responsibility packs" data-zh="# 14 个渐进加载职责包"># 14 个渐进加载职责包</span>
+        ├── 01-intake-routing.md … 14-integrations-and-capability.md
+        └── README.md / legacy-index.md
 </pre>
       </div>
     </div>
@@ -362,40 +393,40 @@ econ-management-paper-polish/
         <div class="flow-step">
           <div class="flow-num">1</div>
           <div class="flow-content">
-            <h4 data-en="Identify Task Mode" data-zh="识别任务模式">识别任务模式</h4>
-            <p data-en="Polish / rewrite / theory / literature / method / topic / reviewer response" data-zh="润色 / 改写 / 理论 / 文献 / 方法 / 选题 / 返修">润色 / 改写 / 理论 / 文献 / 方法 / 选题 / 返修</p>
+            <h4 data-en="Intake & route" data-zh="接收与路由">接收与路由</h4>
+            <p data-en="Task mode, discipline, language, method, outlet, preservation, and capability limits" data-zh="任务模式、学科、语言、方法、期刊、保留规则与能力边界">任务模式、学科、语言、方法、期刊、保留规则与能力边界</p>
           </div>
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-step">
           <div class="flow-num">2</div>
           <div class="flow-content">
-            <h4 data-en="Four-Quadrant Route" data-zh="四象限路由">四象限路由</h4>
-            <p data-en="CN Econ / EN Econ / CN Mgmt / EN Mgmt" data-zh="中文经济 / 英文经济 / 中文管理 / 英文管理">中文经济 / 英文经济 / 中文管理 / 英文管理</p>
+            <h4 data-en="Argument & evidence" data-zh="论点与证据">论点与证据</h4>
+            <p data-en="Paper spine, claim–evidence bindings, source status, locators, and open questions" data-zh="paper spine、主张—证据绑定、来源状态、定位信息与开放问题">paper spine、主张—证据绑定、来源状态、定位信息与开放问题</p>
           </div>
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-step">
           <div class="flow-num">3</div>
           <div class="flow-content">
-            <h4 data-en="Subfield Overlay" data-zh="细分方向叠加">细分方向叠加</h4>
-            <p data-en="Labor / environment / strategy / OB/HR / IS / ..." data-zh="劳动 / 环境 / 战略 / OB/HR / IS / …">劳动 / 环境 / 战略 / OB/HR / IS / …</p>
+            <h4 data-en="Style & method gates" data-zh="风格与方法门控">风格与方法门控</h4>
+            <p data-en="Journal profile, corpus freshness, method risk cards, and conservative rewrites" data-zh="期刊 profile、语料新鲜度、方法风险卡与保守改写">期刊 profile、语料新鲜度、方法风险卡与保守改写</p>
           </div>
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-step">
           <div class="flow-num">4</div>
           <div class="flow-content">
-            <h4 data-en="Journal Adapt" data-zh="目标期刊适配">目标期刊适配</h4>
-            <p data-en="Style card from author guidelines" data-zh="基于作者指南生成 style card">基于作者指南生成 style card</p>
+            <h4 data-en="Bounded revision & audit" data-zh="受保护修订与审计">受保护修订与审计</h4>
+            <p data-en="Protected snapshot, hash/anchor checks, meaning/method/LaTeX gates, and rollback" data-zh="protected snapshot、hash/anchor 检查、语义/方法/LaTeX 门控与回滚">protected snapshot、hash/anchor 检查、语义/方法/LaTeX 门控与回滚</p>
           </div>
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-step">
           <div class="flow-num">5</div>
           <div class="flow-content">
-            <h4 data-en="Execute & Output" data-zh="执行输出">执行输出</h4>
-            <p data-en="Revised text + evidence pack + APA refs" data-zh="修订文本 + 证据包 + APA 参考文献">修订文本 + 证据包 + APA 参考文献</p>
+            <h4 data-en="Review closure" data-zh="返修闭环">返修闭环</h4>
+            <p data-en="Issue ledger, response letter, revision matrix, capability report, and checkpoint" data-zh="issue ledger、response letter、revision matrix、能力报告与 checkpoint">issue ledger、response letter、revision matrix、能力报告与 checkpoint</p>
           </div>
         </div>
       </div>
@@ -430,6 +461,14 @@ econ-management-paper-polish/
         <div class="principle">
           <span class="principle-icon">⚠️</span>
           <p data-en="Flag, don't smooth — if a claim is unsupported, flag it instead of silently rewriting." data-zh="标记而非粉饰——如果论点缺乏支撑，标记出来而非悄悄改写。">标记而非粉饰——如果论点缺乏支撑，标记出来而非悄悄改写。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-icon">🧾</span>
+          <p data-en="Reproducible state — bind artifacts to hashes, checkpoints, and revision history so a run can be inspected and resumed." data-zh="状态可复现——用 hash、checkpoint 和修订历史绑定产物，让每次运行可检查、可恢复。">状态可复现——用 hash、checkpoint 和修订历史绑定产物，让每次运行可检查、可恢复。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-icon">🤖</span>
+          <p data-en="AI review is bounded — low/medium-risk structure may use auditable AI consensus; high-risk scholarly meaning remains author-controlled." data-zh="AI 复核有边界——低/中风险结构可用可审计 AI 共识；高风险学术语义仍由作者控制。">AI 复核有边界——低/中风险结构可用可审计 AI 共识；高风险学术语义仍由作者控制。</p>
         </div>
       </div>
     </div>
