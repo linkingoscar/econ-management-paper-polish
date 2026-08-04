@@ -1,0 +1,1 @@
+The event-study coefficients are consistent with parallel trends but do not prove the assumption. Matching balances observed covariates; unobserved confounding may remain. The mediation estimates are descriptive unless the stated causal assumptions hold.

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Meaning Audit Report",
+  "type": "object",
+  "required": ["schema_version", "status", "decision", "marker_counts", "changed_categories"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "status": {"type": "string", "enum": ["pass", "fail"]},
+    "decision": {"type": "string", "enum": ["safe-fix", "author-required", "author-confirmed"]},
+    "marker_counts": {"type": "object"},
+    "changed_categories": {"type": "object"}
+  },
+  "additionalProperties": true
+}

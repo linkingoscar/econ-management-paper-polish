@@ -27,6 +27,15 @@ A method name alone is not a justification. If the source of variation or estima
 - Separate descriptive mediation from causal mediation and state the identification assumptions for the latter.
 - Keep survey, experiment, qualitative, review, and archival empirical standards distinct.
 
+## Writing gate
+
+Run `scripts/check_method_language.py` on the manuscript before accepting a prose
+revision. It is intentionally conservative: it catches known overclaim patterns in
+Chinese and English, reports line-level evidence and a recommendation, and never
+rewrites the sentence. A flagged sentence is `author-required`; a qualified
+sentence should state the diagnostic evidence, estimand, assumptions, and remaining
+threats rather than merely swapping in softer adjectives.
+
 ## Output
 
 ```text

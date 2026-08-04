@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review Issue Recall Report",
+  "type": "object",
+  "required": ["schema_version", "status", "before_issue_ids", "after_issue_ids", "missing_issue_ids", "silently_closed"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "status": {"type": "string", "enum": ["pass", "fail"]},
+    "before_issue_ids": {"type": "array", "items": {"type": "string"}},
+    "after_issue_ids": {"type": "array", "items": {"type": "string"}},
+    "missing_issue_ids": {"type": "array", "items": {"type": "string"}},
+    "silently_closed": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

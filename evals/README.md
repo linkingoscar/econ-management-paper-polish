@@ -25,8 +25,11 @@ Add a normal (non-error) case whenever adding a new detector so that stricter
 checks do not turn into false-positive generators.
 
 The v3.1 writing suite covers corpus manifest rejection logging, deterministic
-style-card/profile extraction, paper-spine IDs, reviewer issue routing, and
-protected bounded patches. It uses synthetic fixtures and never uploads a paper.
+style-card/profile extraction, paper-spine IDs, reviewer issue routing, protected
+bounded patches, lexical meaning changes, method-language overclaims in Chinese and
+English, LaTeX structural/compile capability reporting, issue-ID recall, and the
+dynamic style-profile human gate. It uses synthetic fixtures and never uploads a
+paper. A passing fixture is not evidence of real-paper performance.
 
 The extended suite is offline by design. Live Crossref/OpenAlex calls are an
 optional integration check and must never be required for CI; network failures are

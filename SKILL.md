@@ -95,6 +95,11 @@ py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.jso
 py scripts/route_review_issues.py review-ledger.json --output review-ledger-routed.json --json
 py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
 py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
+py scripts/meaning_audit.py original.md revised.md --json
+py scripts/check_method_language.py manuscript.md --json
+py scripts/compile_guard.py manuscript.tex --strict --json
+py scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
+py scripts/validate_style_profile_gate.py style-profile.json --json
 py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 py scripts/scan_skill_provenance.py provenance-manifest.json --json
 py scripts/validate_v3.py .
@@ -125,15 +130,21 @@ For a substantive writing task, create or update these artifacts as applicable:
    extraction level, structural observations, confidence, and structural-only
    copy boundary.
 3. style-profile.json: observed rhetorical/paragraph/citation patterns, conflicts,
-   P1 preservation priority, and recheck date. Do not generate a phrase bank.
+   P1 preservation priority, and recheck date. It starts as `draft`; do not use
+   it for revision until a human records `status=confirmed` and confirmation data.
 4. review-ledger.json: reviewer issue, severity, decision, protected fields,
    status history, and unresolved limitation.
 5. A bounded diff plus deterministic audit before proposing a manuscript change.
+6. A meaning gate, method-language gate, LaTeX compile guard, and review-issue
+   recall report for any revision cycle that changes prose or structure.
 
 Use scripts/prepare_corpus.py, scripts/extract_style_card.py,
 scripts/build_style_profile.py, scripts/build_paper_spine.py,
 scripts/build_issue_ledger.py, scripts/route_review_issues.py,
-scripts/propose_bounded_patch.py, scripts/check_claim_evidence.py, and
+scripts/propose_bounded_patch.py, scripts/verify_bounded_patch.py,
+scripts/meaning_audit.py, scripts/check_method_language.py,
+scripts/compile_guard.py, scripts/check_issue_recall.py,
+scripts/validate_style_profile_gate.py, scripts/check_claim_evidence.py, and
 scripts/validate_writing_contract.py for deterministic scaffolding and checks.
 These scripts do not decide whether a claim is true and do not apply prose patches
 automatically. Read references/v3-writing-contract.md,
@@ -142,10 +153,18 @@ references/v3-review-ledger.md, and
 references/v3-capability-and-provenance.md when the corresponding mode is used.
 
 Dynamic journal adaptation has two gates: first build and inspect a structural
-style profile from supplied/verified materials; only then revise a specified section.
+style profile from supplied/verified materials, then pass the explicit human
+confirmation gate; only then revise a specified section. The profile never
+authorizes copying source sentences or a target author's distinctive voice.
 P1 facts, citations, equations, variables, numbers, results, contribution claims,
 and limitations override every style preference. Methodological, theoretical,
 causal, result, or contribution changes remain author-required by default.
+
+For revision safety, the default order is: protected token audit → lexical meaning
+gate → method-language screen → LaTeX structural/compile guard → issue-ID recall →
+author confirmation for any meaning, method, theory, result, or contribution change.
+An unavailable TeX compiler is reported as `Documented`; it is never silently
+reported as a successful compilation.
 
 ## Core Rules
 

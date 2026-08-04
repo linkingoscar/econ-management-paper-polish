@@ -38,3 +38,13 @@ The writing-first alpha extends these packs with root-level contracts:
 - `../v3-argument-evidence.md`: paper spine and claim-evidence checks.
 - `../v3-review-ledger.md`: reviewer issue lifecycle and bounded revision.
 - `../v3-capability-and-provenance.md`: capability and provenance boundaries.
+
+The writing safety gates are exposed as deterministic scripts:
+
+- `../../scripts/meaning_audit.py` and `../../scripts/check_method_language.py` for
+  lexical meaning and method-language overclaims;
+- `../../scripts/compile_guard.py` for structural LaTeX checks plus an optional
+  isolated compiler run;
+- `../../scripts/check_issue_recall.py` for issue-ID lifecycle recall; and
+- `../../scripts/validate_style_profile_gate.py` for the explicit human confirmation
+  required by a dynamic style profile.

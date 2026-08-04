@@ -126,17 +126,19 @@ v3.1 keeps the project centered on economics/management paper writing and revisi
 not on becoming a general autonomous research platform. This alpha implements the
 first writing foundation: corpus manifests, style cards/profiles, paper spine,
 claim–evidence checks, review ledgers, conservative issue routing, protected patch
-verification, provenance scanning, and a writing benchmark. Retrieval, RAG, and
-multi-agent features remain supporting layers.
+verification, meaning/method-language gates, a LaTeX compile guard, issue recall,
+explicit human confirmation for dynamic style profiles, provenance scanning, and a
+writing benchmark. Retrieval, RAG, and multi-agent features remain supporting layers.
 
 * [v3.1 landscape research report](docs/v3.1-landscape-research.md)
 * [v3.1 detailed upgrade plan](docs/v3.1-upgrade-plan.md)
 
 The implemented capabilities are still alpha: scripts perform deterministic scans,
 contract validation, and candidate diffs; they do not decide theory, identification,
-results, or contribution for the author. Next work covers claim–evidence wiring,
-method-safety writing fixtures, meaning/compile/recall gates, and stronger journal
-adaptation confirmation.
+results, or contribution for the author. A style profile is `draft` by default and
+requires human confirmation; when no TeX compiler is installed, the report is
+`Documented` rather than a claimed compile. Deeper method fixtures, real-paper
+dogfooding, and semantic journal adaptation remain future work.
 
 ---
 
@@ -227,6 +229,11 @@ python scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence
 python scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
 python scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
 python scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
+python scripts/meaning_audit.py original.md revised.md --json
+python scripts/check_method_language.py manuscript.md --json
+python scripts/compile_guard.py manuscript.tex --strict --json
+python scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
+python scripts/validate_style_profile_gate.py style-profile.json --json
 ```
 
 These commands produce inspectable state and candidate diffs; they do not overwrite
@@ -412,10 +419,12 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 
 ### v3.1.0-alpha.1 (2026-08-04)
 
-Writing reliability foundation: corpus manifests, style cards/profiles, paper spine,
-claim–evidence checks, review ledger, conservative issue routing, protected patch
-reports/verification, provenance scanning, contract schemas, writing fixtures, and CI coverage. High-risk edits are not applied automatically,
-and text audits are not presented as replication.
+Writing reliability foundation: corpus manifests, draft-by-default style
+cards/profiles, paper spine, claim–evidence checks, review ledger, conservative issue
+routing, protected patch reports/verification, meaning and method-language gates,
+LaTeX compile guard, issue recall, provenance scanning, contract schemas, writing
+fixtures, and CI coverage. High-risk edits are not applied automatically, and text
+audits are not presented as replication.
 
 ### v3.0.0-alpha.1 (2026-08-03)
 

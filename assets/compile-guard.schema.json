@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LaTeX Compile Guard Report",
+  "type": "object",
+  "required": ["schema_version", "status", "file", "structural", "compile", "capability"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "status": {"type": "string", "enum": ["pass", "fail"]},
+    "file": {"type": "string", "minLength": 1},
+    "structural": {"type": "object"},
+    "compile": {"type": "object"},
+    "capability": {"type": "string", "enum": ["verified", "documented", "conceptual"]}
+  },
+  "additionalProperties": true
+}

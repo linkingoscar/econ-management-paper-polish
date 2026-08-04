@@ -123,14 +123,16 @@ py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 v3.1 仍以“经管论文写作与返修 Skill”为核心，不把项目扩张为通用自主科研平台。
 本次 alpha 已落地第一批写作基础设施：corpus manifest、style card/profile、
 paper spine、claim–evidence 检查、review ledger、风险预路由、受保护 patch
-验证、provenance 扫描和写作 benchmark。检索、RAG 与多代理仍只作为这些写作能力的支撑。
+验证、语义/方法语言闸门、LaTeX compile guard、issue recall、动态 style profile
+人工确认、provenance 扫描和写作 benchmark。检索、RAG 与多代理仍只作为这些写作能力的支撑。
 
 * [v3.1 外部项目调研报告](docs/v3.1-landscape-research.md)
 * [v3.1 超详细升级计划](docs/v3.1-upgrade-plan.md)
 
 已实现能力仍属于 alpha：脚本负责确定性扫描、契约校验和候选 diff，不自动替作者
-决定理论、识别、结果或贡献；下一批工作是 claim–evidence 接线、方法安全写作
-fixture、meaning/compile/recall gate 和更完整的动态期刊人工门控。
+决定理论、识别、结果或贡献。style profile 默认是 draft，必须人工确认；TeX 编译器
+缺失时只报告 Documented，不把结构审计冒充真实编译。更深的方法 fixture、真实用户
+论文 dogfooding 和动态期刊语义适配仍属于后续迭代。
 
 ---
 
@@ -189,6 +191,11 @@ py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pac
 py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
 py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
 py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
+py scripts/meaning_audit.py original.md revised.md --json
+py scripts/check_method_language.py manuscript.md --json
+py scripts/compile_guard.py manuscript.tex --strict --json
+py scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
+py scripts/validate_style_profile_gate.py style-profile.json --json
 ```
 
 这些命令只生成可检查的状态和候选 diff，不会自动覆盖论文正文。
@@ -216,9 +223,10 @@ py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment -
 
 ### v3.1.0-alpha.1 (2026-08-04)
 
-写作可靠性基础：新增 corpus manifest、style card/profile、paper spine、claim–evidence
-检查、review ledger、风险预路由、受保护 patch 报告/验证、provenance 扫描、契约
-schema、写作 fixture 和 CI 测试。
+写作可靠性基础：新增 corpus manifest、style card/profile（默认 draft）、paper spine、
+claim–evidence 检查、review ledger、风险预路由、受保护 patch 报告/验证、语义与方法
+语言闸门、LaTeX compile guard、issue recall、provenance 扫描、契约 schema、写作
+fixture 和 CI 测试。
 该版本不自动应用高风险修改，也不把文本审计包装成真实复现。
 
 ### v3.0.0-alpha.1 (2026-08-03)

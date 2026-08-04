@@ -21,6 +21,7 @@ CORPUS_USES = {"structural-style-only", "journal-rule", "user-provided-evidence"
 EXTRACTIONS = {"fulltext", "metadata-only", "unsupported"}
 CONFIDENCES = {"high", "medium", "low", "unknown"}
 STYLE_STATUSES = {"observed", "inferred", "conflict", "unknown"}
+STYLE_PROFILE_STATUSES = {"draft", "confirmed", "blocked"}
 ISSUE_STATUSES = {"raised", "triaged", "proposed", "applied", "verified", "closed", "blocked"}
 ISSUE_DECISIONS = {"safe-fix", "author-required", "invalid", "unresolved"}
 SEVERITIES = {"cosmetic", "moderate", "major", "blocking"}
@@ -128,6 +129,24 @@ def validate_style_profile(value: Any) -> list[str]:
         errors.append("priority_order must preserve P1 through P5 ordering")
     if value.get("copy_boundary") != "structural-only":
         errors.append("copy_boundary must be structural-only")
+    if value.get("status") not in STYLE_PROFILE_STATUSES:
+        errors.append(f"status must be one of {sorted(STYLE_PROFILE_STATUSES)}")
+    if not isinstance(value.get("human_confirmed"), bool):
+        errors.append("human_confirmed must be boolean")
+    confirmation = value.get("confirmation")
+    if not isinstance(confirmation, dict):
+        errors.append("confirmation must be an object")
+    else:
+        if not (confirmation.get("confirmed_at") is None or nonempty(confirmation.get("confirmed_at"))):
+            errors.append("confirmation.confirmed_at must be a string or null")
+        if not (confirmation.get("confirmed_by") is None or nonempty(confirmation.get("confirmed_by"))):
+            errors.append("confirmation.confirmed_by must be a string or null")
+        if not isinstance(confirmation.get("notes"), str):
+            errors.append("confirmation.notes must be a string")
+    if value.get("status") == "confirmed" and value.get("human_confirmed") is not True:
+        errors.append("confirmed style profile must set human_confirmed=true")
+    if value.get("human_confirmed") is True and value.get("status") != "confirmed":
+        errors.append("human_confirmed=true requires status=confirmed")
     if not isinstance(value.get("rules"), list):
         errors.append("rules must be an array")
     if not isinstance(value.get("conflicts"), list):

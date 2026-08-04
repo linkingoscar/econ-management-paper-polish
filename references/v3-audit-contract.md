@@ -9,6 +9,11 @@ Use scripts for checks where exactness matters. The model may interpret findings
 | Numeric preservation | `check_numeric_consistency.py` | added, missing, and repeated numeric tokens |
 | Citation/BibTeX consistency | `check_citations.py` | missing keys, unused keys, malformed DOI/URL |
 | LaTeX structure | `audit_latex.py` | missing packages, labels, refs, figures, citations |
+| Meaning-risk markers | `meaning_audit.py` | changed causal, identification, strength, uncertainty, and scope markers |
+| Method-language safety | `check_method_language.py` | line-level known overclaim patterns and recommendations |
+| LaTeX compile guard | `compile_guard.py` | structural status plus isolated compiler status/capability |
+| Review issue recall | `check_issue_recall.py` | dropped IDs and silent closures |
+| Dynamic style human gate | `validate_style_profile_gate.py` | draft/confirmed status and confirmation record |
 | Evidence ledger | `build_evidence_pack.py` | schema and duplicate claim validation |
 | Journal card | `validate_journal_card.py` | source URL, status, and required-field validation |
 | Skill repository | `validate_v3.py` | required files, frontmatter, links, and schemas |

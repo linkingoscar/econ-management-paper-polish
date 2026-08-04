@@ -8,12 +8,14 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from copy import deepcopy
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 FIXTURES = ROOT / "evals" / "fixtures" / "writing"
+METHOD_FIXTURES = ROOT / "evals" / "fixtures" / "method-safety"
 
 
 def run(script: str, *args: str) -> tuple[subprocess.CompletedProcess[str], dict]:
@@ -85,6 +87,22 @@ def main() -> int:
         expect(profile["copy_boundary"] == "structural-only" and profile["rules"], "style profile must be structural and non-empty")
         checks.append("writing/style-profile-and-boundary")
 
+        process, payload = run("validate_style_profile_gate.py", str(profile_path))
+        expect(process.returncode != 0 and payload["gate"] == "human-confirmation-required", "draft style profile must require human confirmation")
+        confirmed = deepcopy(profile)
+        confirmed["status"] = "confirmed"
+        confirmed["human_confirmed"] = True
+        confirmed["confirmation"] = {
+            "confirmed_at": "2026-08-04T00:00:00Z",
+            "confirmed_by": "fixture-author",
+            "notes": "Reviewed structural rules, conflicts, source roles, and copy boundary.",
+        }
+        confirmed_path = temp / "style-profile-confirmed.json"
+        confirmed_path.write_text(json.dumps(confirmed, ensure_ascii=False, indent=2), encoding="utf-8")
+        process, payload = run("validate_style_profile_gate.py", str(confirmed_path))
+        expect(process.returncode == 0 and payload["status"] == "pass", "confirmed style profile should pass the human gate")
+        checks.append("writing/dynamic-style-human-gate")
+
         spine_path = temp / "paper-spine.json"
         process, payload = run(
             "build_paper_spine.py",
@@ -147,6 +165,68 @@ def main() -> int:
         )
         expect(process.returncode == 0 and payload["verified"], "bounded patch verifier should pass the protected fixture")
         checks.append("revision/bounded-verification")
+
+        process, payload = run(
+            "meaning_audit.py",
+            str(FIXTURES / "meaning-original.md"),
+            str(FIXTURES / "meaning-risk.md"),
+        )
+        expect(process.returncode != 0 and payload["decision"] == "author-required", "meaning-risk marker changes must be blocked")
+        process, payload = run(
+            "meaning_audit.py",
+            str(FIXTURES / "meaning-original.md"),
+            str(FIXTURES / "meaning-confirmed.md"),
+            "--author-confirmed",
+            "--rationale",
+            "Author reviewed the identification wording and supplied supporting evidence.",
+        )
+        expect(process.returncode == 0 and payload["decision"] == "author-confirmed", "author-confirmed meaning changes should pass with a rationale")
+        checks.append("revision/meaning-gate")
+
+        process, payload = run("verify_bounded_patch.py", str(FIXTURES / "meaning-original.md"), str(FIXTURES / "meaning-risk.md"))
+        expect(process.returncode != 0 and payload["meaning_gate"]["status"] == "fail", "bounded verifier must include the meaning gate")
+        process, payload = run(
+            "verify_bounded_patch.py",
+            str(FIXTURES / "meaning-original.md"),
+            str(FIXTURES / "meaning-confirmed.md"),
+            "--author-confirmed",
+            "--rationale",
+            "Author reviewed the identification wording and supplied supporting evidence.",
+        )
+        expect(process.returncode == 0 and payload["verified"], "bounded verifier should accept explicitly confirmed meaning changes")
+        checks.append("revision/bounded-meaning-verification")
+
+        process, payload = run("check_method_language.py", str(METHOD_FIXTURES / "overclaim-en.md"))
+        expect(process.returncode != 0 and payload["issue_count"] >= 3, "English method overclaims should be detected")
+        process, payload = run("check_method_language.py", str(METHOD_FIXTURES / "overclaim-zh.md"))
+        expect(process.returncode != 0 and payload["issue_count"] >= 3, "Chinese method overclaims should be detected")
+        process, payload = run("check_method_language.py", str(METHOD_FIXTURES / "safe.md"))
+        expect(process.returncode == 0 and payload["issue_count"] == 0, "qualified method wording should not be over-flagged")
+        checks.append("method-safety/language-gate")
+
+        process, payload = run("compile_guard.py", str(FIXTURES / "compile-good.tex"))
+        expect(process.returncode == 0 and payload["structural"]["status"] == "pass", "good LaTeX should pass the structural compile guard")
+        process, payload = run("compile_guard.py", str(FIXTURES / "compile-bad.tex"))
+        expect(process.returncode != 0 and payload["structural"]["status"] == "fail", "bad LaTeX should fail the structural compile guard")
+        checks.append("engineering/latex-compile-guard")
+
+        recall_good = temp / "review-ledger-recall-good.json"
+        recall_good.write_text(json.dumps(routed, ensure_ascii=False, indent=2), encoding="utf-8")
+        process, payload = run("check_issue_recall.py", str(routed_path), str(recall_good))
+        expect(process.returncode == 0 and payload["status"] == "pass", "unchanged issue ledger should pass recall")
+        recall_missing = deepcopy(routed)
+        recall_missing["issues"] = recall_missing["issues"][:-1]
+        recall_missing_path = temp / "review-ledger-recall-missing.json"
+        recall_missing_path.write_text(json.dumps(recall_missing, ensure_ascii=False, indent=2), encoding="utf-8")
+        process, payload = run("check_issue_recall.py", str(routed_path), str(recall_missing_path))
+        expect(process.returncode != 0 and payload["missing_issue_ids"], "dropped review issue must fail recall")
+        recall_closed = deepcopy(routed)
+        recall_closed["issues"][0]["status"] = "closed"
+        recall_closed_path = temp / "review-ledger-recall-closed.json"
+        recall_closed_path.write_text(json.dumps(recall_closed, ensure_ascii=False, indent=2), encoding="utf-8")
+        process, payload = run("check_issue_recall.py", str(routed_path), str(recall_closed_path))
+        expect(process.returncode != 0 and payload["silently_closed"], "silently closed issue must fail recall")
+        checks.append("revision/review-issue-recall")
 
         provenance = temp / "provenance.json"
         provenance.write_text(

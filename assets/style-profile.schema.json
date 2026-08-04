@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Aggregated Writing Style Profile",
   "type": "object",
-  "required": ["schema_version", "style_profile_id", "inputs", "priority_order", "rules", "conflicts", "reviewed_at"],
+  "required": ["schema_version", "style_profile_id", "inputs", "priority_order", "rules", "conflicts", "reviewed_at", "status", "human_confirmed", "confirmation"],
   "properties": {
     "schema_version": {"type": "string", "const": "1.0"},
     "style_profile_id": {"type": "string", "minLength": 1},
@@ -14,7 +14,19 @@
     "rules": {"type": "array", "items": {"type": "object"}},
     "conflicts": {"type": "array", "items": {"type": "object"}},
     "reviewed_at": {"type": "string", "minLength": 1},
-    "recheck_after": {"type": "string", "minLength": 1}
+    "recheck_after": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["draft", "confirmed", "blocked"]},
+    "human_confirmed": {"type": "boolean"},
+    "confirmation": {
+      "type": "object",
+      "required": ["confirmed_at", "confirmed_by", "notes"],
+      "properties": {
+        "confirmed_at": {"type": ["string", "null"]},
+        "confirmed_by": {"type": ["string", "null"]},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": true
+    }
   },
   "additionalProperties": true
 }

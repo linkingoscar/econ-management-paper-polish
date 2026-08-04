@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dynamic Style Profile Human Gate Report",
+  "type": "object",
+  "required": ["schema_version", "status", "profile_id", "human_confirmed", "decision", "gate", "errors"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "status": {"type": "string", "enum": ["pass", "fail"]},
+    "profile_id": {"type": ["string", "null"]},
+    "human_confirmed": {"type": "boolean"},
+    "decision": {"type": "string", "enum": ["safe-fix", "author-required"]},
+    "gate": {"type": "string"},
+    "errors": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

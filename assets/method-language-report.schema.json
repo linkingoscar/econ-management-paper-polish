@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Method Language Safety Report",
+  "type": "object",
+  "required": ["schema_version", "status", "file", "issue_count", "issues", "decision"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "status": {"type": "string", "enum": ["pass", "fail"]},
+    "file": {"type": "string", "minLength": 1},
+    "issue_count": {"type": "integer", "minimum": 0},
+    "issues": {"type": "array", "items": {"type": "object"}},
+    "decision": {"type": "string", "enum": ["safe-fix", "author-required"]}
+  },
+  "additionalProperties": true
+}
