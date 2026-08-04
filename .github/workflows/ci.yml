@@ -14,9 +14,17 @@ jobs:
           python-version: "3.11"
       - name: Validate repository contract
         run: python scripts/validate_v3.py .
+      - name: Validate skill package contract
+        run: python scripts/validate_skill_package.py .
+      - name: Run Skill Creator-compatible quick validation
+        run: python -X utf8 scripts/quick_validate.py .
+      - name: Validate reproducibility and adapter provenance lock
+        run: python scripts/validate_repro_lock.py .
       - name: Run dependency-free smoke tests
         run: python evals/run_smoke_tests.py
       - name: Run expanded offline migration and adapter tests
         run: python evals/run_extended_tests.py
       - name: Run v3.1 writing foundation tests
         run: python evals/run_v31_writing_tests.py
+      - name: Run writing gold and mutation benchmark
+        run: python scripts/run_writing_benchmark.py --json

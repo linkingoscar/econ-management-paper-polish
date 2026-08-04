@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.1-orange.svg)](#v31-写作可靠性基础alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.2-orange.svg)](#v31-写作可靠性基础alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -110,6 +110,8 @@ py evals/run_smoke_tests.py
 py evals/run_extended_tests.py
 py evals/run_v31_writing_tests.py
 py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
+py scripts/validate_skill_package.py . --json
+py scripts/validate_repro_lock.py . --json
 ```
 
 脚本能验证的是文本、引用和结构一致性；没有原始数据、代码或付费数据库时，
@@ -121,18 +123,22 @@ py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 ## v3.1 写作可靠性基础（alpha）
 
 v3.1 仍以“经管论文写作与返修 Skill”为核心，不把项目扩张为通用自主科研平台。
-本次 alpha 已落地第一批写作基础设施：corpus manifest、style card/profile、
-paper spine、claim–evidence 检查、review ledger、风险预路由、受保护 patch
-验证、语义/方法语言闸门、LaTeX compile guard、issue recall、动态 style profile
-人工确认、provenance 扫描和写作 benchmark。检索、RAG 与多代理仍只作为这些写作能力的支撑。
+本次 alpha.2 已把检查器串成可恢复的写作闭环：workspace/intake/route card、候选
+paper spine、protected snapshot、checkpoint 和 JSONL revision journal；many-to-many
+evidence ledger、source withdrawal impact、corpus license/freshness/sample gate、
+加权且带 locator 的 section style profile、原句重合审计和结构化 revision plan；方法
+风险卡与保守改写报告；bounded apply/rollback、hash/anchor 校验、issue 状态迁移和
+response-letter scaffold；gold/mutation benchmark、Skill 包装校验和 adapter repro lock。
+检索、RAG 与多代理仍只作为这些写作能力的支撑。
 
 * [v3.1 外部项目调研报告](docs/v3.1-landscape-research.md)
 * [v3.1 超详细升级计划](docs/v3.1-upgrade-plan.md)
 
 已实现能力仍属于 alpha：脚本负责确定性扫描、契约校验和候选 diff，不自动替作者
 决定理论、识别、结果或贡献。style profile 默认是 draft，必须人工确认；TeX 编译器
-缺失时只报告 Documented，不把结构审计冒充真实编译。更深的方法 fixture、真实用户
-论文 dogfooding 和动态期刊语义适配仍属于后续迭代。
+缺失时只报告 Documented，不把结构审计冒充真实编译。当前 benchmark 的 24 项检查和
+gold/mutation 指标均为本地合成 fixture；真实/匿名论文 dogfooding、跨平台 smoke test
+和期刊效果人工 rubric 仍是进入 beta 前的工作。
 
 ---
 
@@ -188,14 +194,24 @@ py scripts/prepare_corpus.py corpus --role target-journal --output corpus-manife
 py scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-card.json --json
 py scripts/build_style_profile.py style-cards --output style-profile.json --json
 py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
+py scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
+py scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
 py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
 py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
 py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
+py scripts/apply_bounded_patch.py original.md revised.md --output applied.md --variable Treatment --json
+py scripts/rollback_bounded_patch.py original.md --output rollback.md --json
+py scripts/transition_issue.py review-ledger.json ISS-001 proposed --output review-ledger-proposed.json --actor author --rationale "..." --json
+py scripts/build_response_letter.py review-ledger.json --output response-letter.md --json
 py scripts/meaning_audit.py original.md revised.md --json
 py scripts/check_method_language.py manuscript.md --json
+py scripts/build_method_safety_report.py manuscript.md --json
 py scripts/compile_guard.py manuscript.tex --strict --json
 py scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
 py scripts/validate_style_profile_gate.py style-profile.json --json
+py scripts/plan_style_revision.py manuscript.md style-profile-confirmed.json --section method --output style-revision-plan.json --json
+py scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
+py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
 ```
 
 这些命令只生成可检查的状态和候选 diff，不会自动覆盖论文正文。
@@ -208,26 +224,33 @@ py scripts/validate_style_profile_gate.py style-profile.json --json
 
 | 代理 | 安装路径 | 状态 |
 |------|---------|------|
-| **OpenCode** | `.opencode/skills/` | ✅ 支持 |
-| **Claude Code** | `.claude/skills/` | ✅ 支持 |
-| **Codex (OpenAI)** | `.codex/skills/` | ✅ 支持 |
-| **Cursor** | `.cursor/rules/` | ✅ 支持 |
-| **Windsurf** | `.windsurf/rules/` | ✅ 支持 |
-| **Cline** | `.clinerules/` | ✅ 支持 |
-| **GitHub Copilot** | 自定义指令 | ✅ 支持 |
-| **Aider** | 仓库根目录 | ✅ 支持 |
+| **Codex (OpenAI)** | `.codex/skills/` | **Verified（本地包契约 + Windows 24 项写作测试）** |
+| **OpenCode** | `.opencode/skills/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
+| **Claude Code** | `.claude/skills/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
+| **Cursor** | `.cursor/rules/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
+| **Windsurf** | `.windsurf/rules/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
+| **Cline** | `.clinerules/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
+| **GitHub Copilot** | 自定义指令 | **Conceptual（需按宿主产品规则转换）** |
+| **Aider** | 仓库根目录 | **Conceptual（需按宿主产品规则转换）** |
 
 ---
 
 ## 版本历史
 
+### v3.1.0-alpha.2 (2026-08-04)
+
+按 v3.1-upgrade-plan 完成 alpha 闭环：workspace/intake/route/checkpoint/journal、
+候选 paper spine、protected snapshot/hash/anchor、many-to-many evidence ledger 与
+impact、corpus/style license/freshness/overlap gates、section style revision plan、
+方法风险卡与保守改写报告、bounded apply/rollback、issue transition、response-letter
+scaffold、gold/mutation benchmark、Skill 包装子集和 adapter repro lock。
+该版本仍不自动决定理论/识别/贡献，不把合成测试或文本审计包装成真实复现。
+
 ### v3.1.0-alpha.1 (2026-08-04)
 
-写作可靠性基础：新增 corpus manifest、style card/profile（默认 draft）、paper spine、
-claim–evidence 检查、review ledger、风险预路由、受保护 patch 报告/验证、语义与方法
-语言闸门、LaTeX compile guard、issue recall、provenance 扫描、契约 schema、写作
-fixture 和 CI 测试。
-该版本不自动应用高风险修改，也不把文本审计包装成真实复现。
+写作可靠性基础：corpus manifest、style card/profile、paper spine、claim–evidence
+检查、review ledger、风险预路由、受保护 patch 验证、语义/方法语言闸门、LaTeX
+compile guard、issue recall、provenance 扫描、契约 schema 和离线 fixture。
 
 ### v3.0.0-alpha.1 (2026-08-03)
 

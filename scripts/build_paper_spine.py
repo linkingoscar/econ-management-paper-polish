@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -53,16 +54,68 @@ def normalize(value: Any, paper_id: str | None) -> dict[str, Any]:
     return output
 
 
+def extract_candidate(manuscript: Path, paper_id: str) -> dict[str, Any]:
+    """Extract a reviewable candidate map; it never promotes text to author claims."""
+    text = manuscript.read_text(encoding="utf-8")
+    lines = text.splitlines()
+    section = "unsectioned"
+    chain: list[dict[str, Any]] = []
+    for line_number, line in enumerate(lines, start=1):
+        heading = re.match(r"^#{1,6}\s+(.+?)\s*$", line) or re.match(r"^\\(?:section|subsection|subsubsection)\{(.+?)\}", line)
+        if heading:
+            section = heading.group(1).strip()
+            continue
+        if not line.strip() or line.lstrip().startswith(("#", "%")):
+            continue
+        content = re.sub(r"\s+", " ", line.strip())
+        if len(content) < 24:
+            continue
+        sentence = re.split(r"(?<=[.!?。！？])\s+", content)[0].strip()
+        if len(sentence) < 20:
+            sentence = content[:240]
+        lowered = content.lower()
+        if not any(token in lowered for token in ("we ", "we find", "we show", "we argue", "estimate", "result", "effect", "本文", "研究", "发现", "表明", "结果")):
+            continue
+        chain.append({
+            "claim_id": f"ARG-CAND-{len(chain) + 1:03d}",
+            "claim": sentence[:500],
+            "section": section,
+            "evidence": [],
+            "method_dependency": [],
+            "risk": "unknown",
+            "status": "candidate",
+            "confirmation_required": True,
+            "source_locator": {"line_start": line_number, "line_end": line_number},
+        })
+    return {
+        "schema_version": "1.0",
+        "paper_id": paper_id,
+        "research_question": None,
+        "main_claim": None,
+        "contribution_chain": chain,
+        "open_questions": ["Confirm every extracted candidate claim against the author's intended contribution and evidence.", "Bind confirmed claims to evidence and method dependencies before revision."],
+        "created_at": utc_now(),
+        "candidate_status": "needs-human-confirmation",
+        "source_path": str(manuscript),
+        "source_policy": "candidate extraction only; no claims invented or confirmed",
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path, nargs="?", help="Existing paper-spine JSON; omit to create a scaffold")
+    parser.add_argument("--manuscript", type=Path, help="Extract a candidate claim map from author text; output remains unconfirmed")
     parser.add_argument("--paper-id", default=None)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--json", action="store_true", dest="as_json")
     args = parser.parse_args()
     errors: list[str] = []
     try:
-        if args.input:
+        if args.input and args.manuscript:
+            raise ValueError("provide either an existing paper-spine JSON or --manuscript, not both")
+        if args.manuscript:
+            value = extract_candidate(args.manuscript, args.paper_id or args.manuscript.stem)
+        elif args.input:
             value = normalize(load_json(args.input), args.paper_id)
         else:
             value = scaffold(args.paper_id or "paper-unknown")

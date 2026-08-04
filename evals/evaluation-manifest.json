@@ -2,6 +2,9 @@
   "schema_version": "1.0",
   "suite": "v3-extended-local",
   "network_tests": false,
+  "gold_suite": "gold/writing-cases.json",
+  "mutation_suite": "mutations/writing-mutations.json",
+  "dogfood_policy": "local-only; real/anonymous manuscripts are never committed",
   "fixtures": [
     "did_zh.md",
     "iv_en.md",

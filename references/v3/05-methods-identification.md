@@ -31,5 +31,11 @@ language. A method label is not an identification argument.
 Report unsuitable routes and unresolved threats, not only a preferred estimator.
 Bind method recommendations to verified sources in the evidence ledger.
 
+The executable companion is `assets/method-safety-cards.json` plus
+`scripts/build_method_safety_report.py`. It joins each deterministic language
+finding to assumptions, diagnostics, remaining threats, reporting requirements,
+and a conservative rewrite. A finding remains author-required; a passing regex
+screen is not proof that the design is identified.
+
 Legacy sources merged: `empirical-method-router.md`, `method-decision-tree.md`,
 `method-reproducibility.md`, plus `v3-method-safety.md`.

@@ -1,0 +1,11 @@
+{
+  "component": "openalex-provider",
+  "source_url": "https://developers.openalex.org/api-reference/works",
+  "source_commit": "external-api",
+  "license": "OpenAlex API terms; metadata candidates only",
+  "capabilities": ["network:metadata-search", "open-access-location", "provenance:retrieved_at"],
+  "permissions": ["network-egress"],
+  "status": "documented",
+  "last_tested": "2026-08-04",
+  "fallback": "offline metadata fixture; candidate-only evidence"
+}

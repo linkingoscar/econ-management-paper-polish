@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import difflib
+import hashlib
 import json
 import re
 import sys
@@ -78,12 +79,28 @@ def main() -> int:
         return 2
     protection = compare(counts(old_text, args.variable), counts(new_text, args.variable), args.allow_added)
     diff = "\n".join(difflib.unified_diff(old_text.splitlines(), new_text.splitlines(), fromfile=str(args.original), tofile=str(args.revised), lineterm=""))
+    old_lines = old_text.splitlines()
+    new_lines = new_text.splitlines()
+    changed_anchors = []
+    matcher = difflib.SequenceMatcher(a=old_lines, b=new_lines, autojunk=False)
+    for tag, old_start, old_end, new_start, new_end in matcher.get_opcodes():
+        if tag != "equal":
+            changed_anchors.append({
+                "operation": tag,
+                "original_lines": [old_start + 1, old_end],
+                "revised_lines": [new_start + 1, new_end],
+                "original_hash": hashlib.sha256("\n".join(old_lines[old_start:old_end]).encode("utf-8")).hexdigest(),
+                "revised_hash": hashlib.sha256("\n".join(new_lines[new_start:new_end]).encode("utf-8")).hexdigest(),
+            })
     result = {
         "status": protection["status"],
         "risk": "safe-fix" if protection["status"] == "pass" else "author-required",
         "applied": False,
         "protection": protection,
         "changed_lines": sum(1 for line in diff.splitlines() if line.startswith(("+", "-")) and not line.startswith(("+++", "---"))),
+        "original_sha256": hashlib.sha256(old_text.encode("utf-8")).hexdigest(),
+        "revised_sha256": hashlib.sha256(new_text.encode("utf-8")).hexdigest(),
+        "anchors": changed_anchors,
         "diff": diff,
         "errors": [],
     }

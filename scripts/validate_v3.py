@@ -32,6 +32,19 @@ REQUIRED_FILES = (
     "assets/compile-guard.schema.json",
     "assets/issue-recall-report.schema.json",
     "assets/style-profile-gate.schema.json",
+    "assets/route-card.schema.json",
+    "assets/capability-report.schema.json",
+    "assets/protected-snapshot.schema.json",
+    "assets/revision-journal.schema.json",
+    "assets/checkpoint.schema.json",
+    "assets/workspace-manifest.schema.json",
+    "assets/evidence-ledger.schema.json",
+    "assets/corpus-gate-report.schema.json",
+    "assets/style-overlap-report.schema.json",
+    "assets/method-safety-card.schema.json",
+    "assets/method-safety-cards.json",
+    "assets/repro-lock.schema.json",
+    "assets/style-revision-plan.schema.json",
     "references/v3-runtime-contract.md",
     "references/v3-evidence-ledger.md",
     "references/v3-method-safety.md",
@@ -51,6 +64,11 @@ REQUIRED_FILES = (
     "adapters/rag/markdown_index.py",
     "adapters/agents/serial.py",
     "adapters/agents/openai_compatible.py",
+    "adapters/repro-lock.json",
+    "adapters/manifests/crossref.json",
+    "adapters/manifests/openalex.json",
+    "adapters/manifests/local-rag.json",
+    "adapters/manifests/serial-agent.json",
     "scripts/check_numeric_consistency.py",
     "scripts/check_citations.py",
     "scripts/audit_latex.py",
@@ -79,11 +97,32 @@ REQUIRED_FILES = (
     "scripts/compile_guard.py",
     "scripts/check_issue_recall.py",
     "scripts/validate_style_profile_gate.py",
+    "scripts/build_route_card.py",
+    "scripts/build_protected_snapshot.py",
+    "scripts/init_writing_workspace.py",
+    "scripts/run_writing_workflow.py",
+    "scripts/build_evidence_ledger.py",
+    "scripts/audit_corpus_gate.py",
+    "scripts/audit_style_overlap.py",
+    "scripts/validate_method_safety_catalog.py",
+    "scripts/apply_bounded_patch.py",
+    "scripts/rollback_bounded_patch.py",
+    "scripts/transition_issue.py",
+    "scripts/build_response_letter.py",
+    "scripts/validate_skill_package.py",
+    "scripts/quick_validate.py",
+    "scripts/validate_revision_journal.py",
+    "scripts/validate_repro_lock.py",
+    "scripts/plan_style_revision.py",
+    "scripts/check_evidence_impact.py",
+    "scripts/build_method_safety_report.py",
     "evals/run_smoke_tests.py",
     "evals/run_extended_tests.py",
     "evals/run_v31_writing_tests.py",
     "evals/README.md",
     "evals/evaluation-manifest.json",
+    "evals/gold/writing-cases.json",
+    "evals/mutations/writing-mutations.json",
     ".github/workflows/ci.yml",
 )
 
@@ -173,10 +212,30 @@ def validate_root(root: Path) -> list[str]:
         "assets/compile-guard.schema.json",
         "assets/issue-recall-report.schema.json",
         "assets/style-profile-gate.schema.json",
+        "assets/route-card.schema.json",
+        "assets/capability-report.schema.json",
+        "assets/protected-snapshot.schema.json",
+        "assets/revision-journal.schema.json",
+        "assets/checkpoint.schema.json",
+        "assets/workspace-manifest.schema.json",
+        "assets/evidence-ledger.schema.json",
+        "assets/corpus-gate-report.schema.json",
+        "assets/style-overlap-report.schema.json",
+        "assets/method-safety-card.schema.json",
+        "assets/repro-lock.schema.json",
+        "assets/style-revision-plan.schema.json",
     ):
         path = root / relative
         if path.is_file():
             errors.extend(validate_json(path))
+    catalog = root / "assets" / "method-safety-cards.json"
+    if catalog.is_file():
+        try:
+            payload = json.loads(catalog.read_text(encoding="utf-8"))
+            if payload.get("schema_version") != "1.0" or not isinstance(payload.get("cards"), list):
+                errors.append("assets/method-safety-cards.json has an invalid catalog contract")
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"assets/method-safety-cards.json: invalid JSON ({exc})")
     packs = sorted((root / "references" / "v3").glob("[0-9][0-9]-*.md"))
     if len(packs) != 14:
         errors.append(f"references/v3 must contain exactly 14 responsibility packs (found {len(packs)})")
@@ -202,6 +261,9 @@ def validate_root(root: Path) -> list[str]:
             payload = json.loads(manifest.read_text(encoding="utf-8"))
             if payload.get("schema_version") != "1.0" or payload.get("suite") != "v3-extended-local":
                 errors.append("evals/evaluation-manifest.json has an unexpected contract")
+            for key in ("gold_suite", "mutation_suite"):
+                if not isinstance(payload.get(key), str) or not (root / "evals" / payload[key]).is_file():
+                    errors.append(f"evals/evaluation-manifest.json missing {key} fixture")
         except (OSError, json.JSONDecodeError) as exc:
             errors.append(f"evals/evaluation-manifest.json: invalid JSON ({exc})")
     errors.extend(validate_internal_links(root))

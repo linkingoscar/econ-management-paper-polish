@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/repro-lock.schema.json",
+  "type": "object",
+  "required": ["schema_version", "lock_id", "generated_at", "runtime", "dependencies", "components", "commands"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "lock_id": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "string", "minLength": 1},
+    "runtime": {"type": "object", "required": ["python", "os_policy"], "properties": {"python": {"type": "string"}, "os_policy": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": false},
+    "dependencies": {"type": "array", "items": {"type": "object", "required": ["name", "version", "source"], "properties": {"name": {"type": "string"}, "version": {"type": "string"}, "source": {"type": "string"}}, "additionalProperties": false}},
+    "components": {"type": "array", "items": {"type": "string"}},
+    "commands": {"type": "array", "items": {"type": "object", "required": ["name", "command", "network", "expected_status"], "properties": {"name": {"type": "string"}, "command": {"type": "string"}, "network": {"type": "boolean"}, "expected_status": {"enum": ["Verified", "Documented", "Conceptual"]}}, "additionalProperties": false}}
+  },
+  "additionalProperties": false
+}

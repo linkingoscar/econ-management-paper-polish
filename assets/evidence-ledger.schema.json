@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writing Evidence Ledger",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "entries", "rejections"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "entries": {"type": "array", "items": {"type": "object"}},
+    "rejections": {"type": "array", "items": {"type": "object"}},
+    "source_index": {"type": "object"}
+  },
+  "additionalProperties": true
+}

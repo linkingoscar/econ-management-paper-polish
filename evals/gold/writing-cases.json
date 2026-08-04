@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "suite": "v3.1-writing-gold-local",
+  "cases": [
+    {"id":"G-EN-ECON-METHOD-OVERCLAIM","path":"evals/fixtures/method-safety/overclaim-en.md","detector":"method-language","expected":"fail","discipline":"economics","language":"en-US","section":"method"},
+    {"id":"G-ZH-ECON-METHOD-OVERCLAIM","path":"evals/fixtures/method-safety/overclaim-zh.md","detector":"method-language","expected":"fail","discipline":"economics","language":"zh-CN","section":"method"},
+    {"id":"G-EN-MIXED-METHOD-EXTENDED","path":"evals/fixtures/method-safety/extended-overclaim-en.md","detector":"method-language","expected":"fail","discipline":"management","language":"en-US","section":"method"},
+    {"id":"G-ZH-MIXED-METHOD-EXTENDED","path":"evals/fixtures/method-safety/extended-overclaim-zh.md","detector":"method-language","expected":"fail","discipline":"management","language":"zh-CN","section":"method"},
+    {"id":"G-EN-ECON-METHOD-SAFE","path":"evals/fixtures/method-safety/safe.md","detector":"method-language","expected":"pass","discipline":"economics","language":"en-US","section":"discussion"},
+    {"id":"G-ZH-ECON-INTRO-SAFE","path":"evals/gold/fixtures/zh-econ-introduction.md","detector":"method-language","expected":"pass","discipline":"economics","language":"zh-CN","section":"introduction"},
+    {"id":"G-ZH-MGMT-RESULTS-SAFE","path":"evals/gold/fixtures/zh-management-results.md","detector":"method-language","expected":"pass","discipline":"management","language":"zh-CN","section":"results"},
+    {"id":"G-EN-ECON-METHOD-SAFE-2","path":"evals/gold/fixtures/en-econ-method.md","detector":"method-language","expected":"pass","discipline":"economics","language":"en-US","section":"method"},
+    {"id":"G-EN-MGMT-RESPONSE-SAFE","path":"evals/gold/fixtures/en-management-response.md","detector":"method-language","expected":"pass","discipline":"management","language":"en-US","section":"response-letter"}
+  ]
+}

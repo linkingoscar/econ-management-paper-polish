@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Revision Journal",
+  "type": "object",
+  "required": ["schema_version", "run_id", "events"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "run_id": {"type": "string", "minLength": 1},
+    "events": {"type": "array", "items": {"type": "object"}}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "v3.1 Manuscript Router 2.0 Card",
+  "type": "object",
+  "required": ["schema_version", "route_id", "task_mode", "discipline", "language", "section", "method", "target_outlet", "evidence_mode", "execution", "preservation", "confidence", "rationale", "user_overrides", "created_at"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "route_id": {"type": "string", "minLength": 1},
+    "task_mode": {"type": "string", "enum": ["polish", "diagnose", "adapt", "review", "revise", "audit"]},
+    "discipline": {"type": "string", "enum": ["economics", "management", "finance", "accounting", "marketing", "information-systems", "public-administration", "mixed"]},
+    "subfield": {"type": ["string", "null"]},
+    "language": {"type": "string", "enum": ["zh-CN", "en-US", "bilingual", "unspecified"]},
+    "section": {"type": ["string", "null"]},
+    "method": {"type": ["string", "null"]},
+    "target_outlet": {"type": ["string", "null"]},
+    "evidence_mode": {"type": "string", "enum": ["offline", "metadata", "web-verified", "user-provided-fulltext"]},
+    "execution": {"type": "string", "enum": ["serial", "bounded_parallel"]},
+    "preservation": {"type": "string", "enum": ["strict", "standard", "user-defined"]},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "unknown"]},
+    "rationale": {"type": "array", "items": {"type": "string"}},
+    "unresolved": {"type": "array", "items": {"type": "string"}},
+    "user_overrides": {"type": "array", "items": {"type": "object"}},
+    "created_at": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

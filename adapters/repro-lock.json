@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "lock_id": "v3.1-local-2026-08-04",
+  "generated_at": "2026-08-04",
+  "runtime": {"python": ">=3.10,<3.13", "os_policy": ["Windows smoke tested", "Linux CI required"]},
+  "dependencies": [],
+  "components": ["manifests/crossref.json", "manifests/openalex.json", "manifests/local-rag.json", "manifests/serial-agent.json"],
+  "commands": [
+    {"name":"repository-contract","command":"python scripts/validate_v3.py .","network":false,"expected_status":"Verified"},
+    {"name":"writing-suite","command":"python evals/run_v31_writing_tests.py","network":false,"expected_status":"Verified"},
+    {"name":"crossref-search","command":"python scripts/search_literature.py \"difference in differences\" --provider crossref --json","network":true,"expected_status":"Documented"},
+    {"name":"openalex-search","command":"python scripts/search_literature.py \"difference in differences\" --provider openalex --json","network":true,"expected_status":"Documented"},
+    {"name":"latex-compile","command":"python scripts/compile_guard.py evals/fixtures/writing/compile-good.tex","network":false,"expected_status":"Documented"}
+  ]
+}

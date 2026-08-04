@@ -50,6 +50,7 @@ def build_manifest(root: Path, corpus_id: str | None, role: str, purpose: str, l
     files.sort(key=lambda item: item.relative_to(root).as_posix().lower())
     items: list[dict] = []
     rejections: list[dict] = []
+    created_at = utc_now()
     for index, path in enumerate(files, start=1):
         relative = path.relative_to(root).as_posix()
         suffix = path.suffix.lower()
@@ -68,6 +69,7 @@ def build_manifest(root: Path, corpus_id: str | None, role: str, purpose: str, l
             "path": relative,
             "role": role,
             "sha256": digest,
+            "accessed_at": created_at,
             "readable": readable,
             "extraction": extraction,
             "pages": None,
@@ -86,7 +88,7 @@ def build_manifest(root: Path, corpus_id: str | None, role: str, purpose: str, l
     manifest = {
         "schema_version": "1.0",
         "corpus_id": corpus_id or f"corpus-{root.name or 'root'}",
-        "created_at": utc_now(),
+        "created_at": created_at,
         "purpose": purpose,
         "source_policy": {
             "role": role,

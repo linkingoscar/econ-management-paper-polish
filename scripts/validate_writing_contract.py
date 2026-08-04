@@ -10,12 +10,20 @@ from pathlib import Path
 
 from writing_contract import (
     load_json,
+    validate_capability_report,
+    validate_corpus_gate_report,
+    validate_evidence_ledger,
+    validate_checkpoint,
     validate_corpus_manifest,
     validate_paper_spine,
+    validate_protected_snapshot,
     validate_provenance_manifest,
     validate_review_ledger,
+    validate_route_card,
     validate_style_card,
     validate_style_profile,
+    validate_style_overlap_report,
+    validate_workspace_manifest,
 )
 
 
@@ -26,6 +34,14 @@ VALIDATORS = {
     "review-ledger": validate_review_ledger,
     "style-card": validate_style_card,
     "style-profile": validate_style_profile,
+    "route-card": validate_route_card,
+    "capability-report": validate_capability_report,
+    "protected-snapshot": validate_protected_snapshot,
+    "checkpoint": validate_checkpoint,
+    "workspace-manifest": validate_workspace_manifest,
+    "evidence-ledger": validate_evidence_ledger,
+    "corpus-gate-report": validate_corpus_gate_report,
+    "style-overlap-report": validate_style_overlap_report,
 }
 
 

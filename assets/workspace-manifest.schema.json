@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writing Workspace Manifest",
+  "type": "object",
+  "required": ["schema_version", "workspace_id", "paper_id", "created_at", "paths", "policy"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "workspace_id": {"type": "string", "minLength": 1},
+    "paper_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "minLength": 1},
+    "paths": {"type": "object"},
+    "policy": {"type": "object"}
+  },
+  "additionalProperties": true
+}

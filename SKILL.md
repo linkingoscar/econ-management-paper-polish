@@ -1,30 +1,13 @@
 ---
 name: econ-management-paper-polish
 description: >
-  Universal academic paper skill for economics, management, finance, accounting,
-  marketing, information systems, public administration, tourism, innovation,
-  entrepreneurship, and broader business-school disciplines. Supports polishing,
-  rewriting, review, topic/revision advice, variable suggestions, theory/hypothesis
-  support, empirical-method diagnosis, reviewer response, and traceable citation
-  and reference help. Routes by discipline, subfield, language context, method,
-  target outlet, and section type before editing.
-  Triggers: 经管论文, 经济学论文, 管理论文, 实证论文, 论文润色, 学术润色,
-  降AI味, 选题调整, 变量建议, 改稿方向, 研究前沿, 主流研究, 贡献定位,
-  文献背书, 理论背书, 方法背书, 补充参考文献, 替代参考文献, APA格式, 返修回复,
-  研究流水线, 端到端, 从选题到投稿, 完整论文流程,
-  论点骨架, 核心论点, 论证链, 论点诊断,
-  RAG, 知识库, 文献库, 跨论文问答, 引用验证,
-  调研工作区, 文献池, 逐文精读, 文献整理,
-  LaTeX, tex, BibTeX, 期刊模板, 三线表,
-  可复现性, 复现检查, 数据透明度, 方法透明度,
-  修订矩阵, 返修跟踪, 风险清单,
-  paper polish, paper review, citation help, methodology diagnosis,
-  reviewer response, literature augmentation,
-  research pipeline, end-to-end, paper spine, argument structure,
-  RAG knowledge base, cross-paper QA, citation verification,
-  survey workspace, paper pool, close reading,
-  LaTeX writing, BibTeX management, reproducibility audit,
-  revision matrix, risk register.
+  Writing, revision, review, evidence, journal adaptation, and method-safety
+  support for economics, management, finance, accounting, marketing, information
+  systems, public administration, and related business-school papers. Routes by
+  discipline, subfield, language, method, outlet, section, and task mode while
+  preserving claims, numbers, variables, equations, and citations. Use for
+  经管/经济学/管理学论文润色、改写、审稿回复、论点诊断、文献与方法背书、
+  期刊适配、返修跟踪、LaTeX、证据核验、paper spine、RAG 和研究工作区。
 ---
 
 # Econ and Management Paper Polish
@@ -90,18 +73,32 @@ py scripts/prepare_corpus.py corpus --role target-journal --output corpus-manife
 py scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-cards/STY-0001.json --json
 py scripts/build_style_profile.py style-cards --output style-profile.json --json
 py scripts/build_paper_spine.py --paper-id paper-001 --output paper-spine.json --json
+py scripts/build_paper_spine.py --manuscript manuscript.md --paper-id paper-001 --output paper-spine.json --json
 py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
+py scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
+py scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
 py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
 py scripts/route_review_issues.py review-ledger.json --output review-ledger-routed.json --json
 py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
 py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
+py scripts/apply_bounded_patch.py original.md revised.md --output manuscript.applied.md --variable Treatment --json
+py scripts/rollback_bounded_patch.py original.md --output manuscript.rollback.md --json
+py scripts/transition_issue.py review-ledger.json ISS-001 proposed --output review-ledger-proposed.json --actor author --rationale "..." --json
+py scripts/build_response_letter.py review-ledger.json --output response-letter.md --json
 py scripts/meaning_audit.py original.md revised.md --json
 py scripts/check_method_language.py manuscript.md --json
+py scripts/build_method_safety_report.py manuscript.md --json
 py scripts/compile_guard.py manuscript.tex --strict --json
 py scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
 py scripts/validate_style_profile_gate.py style-profile.json --json
+py scripts/plan_style_revision.py manuscript.md style-profile-confirmed.json --section method --output style-revision-plan.json --json
+py scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
+py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
+py scripts/validate_revision_journal.py paper-workspace/revision-journal.jsonl --json
 py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 py scripts/scan_skill_provenance.py provenance-manifest.json --json
+py scripts/validate_skill_package.py . --json
+py scripts/validate_repro_lock.py . --json
 py scripts/validate_v3.py .
 ```
 
@@ -159,6 +156,22 @@ authorizes copying source sentences or a target author's distinctive voice.
 P1 facts, citations, equations, variables, numbers, results, contribution claims,
 and limitations override every style preference. Methodological, theoretical,
 causal, result, or contribution changes remain author-required by default.
+
+The v3.1 corpus gate now checks license status, full-text availability, sample
+roles, freshness, and exact n-gram overlap. Profile rules keep role weights,
+section-specific locators, and a `structural-only` copy boundary. A confirmed
+profile can produce a diagnostic revision plan, but the plan never edits prose.
+
+For methods, use the risk-card catalog in `assets/method-safety-cards.json` and
+`build_method_safety_report.py`: every flagged phrase should be explained through
+data structure, variation, estimand, assumptions, diagnostics, remaining threats,
+and a conservative rewrite. A method name alone is never an identification claim.
+
+For a real manuscript, initialize a workspace first. The serial workflow persists
+`intake.json`, `route-card.json`, `paper-spine.json` (unconfirmed candidate map),
+`protected-snapshot.json`, `capability-report.json`, `checkpoint.json`, and a
+JSONL revision journal. It does not overwrite the manuscript. Apply/rollback and
+issue-transition commands require separate output paths and auditable confirmation.
 
 For revision safety, the default order is: protected token audit → lexical meaning
 gate → method-language screen → LaTeX structural/compile guard → issue-ID recall →

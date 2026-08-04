@@ -25,6 +25,10 @@ STYLE_PROFILE_STATUSES = {"draft", "confirmed", "blocked"}
 ISSUE_STATUSES = {"raised", "triaged", "proposed", "applied", "verified", "closed", "blocked"}
 ISSUE_DECISIONS = {"safe-fix", "author-required", "invalid", "unresolved"}
 SEVERITIES = {"cosmetic", "moderate", "major", "blocking"}
+TASK_MODES = {"polish", "diagnose", "adapt", "review", "revise", "audit"}
+DISCIPLINES = {"economics", "management", "finance", "accounting", "marketing", "information-systems", "public-administration", "mixed"}
+ROUTE_LANGUAGES = {"zh-CN", "en-US", "bilingual", "unspecified"}
+EVIDENCE_MODES = {"offline", "metadata", "web-verified", "user-provided-fulltext"}
 
 
 def utc_now() -> str:
@@ -247,4 +251,197 @@ def validate_provenance_manifest(value: Any) -> list[str]:
         errors.append("capabilities must be an array of strings")
     if value.get("status") not in {"verified", "documented", "conceptual"}:
         errors.append("status must be verified, documented, or conceptual")
+    return errors
+
+
+def validate_route_card(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["route card must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    for key in ("route_id", "created_at"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if value.get("task_mode") not in TASK_MODES:
+        errors.append(f"task_mode must be one of {sorted(TASK_MODES)}")
+    if value.get("discipline") not in DISCIPLINES:
+        errors.append(f"discipline must be one of {sorted(DISCIPLINES)}")
+    if value.get("language") not in ROUTE_LANGUAGES:
+        errors.append(f"language must be one of {sorted(ROUTE_LANGUAGES)}")
+    if value.get("evidence_mode") not in EVIDENCE_MODES:
+        errors.append(f"evidence_mode must be one of {sorted(EVIDENCE_MODES)}")
+    if value.get("execution") not in {"serial", "bounded_parallel"}:
+        errors.append("execution must be serial or bounded_parallel")
+    if value.get("preservation") not in {"strict", "standard", "user-defined"}:
+        errors.append("preservation must be strict, standard, or user-defined")
+    if value.get("confidence") not in CONFIDENCES:
+        errors.append(f"confidence must be one of {sorted(CONFIDENCES)}")
+    for key in ("rationale", "unresolved"):
+        if not list_of_strings(value.get(key, [])):
+            errors.append(f"{key} must be an array of strings")
+    if not isinstance(value.get("user_overrides", []), list):
+        errors.append("user_overrides must be an array")
+    return errors
+
+
+def validate_capability_report(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["capability report must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    for key in ("run_id", "generated_at"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if value.get("overall_mode") not in {"Verified", "Documented", "Conceptual"}:
+        errors.append("overall_mode must be Verified, Documented, or Conceptual")
+    if not isinstance(value.get("checks"), list):
+        errors.append("checks must be an array")
+    if not list_of_strings(value.get("permissions")):
+        errors.append("permissions must be an array of strings")
+    if not list_of_strings(value.get("limitations")):
+        errors.append("limitations must be an array of strings")
+    if not nonempty(value.get("output_ceiling")):
+        errors.append("output_ceiling must be a non-empty string")
+    return errors
+
+
+def validate_protected_snapshot(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["protected snapshot must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    for key in ("snapshot_id", "source_path", "created_at"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if not isinstance(value.get("sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", value.get("sha256", "")):
+        errors.append("sha256 must be a lowercase SHA-256 hex string")
+    protected = value.get("protected")
+    if not isinstance(protected, dict):
+        errors.append("protected must be an object")
+    else:
+        for key in ("numbers", "citations", "variables"):
+            if not isinstance(protected.get(key), dict):
+                errors.append(f"protected.{key} must be an object")
+        for key in ("latex_labels", "latex_refs", "locked_fragments"):
+            if not list_of_strings(protected.get(key, [])):
+                errors.append(f"protected.{key} must be an array of strings")
+    if not isinstance(value.get("counts"), dict):
+        errors.append("counts must be an object")
+    return errors
+
+
+def validate_checkpoint(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["checkpoint must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    for key in ("run_id", "workspace_id", "updated_at", "last_stage"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if value.get("status") not in {"running", "pass", "blocked", "failed", "complete"}:
+        errors.append("status is invalid")
+    if not isinstance(value.get("artifacts"), dict):
+        errors.append("artifacts must be an object")
+    if not isinstance(value.get("errors", []), list):
+        errors.append("errors must be an array")
+    return errors
+
+
+def validate_workspace_manifest(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["workspace manifest must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    for key in ("workspace_id", "paper_id", "created_at"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if not isinstance(value.get("paths"), dict):
+        errors.append("paths must be an object")
+    if not isinstance(value.get("policy"), dict):
+        errors.append("policy must be an object")
+    return errors
+
+
+def validate_evidence_ledger(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["evidence ledger must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    entries = value.get("entries")
+    if not isinstance(entries, list):
+        errors.append("entries must be an array")
+        return errors
+    pairs: set[tuple[str, str]] = set()
+    for index, entry in enumerate(entries):
+        prefix = f"entries[{index}]"
+        if not isinstance(entry, dict):
+            errors.append(f"{prefix} must be an object")
+            continue
+        claim_id, source_id = entry.get("claim_id"), entry.get("source_id")
+        if not isinstance(claim_id, str) or not claim_id.startswith("CLM-"):
+            errors.append(f"{prefix}.claim_id must start with CLM-")
+        if not isinstance(source_id, str) or not source_id.startswith("SRC-"):
+            errors.append(f"{prefix}.source_id must start with SRC-")
+        if isinstance(claim_id, str) and isinstance(source_id, str):
+            pair = (claim_id, source_id)
+            if pair in pairs:
+                errors.append(f"{prefix} duplicates claim/source pair")
+            pairs.add(pair)
+        if not nonempty(entry.get("claim")):
+            errors.append(f"{prefix}.claim must be non-empty")
+        source = entry.get("source")
+        if not isinstance(source, dict) or not nonempty(source.get("title")) or not nonempty(source.get("url")):
+            errors.append(f"{prefix}.source must contain title and url")
+        verification = entry.get("verification")
+        if not isinstance(verification, dict):
+            errors.append(f"{prefix}.verification must be an object")
+        else:
+            for key in ("level", "status", "checked_at", "support_scope"):
+                if not nonempty(verification.get(key)):
+                    errors.append(f"{prefix}.verification.{key} must be non-empty")
+            if not isinstance(verification.get("limitations"), list):
+                errors.append(f"{prefix}.verification.limitations must be an array")
+        allowed_use = entry.get("allowed_use")
+        if not list_of_strings(allowed_use):
+            errors.append(f"{prefix}.allowed_use must be a non-empty array of strings")
+        elif "direct_citation" in allowed_use:
+            if not isinstance(verification, dict) or not isinstance(verification.get("locator"), dict):
+                errors.append(f"{prefix}.direct_citation requires verification.locator")
+    if not isinstance(value.get("rejections", []), list):
+        errors.append("rejections must be an array")
+    if not isinstance(value.get("source_index", {}), dict):
+        errors.append("source_index must be an object")
+    return errors
+
+
+def validate_corpus_gate_report(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["corpus gate report must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("status") not in {"pass", "fail"}:
+        errors.append("status must be pass or fail")
+    for key in ("errors", "warnings"):
+        if not isinstance(value.get(key, []), list):
+            errors.append(f"{key} must be an array")
+    return errors
+
+
+def validate_style_overlap_report(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["style overlap report must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("status") not in {"pass", "fail"}:
+        errors.append("status must be pass or fail")
+    if not isinstance(value.get("overlaps", []), list):
+        errors.append("overlaps must be an array")
     return errors

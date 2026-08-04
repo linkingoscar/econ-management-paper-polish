@@ -26,5 +26,11 @@ Return the journal card, source status, applicability, checked date, and unresol
 unknowns alongside any prose changes. A stale card must trigger re-verification, not
 silent reuse.
 
+For corpus-driven writing adaptation, run `scripts/audit_corpus_gate.py` before
+`scripts/build_style_profile.py`, and run `scripts/audit_style_overlap.py` before
+using a confirmed profile. The profile records role weights, section profiles and
+source locators; `scripts/plan_style_revision.py` produces diagnostics only and
+cannot copy source wording or apply prose.
+
 Legacy sources merged: `journal-families-econ.md`, `journal-families-management.md`,
 `journal-style-adaptation.md`, `journal-style-card.md`.

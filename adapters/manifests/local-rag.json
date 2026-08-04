@@ -1,0 +1,11 @@
+{
+  "component": "local-markdown-rag",
+  "source_url": "https://github.com/linkingoscar/econ-management-paper-polish",
+  "source_commit": "workspace",
+  "license": "repository license",
+  "capabilities": ["file:read", "local:index", "local:lexical-retrieval"],
+  "permissions": ["workspace-read-write-when-explicit"],
+  "status": "verified",
+  "last_tested": "2026-08-04",
+  "fallback": "plain-text search"
+}

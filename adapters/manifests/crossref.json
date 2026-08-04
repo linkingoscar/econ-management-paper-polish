@@ -1,0 +1,11 @@
+{
+  "component": "crossref-provider",
+  "source_url": "https://api.crossref.org/swagger-ui/index.html",
+  "source_commit": "external-api",
+  "license": "Crossref API terms; metadata candidates only",
+  "capabilities": ["network:metadata-search", "doi:lookup", "provenance:retrieved_at"],
+  "permissions": ["network-egress"],
+  "status": "documented",
+  "last_tested": "2026-08-04",
+  "fallback": "offline metadata fixture; candidate-only evidence"
+}

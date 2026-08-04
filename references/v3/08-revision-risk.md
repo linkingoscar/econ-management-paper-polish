@@ -7,6 +7,15 @@ evidence/Claim ID, status, and unresolved limitation. Use `open`, `in_progress`,
 `blocked`, `verified`, and `closed`. Do not mark a response verified until its text,
 source, or deterministic check has been inspected.
 
+The executable issue ledger uses the stricter transitions
+`raised → triaged → proposed → applied → verified → closed` (with explicit
+`blocked`/`invalid` exits). Use `scripts/transition_issue.py`; do not edit a status
+or delete an issue directly. `scripts/apply_bounded_patch.py` and
+`scripts/rollback_bounded_patch.py` require separate output paths, source hashes,
+and an auditable author confirmation for protected changes. Derive a response-letter
+scaffold with `scripts/build_response_letter.py`; bracketed text remains an author
+responsibility.
+
 ## Risk categories
 
 - methodological: estimand, assumptions, treatment timing, inference, robustness;

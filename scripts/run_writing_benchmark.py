@@ -17,9 +17,60 @@ from writing_contract import utc_now, write_json
 CHECK_RE = re.compile(r"^- (.+)$", re.MULTILINE)
 
 
+def confusion(expected: list[str], observed: list[str]) -> dict[str, int | float]:
+    tp = sum(exp == "fail" and got == "fail" for exp, got in zip(expected, observed))
+    fp = sum(exp == "pass" and got == "fail" for exp, got in zip(expected, observed))
+    fn = sum(exp == "fail" and got == "pass" for exp, got in zip(expected, observed))
+    tn = sum(exp == "pass" and got == "pass" for exp, got in zip(expected, observed))
+    total = len(expected)
+    return {"true_positive": tp, "false_positive": fp, "false_negative": fn, "true_negative": tn, "accuracy": round((tp + tn) / total, 3) if total else 0.0}
+
+
+def run_gold(root: Path, manifest_path: Path) -> tuple[dict, list[dict]]:
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    expected: list[str] = []
+    observed: list[str] = []
+    details: list[dict] = []
+    for case in manifest.get("cases", []):
+        path = root / case["path"]
+        process = subprocess.run([sys.executable, str(root / "scripts" / "check_method_language.py"), str(path), "--json"], cwd=root, text=True, capture_output=True, check=False)
+        try:
+            payload = json.loads(process.stdout)
+            actual = "fail" if payload.get("issue_count", 0) else "pass"
+        except json.JSONDecodeError:
+            payload = {"error": process.stderr.strip()}
+            actual = "fail"
+        expected.append(case["expected"])
+        observed.append(actual)
+        details.append({"id": case["id"], "expected": case["expected"], "observed": actual, "discipline": case.get("discipline"), "language": case.get("language"), "section": case.get("section"), "issue_count": payload.get("issue_count")})
+    return confusion(expected, observed), details
+
+
+def run_mutations(root: Path, manifest_path: Path) -> tuple[dict, list[dict]]:
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    expected: list[str] = []
+    observed: list[str] = []
+    details: list[dict] = []
+    for case in manifest.get("cases", []):
+        command = [sys.executable, str(root / "scripts" / "propose_bounded_patch.py"), str(root / case["original"]), str(root / case["revised"]), "--variable", case["variable"], "--json"]
+        process = subprocess.run(command, cwd=root, text=True, capture_output=True, check=False)
+        try:
+            payload = json.loads(process.stdout)
+            actual = payload.get("status", "fail")
+        except json.JSONDecodeError:
+            payload = {"error": process.stderr.strip()}
+            actual = "fail"
+        expected.append(case["expected"])
+        observed.append(actual)
+        details.append({"id": case["id"], "expected": case["expected"], "observed": actual, "risk": payload.get("risk")})
+    return confusion(expected, observed), details
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--gold", type=Path, default=Path("evals/gold/writing-cases.json"))
+    parser.add_argument("--mutations", type=Path, default=Path("evals/mutations/writing-mutations.json"))
     parser.add_argument("--json", action="store_true", dest="as_json")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
@@ -31,6 +82,12 @@ def main() -> int:
         check=False,
     )
     checks = CHECK_RE.findall(process.stdout)
+    try:
+        gold_metrics, gold_details = run_gold(root, root / args.gold)
+        mutation_metrics, mutation_details = run_mutations(root, root / args.mutations)
+    except (OSError, UnicodeError, json.JSONDecodeError, KeyError) as exc:
+        gold_metrics, mutation_metrics = {}, {}
+        gold_details, mutation_details = [], [{"error": str(exc)}]
     report = {
         "schema_version": "1.0",
         "suite": "v3.1-writing-foundation",
@@ -46,12 +103,24 @@ def main() -> int:
             "pass_rate": 1.0 if process.returncode == 0 and checks else 0.0,
             "protected_patch_preservation_target": 1.0,
             "citation_fabrication_target": 0.0,
+            "detectors": {
+                "method_language": gold_metrics,
+                "protected_patch": mutation_metrics,
+            },
+            "coverage": {
+                "gold_cases": len(gold_details),
+                "mutation_cases": len(mutation_details),
+                "quadrants": [{"discipline": discipline, "language": language} for discipline, language in sorted({(item.get("discipline"), item.get("language")) for item in gold_details if item.get("discipline")})],
+                "sections": sorted({item.get("section") for item in gold_details if item.get("section")}),
+            },
         },
         "failures": [] if process.returncode == 0 else [{"stdout": process.stdout, "stderr": process.stderr}],
         "limitations": [
             "Synthetic fixtures only; this is not dogfooding on a user manuscript.",
             "No live journal, database, or model call is included.",
+            "Gold and mutation metrics cover deterministic gates, not author voice, substantive contribution, or journal acceptance.",
         ],
+        "case_details": {"gold": gold_details, "mutations": mutation_details},
     }
     output = None
     if args.output:

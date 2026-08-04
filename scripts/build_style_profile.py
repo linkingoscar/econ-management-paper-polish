@@ -13,13 +13,19 @@ import re
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from statistics import mean
 from typing import Any
 
 from writing_contract import load_json, utc_now, validate_style_card, validate_style_profile, write_json
 
 
 PRIORITY_ORDER = ["P1-preserve", "P2-target", "P3-secondary", "P4-static", "P5-cleanup"]
+ROLE_WEIGHTS = {
+    "target-journal": 3.0,
+    "author-guideline": 3.0,
+    "field-or-topic": 2.0,
+    "author-or-lab-exemplar": 1.0,
+    "other": 1.0,
+}
 
 
 def load_cards(directory: Path) -> tuple[list[dict[str, Any]], list[str]]:
@@ -41,21 +47,35 @@ def load_cards(directory: Path) -> tuple[list[dict[str, Any]], list[str]]:
     return cards, errors
 
 
-def build_profile(cards: list[dict[str, Any]], outlet: str | None) -> dict[str, Any]:
-    move_counts: dict[str, list[float]] = {}
-    paragraph_stats: list[dict[str, Any]] = []
-    citation_stats: list[float] = []
+def weighted_mean(values: list[tuple[float, float]]) -> float:
+    total_weight = sum(weight for _, weight in values)
+    return sum(value * weight for value, weight in values) / total_weight if total_weight else 0.0
+
+
+def support_locators(cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        {"style_card_id": card["style_card_id"], "source_id": card.get("source_id"), "locators": card.get("locators", [])[:20]}
+        for card in cards
+    ]
+
+
+def build_profile(cards: list[dict[str, Any]], outlet: str | None, source_roles: dict[str, str] | None = None) -> dict[str, Any]:
+    source_roles = source_roles or {}
+    move_counts: dict[str, list[tuple[float, float]]] = {}
+    paragraph_stats: list[tuple[dict[str, Any], float]] = []
+    citation_stats: list[tuple[float, float]] = []
     for card in cards:
+        weight = ROLE_WEIGHTS.get(source_roles.get(card.get("source_id"), "other"), 1.0)
         observations = card.get("observations", {})
         for move, value in observations.get("rhetorical_moves", {}).items():
             if isinstance(value, dict) and isinstance(value.get("share"), (int, float)):
-                move_counts.setdefault(move, []).append(float(value["share"]))
+                move_counts.setdefault(move, []).append((float(value["share"]), weight))
         paragraph = observations.get("paragraph_length", {})
         if isinstance(paragraph, dict) and isinstance(paragraph.get("median_sentences"), (int, float)):
-            paragraph_stats.append(paragraph)
+            paragraph_stats.append((paragraph, weight))
         citation = observations.get("citation_behavior", {})
         if isinstance(citation, dict) and isinstance(citation.get("citation_density"), (int, float)):
-            citation_stats.append(float(citation["citation_density"]))
+            citation_stats.append((float(citation["citation_density"]), weight))
 
     rules: list[dict[str, Any]] = []
     if move_counts:
@@ -66,26 +86,28 @@ def build_profile(cards: list[dict[str, Any]], outlet: str | None) -> dict[str, 
             "recommendation": "Use observed rhetorical moves as a diagnostic checklist; do not copy source wording.",
             "observed": {
                 move: {
-                    "mean_share": round(mean(values), 3),
+                    "mean_share": round(weighted_mean(values), 3),
                     "card_count": len(values),
                 }
                 for move, values in sorted(move_counts.items())
             },
             "support": [card["style_card_id"] for card in cards],
+            "support_locators": support_locators(cards),
         })
     if paragraph_stats:
-        medians = [float(item["median_sentences"]) for item in paragraph_stats]
+        medians = [float(item["median_sentences"]) for item, _ in paragraph_stats]
         rule = {
             "id": "paragraph-length",
             "priority": "P2-target",
             "status": "observed",
             "recommendation": "Use paragraph length as a range for diagnosis, never as a hard rewrite constraint.",
             "observed": {
-                "mean_card_median": round(mean(medians), 2),
+                "mean_card_median": round(weighted_mean([(value, weight) for (item, weight), value in zip(paragraph_stats, medians)]), 2),
                 "min_card_median": min(medians),
                 "max_card_median": max(medians),
             },
             "support": [card["style_card_id"] for card in cards],
+            "support_locators": support_locators(cards),
         }
         rules.append(rule)
     if citation_stats:
@@ -95,17 +117,18 @@ def build_profile(cards: list[dict[str, Any]], outlet: str | None) -> dict[str, 
             "status": "observed",
             "recommendation": "Check whether citations appear where claims require them; do not add citations to match a numeric target.",
             "observed": {
-                "mean_density": round(mean(citation_stats), 3),
+                "mean_density": round(weighted_mean(citation_stats), 3),
                 "card_count": len(citation_stats),
             },
             "support": [card["style_card_id"] for card in cards],
+            "support_locators": support_locators(cards),
         })
 
     conflicts: list[dict[str, Any]] = []
-    if paragraph_stats and max(float(item["median_sentences"]) for item in paragraph_stats) - min(float(item["median_sentences"]) for item in paragraph_stats) >= 3:
+    if paragraph_stats and max(float(item["median_sentences"]) for item, _ in paragraph_stats) - min(float(item["median_sentences"]) for item, _ in paragraph_stats) >= 3:
         conflicts.append({
             "field": "paragraph_length",
-            "candidates": sorted({float(item["median_sentences"]) for item in paragraph_stats}),
+            "candidates": sorted({float(item["median_sentences"]) for item, _ in paragraph_stats}),
             "decision": "report-range-do-not-hard-code",
             "rationale": "The supplied corpus has materially different paragraph lengths.",
         })
@@ -121,6 +144,19 @@ def build_profile(cards: list[dict[str, Any]], outlet: str | None) -> dict[str, 
     reviewed_dt = datetime.fromisoformat(reviewed.replace("Z", "+00:00"))
     recheck_after = (reviewed_dt + timedelta(days=180)).date().isoformat()
     slug = re.sub(r"[^0-9A-Za-z_-]+", "-", (outlet or "writing").strip()).strip("-").lower() or "writing"
+    section_profiles: dict[str, dict[str, Any]] = {}
+    for card in cards:
+        section = card.get("section", "whole-document")
+        observations = card.get("observations", {})
+        section_profiles.setdefault(section, {"inputs": [], "rhetorical_moves": {}, "locators": []})
+        section_profiles[section]["inputs"].append(card["style_card_id"])
+        section_profiles[section]["locators"].extend(card.get("locators", [])[:20])
+        for move, value in observations.get("rhetorical_moves", {}).items():
+            if isinstance(value, dict) and isinstance(value.get("share"), (int, float)):
+                section_profiles[section]["rhetorical_moves"].setdefault(move, []).append(value["share"])
+    for section, value in section_profiles.items():
+        value["rhetorical_moves"] = {move: round(sum(shares) / len(shares), 3) for move, shares in value["rhetorical_moves"].items()}
+        value["locators"] = value["locators"][:50]
     profile = {
         "schema_version": "1.0",
         "style_profile_id": f"PRO-{slug}-{reviewed[:10]}",
@@ -140,6 +176,9 @@ def build_profile(cards: list[dict[str, Any]], outlet: str | None) -> dict[str, 
         "reviewed_at": reviewed,
         "recheck_after": recheck_after,
         "source_policy": "observed-structure-only",
+        "source_roles": source_roles,
+        "role_weights": ROLE_WEIGHTS,
+        "section_profiles": section_profiles,
     }
     return profile
 
@@ -159,16 +198,18 @@ def main() -> int:
     else:
         cards, card_errors = load_cards(args.cards)
         errors.extend(card_errors)
+    source_roles: dict[str, str] = {}
     if args.manifest and args.manifest.exists() and cards:
         try:
             manifest = load_json(args.manifest)
             source_ids = {item.get("source_id") for item in manifest.get("items", []) if isinstance(item, dict)}
+            source_roles = {item.get("source_id"): item.get("role", "other") for item in manifest.get("items", []) if isinstance(item, dict)}
             for card in cards:
                 if card.get("source_id") not in source_ids:
                     errors.append(f"{card['style_card_id']}: source_id is absent from corpus manifest")
         except (OSError, json.JSONDecodeError) as exc:
             errors.append(f"cannot read manifest: {exc}")
-    profile = build_profile(cards, args.target_outlet) if cards else None
+    profile = build_profile(cards, args.target_outlet, source_roles) if cards else None
     if profile is not None:
         errors.extend(validate_style_profile(profile))
     output = None

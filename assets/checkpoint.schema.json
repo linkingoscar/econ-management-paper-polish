@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writing Workflow Checkpoint",
+  "type": "object",
+  "required": ["schema_version", "run_id", "workspace_id", "updated_at", "last_stage", "status", "artifacts"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "run_id": {"type": "string", "minLength": 1},
+    "workspace_id": {"type": "string", "minLength": 1},
+    "updated_at": {"type": "string", "minLength": 1},
+    "last_stage": {"type": "string", "minLength": 1},
+    "next_stage": {"type": "string"},
+    "status": {"type": "string", "enum": ["running", "pass", "blocked", "failed", "complete"]},
+    "artifacts": {"type": "object"},
+    "errors": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

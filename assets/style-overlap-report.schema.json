@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Style Corpus Overlap Report",
+  "type": "object",
+  "required": ["schema_version", "status", "candidate", "corpus", "overlaps", "policy"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "status": {"type": "string", "enum": ["pass", "fail"]},
+    "candidate": {"type": "string", "minLength": 1},
+    "corpus": {"type": "string", "minLength": 1},
+    "overlaps": {"type": "array", "items": {"type": "object"}},
+    "policy": {"type": "object"}
+  },
+  "additionalProperties": true
+}

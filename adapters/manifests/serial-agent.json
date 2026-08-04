@@ -1,0 +1,11 @@
+{
+  "component": "serial-agent-orchestrator",
+  "source_url": "https://github.com/linkingoscar/econ-management-paper-polish",
+  "source_commit": "workspace",
+  "license": "repository license",
+  "capabilities": ["task:dependency-ordering", "agent:serial-fallback", "capability:dry-run"],
+  "permissions": ["no-network-by-default"],
+  "status": "verified",
+  "last_tested": "2026-08-04",
+  "fallback": "single-process deterministic scripts"
+}

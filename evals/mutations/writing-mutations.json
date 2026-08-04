@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "cases": [
+    {"id":"M-PROTECTED-SAFE","original":"evals/fixtures/writing/original.md","revised":"evals/fixtures/writing/revised-good.md","expected":"pass","variable":"Treatment"},
+    {"id":"M-PROTECTED-CHANGED","original":"evals/fixtures/writing/original.md","revised":"evals/fixtures/writing/revised-bad.md","expected":"fail","variable":"Treatment"}
+  ]
+}
