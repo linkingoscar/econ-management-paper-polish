@@ -6,14 +6,15 @@ The corpus exists to describe writing structure, not to create a phrase bank.
 
 1. Scan files into a corpus manifest with path, hash, role, readability, extraction
    level, license status, and use.
-2. Generate style cards and aggregate them into a profile. A human confirms the
-   profile before it is used for revision.
+2. Generate style cards and aggregate them into a profile. Confirm the profile
+   through author review or the hash-bound two-pass AI gate before revision.
 
 Every generated profile is `status=draft` and `human_confirmed=false`. Run
-`scripts/validate_style_profile_gate.py` after the author has reviewed source
-roles, conflicts, stale/unreadable inputs, and the structural-only copy boundary.
-Only a profile with `status=confirmed`, `human_confirmed=true`, `confirmed_at`,
-and `confirmed_by` can enter a revision route. No script may auto-confirm it.
+`scripts/build_ai_review_packet.py`, two isolated `scripts/run_ai_reviews.py`
+passes, and `scripts/adjudicate_ai_reviews.py`, then supply the decision to
+`scripts/validate_style_profile_gate.py`. An explicit author-confirmed profile
+remains valid. AI approval is hash-bound and structural-only; it cannot authorize
+copying, protected-fact changes, or high-risk scholarly claims.
 
 The target corpus should normally contain 5–8 target-outlet papers, 2–5 field/topic
 papers, and 1–3 author or lab exemplars. Treat these as defaults, not hard journal

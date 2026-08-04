@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.org/econ-management-paper-polish/style-revision-plan.schema.json",
   "type": "object",
-  "required": ["schema_version", "status", "manuscript", "style_profile_id", "section", "actions", "copy_boundary", "confirmation_required"],
+  "required": ["schema_version", "status", "manuscript", "style_profile_id", "section", "actions", "copy_boundary", "confirmation_required", "confirmation_mode"],
   "properties": {
     "schema_version": {"const": "1.0"},
     "status": {"enum": ["pass", "fail", "blocked"]},
@@ -11,7 +11,8 @@
     "section": {"type": "string", "minLength": 1},
     "actions": {"type": "array", "items": {"type": "object"}},
     "copy_boundary": {"const": "structural-only"},
-    "confirmation_required": {"const": true},
+    "confirmation_required": {"type": "boolean"},
+    "confirmation_mode": {"enum": ["human", "ai-consensus", "none"]},
     "errors": {"type": "array", "items": {"type": "string"}}
   },
   "additionalProperties": true

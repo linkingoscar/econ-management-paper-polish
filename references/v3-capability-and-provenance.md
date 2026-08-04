@@ -17,4 +17,5 @@ The LaTeX `compile_guard.py` follows the same rule: structural audit evidence ca
 be `Verified` while an absent TeX executable leaves actual compilation
 `Documented`; `--require-compile` turns that limitation into a failing gate.
 Dynamic style profiles are also capability-gated: extraction is deterministic, but
-revision use remains blocked until a human records confirmation in the profile.
+revision use remains blocked until an author confirms it or a two-pass, hash-bound AI
+decision passes. Adapter dry-runs are Documented, not evidence of a live review.

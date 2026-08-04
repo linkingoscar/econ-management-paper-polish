@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.3-orange.svg)](#v31-writing-reliability-foundation-alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.4-orange.svg)](#v31-writing-reliability-foundation-alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -133,8 +133,9 @@ weighted section style profiles, overlap screening and structural revision plans
 method risk cards with conservative rewrites; bounded apply/rollback, issue transitions,
 response-letter scaffolds, evidence/journal freshness gates, revision-matrix and
 submission-ready response validation, a local synthetic dogfood harness, portable
-platform/LaTeX capability reporting, 26 writing-contract checks, gold/mutation metrics,
-package validation, a unified contract suite, and an adapter repro lock. Retrieval, RAG,
+platform/LaTeX capability reporting, 32 writing-contract checks, gold/mutation metrics,
+package validation, a unified contract suite, an adapter repro lock, and hash-bound AI
+confirmation gates for low- and medium-risk artifacts. Retrieval, RAG,
 and multi-agent features remain supporting layers.
 
 * [v3.1 landscape research report](docs/v3.1-landscape-research.md)
@@ -142,9 +143,11 @@ and multi-agent features remain supporting layers.
 
 The implemented capabilities are still alpha: scripts perform deterministic scans,
 contract validation, and candidate diffs; they do not decide theory, identification,
-results, or contribution for the author. A style profile is `draft` by default and
-requires human confirmation; when no TeX compiler is installed, the report is
-`Documented` rather than a claimed compile. The 26 checks, ten synthetic dogfood cases,
+results, or contribution for the author. A style profile is `draft` by default and may
+be used for structural diagnosis after author confirmation or two isolated AI reviews
+reach a hash-bound consensus. Numbers, citations, identification, causal direction,
+results, and contribution claims remain author-controlled. When no TeX compiler is installed, the report is
+`Documented` rather than a claimed compile. The 32 checks, ten synthetic dogfood cases,
 and gold/mutation metrics are repository-owned fixtures; they verify workflow wiring and
 deterministic gates rather than author voice, causal adjudication, or journal effectiveness.
 Real/anonymous-paper dogfooding and a human journal-effectiveness rubric remain beta
@@ -235,6 +238,11 @@ The v3.1 writing foundation can be run incrementally:
 python scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
 python scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-card.json --json
 python scripts/build_style_profile.py style-cards --output style-profile.json --json
+python scripts/build_ai_review_packet.py style-profile.json --kind style-profile --output style-review-packet.json --json
+python scripts/run_ai_reviews.py style-review-packet.json --output-dir ai-reviews --json
+python scripts/adjudicate_ai_reviews.py style-review-packet.json ai-reviews/ai-review-1.json ai-reviews/ai-review-2.json --output style-decision.json --json
+python scripts/build_writing_review_bundle.py original.md revised.md --style-profile style-profile.json --output writing-review-bundle.json --json
+python scripts/build_ai_review_packet.py writing-review-bundle.json --kind writing-rubric --output writing-rubric-packet.json --json
 python scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
 python scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
 python scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
@@ -254,8 +262,8 @@ python scripts/check_method_language.py manuscript.md --json
 python scripts/build_method_safety_report.py manuscript.md --json
 python scripts/compile_guard.py manuscript.tex --strict --json
 python scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
-python scripts/validate_style_profile_gate.py style-profile.json --json
-python scripts/plan_style_revision.py manuscript.md style-profile-confirmed.json --section method --output style-revision-plan.json --json
+python scripts/validate_style_profile_gate.py style-profile.json --ai-decision style-decision.json --json
+python scripts/plan_style_revision.py manuscript.md style-profile.json --ai-decision style-decision.json --section method --output style-revision-plan.json --json
 python scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
 python scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
 python scripts/run_dogfood_suite.py --json
@@ -434,7 +442,7 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 
 | Agent | Install Path | Status |
 |-------|-------------|--------|
-| **Codex (OpenAI)** | `.codex/skills/` | **Verified (local package contract + Windows 26-check suite + synthetic dogfood)** |
+| **Codex (OpenAI)** | `.codex/skills/` | **Verified (local package contract + Windows 32-check suite + synthetic dogfood)** |
 | **OpenCode** | `.opencode/skills/` | **Documented (installation path; no host smoke in this repo)** |
 | **Claude Code** | `.claude/skills/` | **Documented (installation path; no host smoke in this repo)** |
 | **Cursor** | `.cursor/rules/` | **Documented (installation path; no host smoke in this repo)** |
@@ -446,6 +454,16 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 ---
 
 ## Version History
+
+### v3.1.0-alpha.4 (2026-08-04)
+
+Replaced blanket human-confirmation steps where safe with auditable AI gates: fixed
+risk classes, artifact SHA-256 binding, per-check evidence, isolated reviews, and
+deterministic adjudication. Low risk requires one review and medium risk two unanimous
+reviews; style profiles and candidate paper spines are wired in. High-risk scholarly
+meaning remains `author-required` even under unanimous AI review. An original/revised
+writing-review bundle supports provisional effect rubrics, and the synthetic v3.1
+writing suite now contains 32 checks.
 
 ### v3.1.0-alpha.3 (2026-08-04)
 

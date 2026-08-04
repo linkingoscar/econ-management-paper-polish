@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/ai-gate-decision.schema.json",
+  "title": "AI Writing Gate Decision",
+  "type": "object",
+  "required": ["schema_version", "decision_id", "packet_id", "artifact_kind", "artifact_sha256", "risk_level", "status", "decision", "required_reviews", "accepted_reviews", "rejected_reviews", "generated_at", "errors", "limitations"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "decision_id": {"type": "string", "minLength": 1},
+    "packet_id": {"type": "string", "minLength": 1},
+    "artifact_kind": {"type": "string", "minLength": 1},
+    "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "risk_level": {"enum": ["low", "medium", "high"]},
+    "status": {"enum": ["pass", "fail", "blocked"]},
+    "decision": {"enum": ["ai-approved", "blocked", "author-required"]},
+    "required_reviews": {"type": "integer", "minimum": 1},
+    "accepted_reviews": {"type": "array", "items": {"type": "string"}},
+    "rejected_reviews": {"type": "array", "items": {"type": "object"}},
+    "generated_at": {"type": "string", "minLength": 1},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/writing-review-bundle.schema.json",
+  "title": "Writing Effect Review Bundle",
+  "type": "object",
+  "required": ["schema_version", "bundle_id", "original", "revised", "context", "review_scope", "created_at"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "bundle_id": {"type": "string", "minLength": 1},
+    "original": {"type": "object", "required": ["path", "sha256", "content"]},
+    "revised": {"type": "object", "required": ["path", "sha256", "content"]},
+    "context": {"type": "object"},
+    "review_scope": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "created_at": {"type": "string", "minLength": 1},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

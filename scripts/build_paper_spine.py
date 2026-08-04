@@ -95,7 +95,7 @@ def extract_candidate(manuscript: Path, paper_id: str) -> dict[str, Any]:
         "contribution_chain": chain,
         "open_questions": ["Confirm every extracted candidate claim against the author's intended contribution and evidence.", "Bind confirmed claims to evidence and method dependencies before revision."],
         "created_at": utc_now(),
-        "candidate_status": "needs-human-confirmation",
+        "candidate_status": "needs-review",
         "source_path": str(manuscript),
         "source_policy": "candidate extraction only; no claims invented or confirmed",
     }

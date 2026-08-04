@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.3-orange.svg)](#v31-写作可靠性基础alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.4-orange.svg)](#v31-写作可靠性基础alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -129,16 +129,18 @@ evidence ledger、source withdrawal impact、corpus license/freshness/sample gat
 加权且带 locator 的 section style profile、原句重合审计和结构化 revision plan；方法
 风险卡与保守改写报告；bounded apply/rollback、hash/anchor 校验、issue 状态迁移和
 response-letter scaffold；证据/期刊新鲜度门、返修矩阵与 response-letter 提交前校验；
-本地 synthetic dogfood、跨平台/LaTeX 能力报告、26 项写作契约测试、gold/mutation
-benchmark、统一 contract suite、Skill 包装校验和 adapter repro lock。
+本地 synthetic dogfood、跨平台/LaTeX 能力报告、32 项写作契约测试、gold/mutation
+benchmark、统一 contract suite、Skill 包装校验、adapter repro lock，以及哈希绑定的
+低/中风险 AI 确认门。
 检索、RAG 与多代理仍只作为这些写作能力的支撑。
 
 * [v3.1 外部项目调研报告](docs/v3.1-landscape-research.md)
 * [v3.1 超详细升级计划](docs/v3.1-upgrade-plan.md)
 
 已实现能力仍属于 alpha：脚本负责确定性扫描、契约校验和候选 diff，不自动替作者
-决定理论、识别、结果或贡献。style profile 默认是 draft，必须人工确认；TeX 编译器
-缺失时只报告 Documented，不把结构审计冒充真实编译。当前 benchmark 的 26 项检查、
+决定理论、识别、结果或贡献。style profile 默认是 draft，可经作者确认或两次隔离 AI
+复核共识后用于结构诊断；数字、引用、识别、因果方向、结果和贡献等高风险内容仍只由
+作者裁决。TeX 编译器缺失时只报告 Documented，不把结构审计冒充真实编译。当前 32 项检查、
 10 个本地 synthetic dogfood case 和 gold/mutation 指标均为公开 fixture；它们验证的是
 工作流接线与确定性闸门，不是作者声音、因果裁决或期刊效果。真实/匿名论文与期刊效果
 人工 rubric 仍是进入 beta 前的工作。
@@ -196,6 +198,11 @@ v3.1 写作基础可以按需运行：
 py scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
 py scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-card.json --json
 py scripts/build_style_profile.py style-cards --output style-profile.json --json
+py scripts/build_ai_review_packet.py style-profile.json --kind style-profile --output style-review-packet.json --json
+py scripts/run_ai_reviews.py style-review-packet.json --output-dir ai-reviews --json
+py scripts/adjudicate_ai_reviews.py style-review-packet.json ai-reviews/ai-review-1.json ai-reviews/ai-review-2.json --output style-decision.json --json
+py scripts/build_writing_review_bundle.py original.md revised.md --style-profile style-profile.json --output writing-review-bundle.json --json
+py scripts/build_ai_review_packet.py writing-review-bundle.json --kind writing-rubric --output writing-rubric-packet.json --json
 py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
 py scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
 py scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
@@ -215,8 +222,8 @@ py scripts/check_method_language.py manuscript.md --json
 py scripts/build_method_safety_report.py manuscript.md --json
 py scripts/compile_guard.py manuscript.tex --strict --json
 py scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
-py scripts/validate_style_profile_gate.py style-profile.json --json
-py scripts/plan_style_revision.py manuscript.md style-profile-confirmed.json --section method --output style-revision-plan.json --json
+py scripts/validate_style_profile_gate.py style-profile.json --ai-decision style-decision.json --json
+py scripts/plan_style_revision.py manuscript.md style-profile.json --ai-decision style-decision.json --section method --output style-revision-plan.json --json
 py scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
 py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
 py scripts/run_dogfood_suite.py --json
@@ -236,7 +243,7 @@ py scripts/run_contract_suite.py --json
 
 | 代理 | 安装路径 | 状态 |
 |------|---------|------|
-| **Codex (OpenAI)** | `.codex/skills/` | **Verified（本地包契约 + Windows 26 项写作测试 + synthetic dogfood）** |
+| **Codex (OpenAI)** | `.codex/skills/` | **Verified（本地包契约 + Windows 32 项写作测试 + synthetic dogfood）** |
 | **OpenCode** | `.opencode/skills/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
 | **Claude Code** | `.claude/skills/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
 | **Cursor** | `.cursor/rules/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
@@ -248,6 +255,14 @@ py scripts/run_contract_suite.py --json
 ---
 
 ## 版本历史
+
+### v3.1.0-alpha.4 (2026-08-04)
+
+将可替代的笼统人工确认改为可审计 AI gate：固定风险分类、artifact SHA-256、逐项
+证据、隔离 review 和确定性 adjudication。低风险需一次复核，中风险需两次一致复核；
+style profile 和候选 paper spine 已接线。高风险学术语义即使 AI 一致同意也强制
+`author-required`。新增 original/revised writing review bundle，v3.1 synthetic writing
+checks 扩展为 32 项。
 
 ### v3.1.0-alpha.3 (2026-08-04)
 

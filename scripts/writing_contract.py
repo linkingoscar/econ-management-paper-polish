@@ -566,3 +566,80 @@ def validate_contract_suite_report(value: Any) -> list[str]:
     if not isinstance(value.get("limitations", []), list):
         errors.append("limitations must be an array")
     return errors
+
+
+def validate_ai_review_packet_contract(value: Any) -> list[str]:
+    from ai_review_contract import validate_ai_review_packet
+    return validate_ai_review_packet(value)
+
+
+def validate_ai_review_contract(value: Any) -> list[str]:
+    """Validate standalone review shape; packet binding is checked at adjudication."""
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["AI review must be an object"]
+    for key in ("review_id", "packet_id", "artifact_kind", "artifact_sha256", "created_at"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    if value.get("risk_level") not in {"low", "medium", "high"}:
+        errors.append("risk_level is invalid")
+    if value.get("verdict") not in {"approve", "block", "escalate"}:
+        errors.append("verdict is invalid")
+    reviewer = value.get("reviewer")
+    if not isinstance(reviewer, dict) or reviewer.get("kind") != "ai" or reviewer.get("isolated_pass") is not True:
+        errors.append("reviewer must describe an isolated AI pass")
+    if not isinstance(value.get("checks"), list) or not value.get("checks"):
+        errors.append("checks must be a non-empty array")
+    if not list_of_strings(value.get("limitations")):
+        errors.append("limitations must be a non-empty array of strings")
+    return errors
+
+
+def validate_ai_gate_decision_contract(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["AI gate decision must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    for key in ("decision_id", "packet_id", "artifact_kind", "artifact_sha256", "generated_at"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    if value.get("status") not in {"pass", "fail", "blocked"}:
+        errors.append("status is invalid")
+    if value.get("decision") not in {"ai-approved", "blocked", "author-required"}:
+        errors.append("decision is invalid")
+    if not isinstance(value.get("required_reviews"), int) or value.get("required_reviews", 0) < 1:
+        errors.append("required_reviews must be a positive integer")
+    for key in ("accepted_reviews", "rejected_reviews", "errors", "limitations"):
+        if not isinstance(value.get(key), list):
+            errors.append(f"{key} must be an array")
+    if value.get("risk_level") == "high" and value.get("decision") == "ai-approved":
+        errors.append("high-risk decision cannot be ai-approved")
+    return errors
+
+
+def validate_writing_review_bundle(value: Any) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(value, dict):
+        return ["writing review bundle must be an object"]
+    if value.get("schema_version") != SCHEMA_VERSION:
+        errors.append("schema_version must be '1.0'")
+    for key in ("bundle_id", "created_at"):
+        if not nonempty(value.get(key)):
+            errors.append(f"{key} must be a non-empty string")
+    for key in ("original", "revised"):
+        document = value.get(key)
+        if not isinstance(document, dict):
+            errors.append(f"{key} must be an object")
+            continue
+        if not nonempty(document.get("path")) or not isinstance(document.get("content"), str):
+            errors.append(f"{key} must contain path and content")
+        if not isinstance(document.get("sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", document.get("sha256", "")):
+            errors.append(f"{key}.sha256 must be a lowercase SHA-256 digest")
+    if not isinstance(value.get("context"), dict):
+        errors.append("context must be an object")
+    if not list_of_strings(value.get("review_scope")):
+        errors.append("review_scope must be a non-empty array of strings")
+    return errors

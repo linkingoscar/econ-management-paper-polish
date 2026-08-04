@@ -56,7 +56,7 @@ def run(root: Path, include_dogfood: bool) -> dict[str, Any]:
         "commands": results,
         "counts": counts,
         "limitations": [
-            "The suite is dependency-free and offline; external databases, model calls, and author rubric remain outside the gate.",
+            "The suite is dependency-free and offline; external databases, live model calls, real manuscripts, and high-risk author adjudication remain outside the gate.",
             "LaTeX is reported as Documented when no compiler is installed; structural validation still runs.",
         ],
     }

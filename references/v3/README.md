@@ -46,5 +46,7 @@ The writing safety gates are exposed as deterministic scripts:
 - `../../scripts/compile_guard.py` for structural LaTeX checks plus an optional
   isolated compiler run;
 - `../../scripts/check_issue_recall.py` for issue-ID lifecycle recall; and
-- `../../scripts/validate_style_profile_gate.py` for the explicit human confirmation
-  required by a dynamic style profile.
+- `../../scripts/validate_style_profile_gate.py` for author or hash-bound AI
+  confirmation of a dynamic style profile; and
+- `../../scripts/build_ai_review_packet.py` plus `../../scripts/adjudicate_ai_reviews.py`
+  for fixed-risk, isolated AI review gates.

@@ -38,6 +38,23 @@ def expect(condition: bool, message: str) -> None:
         raise AssertionError(message)
 
 
+def write_fixture_review(packet: dict, path: Path, reviewer_id: str) -> None:
+    value = {
+        "schema_version": "1.0",
+        "review_id": f"REV-{reviewer_id}",
+        "packet_id": packet["packet_id"],
+        "artifact_kind": packet["artifact_kind"],
+        "artifact_sha256": packet["artifact"]["sha256"],
+        "risk_level": packet["risk_level"],
+        "reviewer": {"kind": "ai", "reviewer_id": reviewer_id, "provider": "fixture", "model": f"fixture-{reviewer_id}", "isolated_pass": True},
+        "verdict": "approve",
+        "checks": [{"check_id": item["check_id"], "status": "pass", "reason": f"Fixture verifies {item['check_id']}.", "evidence": [f"artifact:{item['check_id']}"]} for item in packet["required_checks"]],
+        "limitations": ["Synthetic fixture review; no external facts verified."],
+        "created_at": "2026-08-04T00:00:00Z",
+    }
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def main() -> int:
     checks: list[str] = []
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -122,7 +139,7 @@ def main() -> int:
         checks.append("writing/corpus-license-and-overlap-gates")
 
         process, payload = run("validate_style_profile_gate.py", str(profile_path))
-        expect(process.returncode != 0 and payload["gate"] == "human-confirmation-required", "draft style profile must require human confirmation")
+        expect(process.returncode != 0 and payload["gate"] == "confirmation-required", "draft style profile must require a valid confirmation gate")
         confirmed = deepcopy(profile)
         confirmed["status"] = "confirmed"
         confirmed["human_confirmed"] = True
@@ -138,10 +155,52 @@ def main() -> int:
         checks.append("writing/dynamic-style-human-gate")
         style_plan_path = temp / "style-revision-plan.json"
         process, payload = run("plan_style_revision.py", str(FIXTURES / "target-a.md"), str(confirmed_path), "--section", "whole-document", "--output", str(style_plan_path))
-        expect(process.returncode == 0 and payload["status"] == "pass" and payload["plan"]["confirmation_required"], "confirmed profile should produce a structural revision plan without applying prose")
+        expect(process.returncode == 0 and payload["status"] == "pass" and not payload["plan"]["confirmation_required"] and payload["plan"]["confirmation_mode"] == "human", "confirmed profile should produce a structural revision plan without applying prose")
         process, payload = run("plan_style_revision.py", str(FIXTURES / "target-a.md"), str(profile_path), "--section", "whole-document")
         expect(process.returncode != 0 and payload["status"] == "blocked", "draft profile must not drive a revision plan")
         checks.append("writing/section-style-revision-plan")
+
+        style_packet_path = temp / "style-review-packet.json"
+        process, payload = run("build_ai_review_packet.py", str(profile_path), "--kind", "style-profile", "--output", str(style_packet_path))
+        expect(process.returncode == 0 and payload["packet"]["risk_level"] == "medium", "style profile should create a medium-risk AI packet")
+        style_packet = json.loads(style_packet_path.read_text(encoding="utf-8"))
+        process, payload = run("run_ai_reviews.py", str(style_packet_path), "--output-dir", str(temp / "live-ai-reviews"), "--dry-run")
+        expect(process.returncode == 0 and payload["capability"] == "Documented" and payload["reviews_requested"] == 2, "AI review adapter dry run should expose the required review count without claiming a live test")
+        checks.append("writing/ai-review-adapter-dry-run")
+        style_review_a, style_review_b = temp / "style-review-a.json", temp / "style-review-b.json"
+        write_fixture_review(style_packet, style_review_a, "style-a")
+        write_fixture_review(style_packet, style_review_b, "style-b")
+        one_review_decision = temp / "style-one-review-decision.json"
+        process, payload = run("adjudicate_ai_reviews.py", str(style_packet_path), str(style_review_a), "--output", str(one_review_decision))
+        expect(process.returncode != 0 and payload["decision"]["status"] == "blocked", "medium-risk AI gate must reject a single review")
+        style_decision_path = temp / "style-decision.json"
+        process, payload = run("adjudicate_ai_reviews.py", str(style_packet_path), str(style_review_a), str(style_review_b), "--output", str(style_decision_path))
+        expect(process.returncode == 0 and payload["decision"]["decision"] == "ai-approved", "two isolated reviews should approve a medium-risk style profile")
+        process, payload = run("adjudicate_ai_reviews.py", str(style_packet_path), str(style_review_a), str(style_review_a))
+        expect(process.returncode != 0 and payload["decision"]["status"] == "blocked", "duplicated reviewer identity must not satisfy isolation")
+        process, payload = run("validate_style_profile_gate.py", str(profile_path), "--ai-decision", str(style_decision_path))
+        expect(process.returncode == 0 and payload["gate"] == "ai-consensus", "AI consensus should satisfy the style profile gate")
+        tampered_profile_path = temp / "style-profile-tampered.json"
+        tampered_profile = deepcopy(profile)
+        tampered_profile["target_outlet"] = "Changed after review"
+        tampered_profile_path.write_text(json.dumps(tampered_profile, ensure_ascii=False, indent=2), encoding="utf-8")
+        process, payload = run("validate_style_profile_gate.py", str(tampered_profile_path), "--ai-decision", str(style_decision_path))
+        expect(process.returncode != 0 and any("hash" in error for error in payload["errors"]), "AI decision must not authorize a changed artifact")
+        ai_style_plan = temp / "ai-style-plan.json"
+        process, payload = run("plan_style_revision.py", str(FIXTURES / "target-a.md"), str(profile_path), "--ai-decision", str(style_decision_path), "--output", str(ai_style_plan))
+        expect(process.returncode == 0 and payload["plan"]["confirmation_mode"] == "ai-consensus", "AI-confirmed profile should drive only a structural plan")
+        checks.append("writing/hash-bound-ai-style-consensus")
+        rubric_bundle_path = temp / "writing-review-bundle.json"
+        process, payload = run("build_writing_review_bundle.py", str(FIXTURES / "target-a.md"), str(FIXTURES / "target-b.md"), "--style-profile", str(profile_path), "--output", str(rubric_bundle_path))
+        expect(process.returncode == 0 and payload["bundle"]["review_scope"] == ["claim-clarity", "argument-flow", "evidence-alignment", "method-language", "author-voice"], "writing-effect bundle should preserve the original/revised pair and rubric scope")
+        rubric_packet_path = temp / "writing-rubric-packet.json"
+        process, payload = run("build_ai_review_packet.py", str(rubric_bundle_path), "--kind", "writing-rubric", "--output", str(rubric_packet_path))
+        expect(process.returncode == 0 and payload["packet"]["risk_level"] == "medium", "provisional writing rubric should require two AI reviews")
+        checks.append("writing/provisional-ai-effect-rubric")
+        for kind, artifact in (("ai-review-packet", style_packet_path), ("ai-review", style_review_a), ("ai-gate-decision", style_decision_path), ("writing-review-bundle", rubric_bundle_path)):
+            process, payload = run("validate_writing_contract.py", kind, str(artifact))
+            expect(process.returncode == 0 and payload["status"] == "pass", f"{kind} should pass the shared contract")
+        checks.append("writing/ai-artifact-contracts")
 
         spine_path = temp / "paper-spine.json"
         process, payload = run(
@@ -157,8 +216,31 @@ def main() -> int:
         manuscript_candidate.write_text("# Introduction\n\nWe find that the policy changes investment under the stated design.\n\n# Results\n\nThe results show a positive association in the observed sample.\n", encoding="utf-8")
         candidate_spine_path = temp / "candidate-paper-spine.json"
         process, payload = run("build_paper_spine.py", "--manuscript", str(manuscript_candidate), "--paper-id", "candidate-paper", "--output", str(candidate_spine_path))
-        expect(process.returncode == 0 and payload["status"] == "pass" and payload["paper_spine"]["candidate_status"] == "needs-human-confirmation" and len(payload["paper_spine"]["contribution_chain"]) == 2, "paper spine should extract unconfirmed candidate claims from text")
+        expect(process.returncode == 0 and payload["status"] == "pass" and payload["paper_spine"]["candidate_status"] == "needs-review" and len(payload["paper_spine"]["contribution_chain"]) == 2, "paper spine should extract reviewable candidate claims from text")
         checks.append("argument/reverse-outline-candidate")
+        spine_packet_path = temp / "spine-review-packet.json"
+        process, payload = run("build_ai_review_packet.py", str(candidate_spine_path), "--kind", "paper-spine", "--output", str(spine_packet_path))
+        spine_packet = json.loads(spine_packet_path.read_text(encoding="utf-8"))
+        spine_review_a, spine_review_b = temp / "spine-review-a.json", temp / "spine-review-b.json"
+        write_fixture_review(spine_packet, spine_review_a, "spine-a")
+        write_fixture_review(spine_packet, spine_review_b, "spine-b")
+        spine_decision_path = temp / "spine-decision.json"
+        process, payload = run("adjudicate_ai_reviews.py", str(spine_packet_path), str(spine_review_a), str(spine_review_b), "--output", str(spine_decision_path))
+        expect(process.returncode == 0, "two isolated reviews should approve candidate spine for structural use")
+        reviewed_spine_path = temp / "paper-spine-ai-reviewed.json"
+        process, payload = run("approve_paper_spine.py", str(candidate_spine_path), str(spine_decision_path), "--output", str(reviewed_spine_path))
+        expect(process.returncode == 0 and payload["paper_spine"]["candidate_status"] == "ai-reviewed" and payload["paper_spine"]["author_adoption_required"], "AI consensus should remove workflow confirmation while preserving author adoption boundary")
+        checks.append("argument/hash-bound-ai-spine-consensus")
+
+        meaning_packet_path = temp / "meaning-review-packet.json"
+        process, payload = run("build_ai_review_packet.py", str(manuscript_candidate), "--kind", "meaning-change", "--output", str(meaning_packet_path))
+        meaning_packet = json.loads(meaning_packet_path.read_text(encoding="utf-8"))
+        meaning_review_a, meaning_review_b = temp / "meaning-review-a.json", temp / "meaning-review-b.json"
+        write_fixture_review(meaning_packet, meaning_review_a, "meaning-a")
+        write_fixture_review(meaning_packet, meaning_review_b, "meaning-b")
+        process, payload = run("adjudicate_ai_reviews.py", str(meaning_packet_path), str(meaning_review_a), str(meaning_review_b))
+        expect(process.returncode != 0 and payload["decision"]["decision"] == "author-required", "AI consensus must not self-approve high-risk scholarly meaning")
+        checks.append("meaning/high-risk-author-boundary")
 
         process, payload = run(
             "check_claim_evidence.py",

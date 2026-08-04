@@ -31,6 +31,10 @@ from writing_contract import (
     validate_response_validation_report,
     validate_revision_matrix,
     validate_workspace_manifest,
+    validate_ai_review_packet_contract,
+    validate_ai_review_contract,
+    validate_ai_gate_decision_contract,
+    validate_writing_review_bundle,
 )
 
 
@@ -56,6 +60,10 @@ VALIDATORS = {
     "response-validation-report": validate_response_validation_report,
     "revision-matrix": validate_revision_matrix,
     "contract-suite-report": validate_contract_suite_report,
+    "ai-review-packet": validate_ai_review_packet_contract,
+    "ai-review": validate_ai_review_contract,
+    "ai-gate-decision": validate_ai_gate_decision_contract,
+    "writing-review-bundle": validate_writing_review_bundle,
 }
 
 

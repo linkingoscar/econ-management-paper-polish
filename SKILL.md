@@ -35,7 +35,7 @@ See `README.md` for agent-specific installation instructions.
 
 ## v3.0 Runtime Contract (reliability core)
 
-The current implementation is **v3.1.0-alpha.3** on top of the v3.0 reliability
+The current implementation is **v3.1.0-alpha.4** on top of the v3.0 reliability
 core. The 41 v2 reference modules remain available for backward-compatible loading;
 the v3 core adds explicit
 contracts around routing, evidence, deterministic audits, and capability limits.
@@ -72,8 +72,13 @@ py scripts/run_agent_pipeline.py tasks.json --dry-run --json
 py scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
 py scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-cards/STY-0001.json --json
 py scripts/build_style_profile.py style-cards --output style-profile.json --json
+py scripts/build_ai_review_packet.py style-profile.json --kind style-profile --output style-review-packet.json --json
+py scripts/run_ai_reviews.py style-review-packet.json --output-dir ai-reviews --json
+py scripts/adjudicate_ai_reviews.py style-review-packet.json ai-reviews/ai-review-1.json ai-reviews/ai-review-2.json --output style-decision.json --json
+py scripts/build_writing_review_bundle.py original.md revised.md --style-profile style-profile.json --output writing-review-bundle.json --json
 py scripts/build_paper_spine.py --paper-id paper-001 --output paper-spine.json --json
 py scripts/build_paper_spine.py --manuscript manuscript.md --paper-id paper-001 --output paper-spine.json --json
+py scripts/approve_paper_spine.py paper-spine.json spine-decision.json --output paper-spine-reviewed.json --json
 py scripts/check_claim_evidence.py paper-spine.json --evidence-pack evidence-pack.json --json
 py scripts/build_evidence_ledger.py evidence-ledger-input.json --output evidence-ledger.json --json
 py scripts/check_evidence_impact.py evidence-ledger.json SRC-0001 --json
@@ -94,8 +99,8 @@ py scripts/check_method_language.py manuscript.md --json
 py scripts/build_method_safety_report.py manuscript.md --json
 py scripts/compile_guard.py manuscript.tex --strict --json
 py scripts/check_issue_recall.py review-ledger-before.json review-ledger-after.json --json
-py scripts/validate_style_profile_gate.py style-profile.json --json
-py scripts/plan_style_revision.py manuscript.md style-profile-confirmed.json --section method --output style-revision-plan.json --json
+py scripts/validate_style_profile_gate.py style-profile.json --ai-decision style-decision.json --json
+py scripts/plan_style_revision.py manuscript.md style-profile.json --ai-decision style-decision.json --section method --output style-revision-plan.json --json
 py scripts/init_writing_workspace.py paper-workspace --paper-id paper-001 --json
 py scripts/run_writing_workflow.py paper-workspace --variable Treatment --json
 py scripts/validate_revision_journal.py paper-workspace/revision-journal.jsonl --json
@@ -134,8 +139,8 @@ For a substantive writing task, create or update these artifacts as applicable:
    extraction level, structural observations, confidence, and structural-only
    copy boundary.
 3. style-profile.json: observed rhetorical/paragraph/citation patterns, conflicts,
-   P1 preservation priority, and recheck date. It starts as `draft`; do not use
-   it for revision until a human records `status=confirmed` and confirmation data.
+   P1 preservation priority, and recheck date. It starts as `draft`; use it only
+   after either explicit human confirmation or a hash-bound two-pass AI gate.
 4. review-ledger.json: reviewer issue, severity, decision, protected fields,
    status history, and unresolved limitation.
 5. A bounded diff plus deterministic audit before proposing a manuscript change.
@@ -150,6 +155,9 @@ scripts/meaning_audit.py, scripts/check_method_language.py,
 scripts/compile_guard.py, scripts/check_issue_recall.py,
 scripts/validate_style_profile_gate.py, scripts/check_claim_evidence.py, and
 scripts/validate_writing_contract.py for deterministic scaffolding and checks.
+Use `build_ai_review_packet.py → run_ai_reviews.py → adjudicate_ai_reviews.py`
+for replaceable confirmations. Low risk needs one isolated review, medium risk
+needs two unanimous reviews, and high-risk scholarly meaning remains author-required.
 These scripts do not decide whether a claim is true and do not apply prose patches
 automatically. Freshness gates block stale direct evidence and journal profiles;
 `run_dogfood_suite.py` exercises only repository-owned synthetic fixtures in temporary
@@ -159,8 +167,8 @@ references/v3-review-ledger.md, and
 references/v3-capability-and-provenance.md when the corresponding mode is used.
 
 Dynamic journal adaptation has two gates: first build and inspect a structural
-style profile from supplied/verified materials, then pass the explicit human
-confirmation gate; only then revise a specified section. The profile never
+style profile from supplied/verified materials, then pass explicit human review
+or the hash-bound two-pass AI gate; only then revise a specified section. The profile never
 authorizes copying source sentences or a target author's distinctive voice.
 P1 facts, citations, equations, variables, numbers, results, contribution claims,
 and limitations override every style preference. Methodological, theoretical,

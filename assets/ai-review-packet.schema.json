@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/ai-review-packet.schema.json",
+  "title": "AI Writing Review Packet",
+  "type": "object",
+  "required": ["schema_version", "packet_id", "artifact_kind", "artifact", "risk_level", "required_checks", "review_policy", "created_at"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "packet_id": {"type": "string", "minLength": 1},
+    "artifact_kind": {"enum": ["route-card", "paper-spine", "style-profile", "journal-card", "response-letter", "writing-rubric", "meaning-change"]},
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256", "content"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "content": {"type": "string"},
+        "truncated": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "risk_level": {"enum": ["low", "medium", "high"]},
+    "required_checks": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "review_policy": {"type": "object"},
+    "created_at": {"type": "string", "minLength": 1},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}
