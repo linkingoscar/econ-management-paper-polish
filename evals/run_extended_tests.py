@@ -23,6 +23,7 @@ from scripts.run_writing_benchmark import confusion, run_gold
 
 
 FIXTURES = ROOT / "evals" / "fixtures" / "expanded"
+PYTHON_UTF8 = [sys.executable, "-X", "utf8"]
 
 
 def expect(condition: bool, message: str) -> None:
@@ -90,9 +91,10 @@ def main() -> int:
         hits = loaded.search("parallel trends", 3)
         expect(hits and "did_zh.md" in hits[0].path, "RAG lexical retrieval failed")
         cli_index = temp / "cli-index.json"
-        process = subprocess.run([sys.executable, str(ROOT / "scripts" / "rag_search.py"), "--index", str(cli_index), "--ingest", str(FIXTURES), "--query", "parallel trends", "--json"], cwd=ROOT, text=True, capture_output=True, check=False)
+        process = subprocess.run([*PYTHON_UTF8, str(ROOT / "scripts" / "rag_search.py"), "--index", str(cli_index), "--ingest", str(FIXTURES), "--query", "parallel trends", "--json"], cwd=ROOT, text=True, encoding="utf-8", capture_output=True, check=False)
+        expect(process.returncode == 0, f"RAG CLI failed: {process.stderr.strip()}")
         cli_report = json.loads(process.stdout)
-        expect(process.returncode == 0 and cli_report["status"] == "pass" and cli_report["hits"], "RAG CLI failed")
+        expect(cli_report["status"] == "pass" and cli_report["hits"], "RAG CLI failed")
         chinese_source = temp / "innovation-zh.md"
         chinese_source.write_text("数字化转型显著提高企业创新绩效。", encoding="utf-8")
         chinese_index = MarkdownIndex()
@@ -122,9 +124,10 @@ def main() -> int:
         temp = Path(temp_dir)
         tasks_path = temp / "tasks.json"
         tasks_path.write_text(json.dumps({"tasks": [{"task_id": "literature", "role": "literature", "prompt": "find"}, {"task_id": "audit", "role": "audit", "prompt": "check", "depends_on": ["literature"]}]}), encoding="utf-8")
-        process = subprocess.run([sys.executable, str(ROOT / "scripts" / "run_agent_pipeline.py"), str(tasks_path), "--dry-run", "--json"], cwd=ROOT, text=True, capture_output=True, check=False)
+        process = subprocess.run([*PYTHON_UTF8, str(ROOT / "scripts" / "run_agent_pipeline.py"), str(tasks_path), "--dry-run", "--json"], cwd=ROOT, text=True, encoding="utf-8", capture_output=True, check=False)
+        expect(process.returncode == 0, f"agent pipeline CLI dry-run failed: {process.stderr.strip()}")
         report = json.loads(process.stdout)
-        expect(process.returncode == 0 and report["status"] == "pass" and report["order"] == ["literature", "audit"], "agent pipeline CLI dry-run failed")
+        expect(report["status"] == "pass" and report["order"] == ["literature", "audit"], "agent pipeline CLI dry-run failed")
     checks.append("agents/cli-dry-run")
 
     expected_names = {"did_zh.md", "iv_en.md", "rd_en.md", "survey_zh.md", "experiment_en.md", "qualitative_zh.md"}
