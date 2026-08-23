@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.5-orange.svg)](#v31-writing-reliability-foundation-alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.5-orange.svg)](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.5)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -19,6 +19,8 @@ An AI Skill covering the entire paper-writing pipeline — from topic selection 
 > **Domains**: Economics, Management, Finance, Accounting, Marketing, Information Systems, Public Administration, Tourism/Service Management, Innovation & Entrepreneurship, and other business-related academic papers.
 
 > **[中文文档](README.md)**
+
+> **Current release: [`v3.1.0-alpha.5`](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.5)** | [GitHub Pages documentation](https://linkingoscar.github.io/econ-management-paper-polish/) | 34 writing-contract checks and 12 Agentic tests passing
 
 ---
 

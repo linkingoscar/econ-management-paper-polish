@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.5-orange.svg)](#v31-写作可靠性基础alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.5-orange.svg)](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.5)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -19,6 +19,8 @@
 > **适用领域**：经济学、管理学、金融、会计、营销、信息系统、公共管理、旅游/服务管理、创新创业等经管类学术论文。
 
 > **[English](README.en.md)**
+
+> **当前版本：[`v3.1.0-alpha.5`](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.5)** ｜ [GitHub Pages 文档站](https://linkingoscar.github.io/econ-management-paper-polish/) ｜ 34 项写作契约与 12 项 Agentic 测试通过
 
 ---
 
