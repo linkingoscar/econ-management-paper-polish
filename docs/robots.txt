@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://linkingoscar.github.io/econ-management-paper-polish/sitemap.xml

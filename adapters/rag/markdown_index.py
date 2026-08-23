@@ -12,11 +12,56 @@ from typing import Any, Iterable
 from ..protocols import RagHit
 
 
-TOKEN_RE = re.compile(r"[\w\u4e00-\u9fff]+", re.UNICODE)
+TOKEN_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff]+|[^\W_]+(?:_[^\W_]+)*", re.UNICODE)
+HAN_RE = re.compile(r"^[\u3400-\u4dbf\u4e00-\u9fff]+$")
+SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[。！？])\s*|(?<=[.!?])\s+")
 
 
 def _tokens(text: str) -> list[str]:
-    return [token.lower() for token in TOKEN_RE.findall(text)]
+    tokens: list[str] = []
+    for raw_token in TOKEN_RE.findall(text):
+        token = raw_token.lower()
+        if not HAN_RE.fullmatch(token):
+            tokens.append(token)
+            continue
+        # Chinese usually has no whitespace word boundaries. Retain the full
+        # run for exact matches and add short character n-grams so queries can
+        # retrieve a longer sentence without an external segmenter.
+        tokens.append(token)
+        for size in range(2, min(4, len(token)) + 1):
+            tokens.extend(token[start : start + size] for start in range(len(token) - size + 1))
+    return tokens
+
+
+def _character_chunks(paragraph: str, max_chars: int) -> list[str]:
+    sentences = [part.strip() for part in SENTENCE_BOUNDARY_RE.split(paragraph) if part.strip()]
+    pieces: list[str] = []
+    buffer = ""
+    for sentence in sentences:
+        if len(sentence) > max_chars:
+            if buffer:
+                pieces.append(buffer)
+                buffer = ""
+            pieces.extend(sentence[start : start + max_chars] for start in range(0, len(sentence), max_chars))
+        elif buffer and len(buffer) + len(sentence) > max_chars:
+            pieces.append(buffer)
+            buffer = sentence
+        else:
+            buffer += sentence
+    if buffer:
+        pieces.append(buffer)
+    return pieces or [paragraph]
+
+
+def _paragraph_chunks(paragraph: str, words_per_chunk: int) -> list[str]:
+    if words_per_chunk < 1:
+        raise ValueError("words_per_chunk must be positive")
+    words = paragraph.split()
+    if len(words) > 1:
+        return [" ".join(words[start : start + words_per_chunk]) for start in range(0, len(words), words_per_chunk)]
+    # A rough character budget keeps CJK chunks comparable to the existing
+    # whitespace-word budget while still honoring small test/user budgets.
+    return _character_chunks(paragraph, max(40, words_per_chunk * 4))
 
 
 class MarkdownIndex:
@@ -51,8 +96,7 @@ class MarkdownIndex:
                 if not paragraphs:
                     continue
                 for index, paragraph in enumerate(paragraphs):
-                    words = paragraph.split()
-                    pieces = [" ".join(words[start : start + words_per_chunk]) for start in range(0, len(words), words_per_chunk)] or [paragraph]
+                    pieces = _paragraph_chunks(paragraph, words_per_chunk)
                     for piece_index, piece in enumerate(pieces):
                         chunk_id = hashlib.sha256(f"{path.resolve()}:{index}:{piece_index}".encode("utf-8")).hexdigest()[:16]
                         self.chunks = [chunk for chunk in self.chunks if chunk.get("chunk_id") != chunk_id]
@@ -80,7 +124,9 @@ class MarkdownIndex:
                 count = terms.count(term)
                 if count:
                     matched.append(term)
-                    score += (1.0 + math.log(count)) * math.log((total + 1) / (document_frequency.get(term, 0) + 1))
+                    frequency = document_frequency.get(term, 0)
+                    inverse_document_frequency = math.log(1.0 + (total - frequency + 0.5) / (frequency + 0.5))
+                    score += (1.0 + math.log(count)) * inverse_document_frequency
             if score:
                 metadata = dict(chunk.get("metadata") or {})
                 metadata["matched_terms"] = sorted(set(matched))

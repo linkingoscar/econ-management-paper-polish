@@ -1,0 +1,21 @@
+# Econ-Management Paper Polish
+
+> Evidence-first AI Agent Skill for economics and management paper writing,
+> polishing, peer review, journal adaptation, method safety, and auditable revision.
+
+Canonical website: https://linkingoscar.github.io/econ-management-paper-polish/
+Source repository: https://github.com/linkingoscar/econ-management-paper-polish
+License: MIT
+Current version: v3.1.0-alpha.5
+
+Primary documentation:
+- https://github.com/linkingoscar/econ-management-paper-polish/blob/main/README.en.md
+- https://github.com/linkingoscar/econ-management-paper-polish/blob/main/README.md
+- https://github.com/linkingoscar/econ-management-paper-polish/blob/main/SKILL.md
+- https://github.com/linkingoscar/econ-management-paper-polish/blob/main/references/v3-agentic-benchmark.md
+
+Core boundaries:
+- Never fabricate citations, data, results, methods, or journal requirements.
+- Preserve numbers, variables, equations, citations, and causal strength.
+- Deterministic safety gates override Agent preferences.
+- High-risk scholarly meaning cannot be authorized by Agent consensus.

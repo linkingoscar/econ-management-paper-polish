@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "scholarly-adversarial-v1",
+  "seeds": [
+    {
+      "seed_id": "empirical-claims",
+      "path": "evals/adversarial/seeds/empirical-claims.md",
+      "operators": [
+        "number-binding-swap",
+        "citation-claim-swap",
+        "direction-flip",
+        "significance-flip",
+        "association-to-causal"
+      ]
+    },
+    {
+      "seed_id": "latex-structure",
+      "path": "evals/adversarial/seeds/latex-structure.tex",
+      "operators": [
+        "latex-reference-break",
+        "latex-required-package-remove",
+        "latex-environment-break"
+      ]
+    }
+  ]
+}

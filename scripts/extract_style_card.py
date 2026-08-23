@@ -19,7 +19,7 @@ from writing_contract import validate_style_card, write_json
 
 
 TEXT_SUFFIXES = {".md", ".markdown", ".txt", ".tex", ".latex", ".html", ".xml"}
-SENTENCE_RE = re.compile(r"(?<=[。！？.!?])\s+")
+SENTENCE_RE = re.compile(r"(?<=[。！？])\s*|(?<=[.!?])\s+")
 CITATION_RE = re.compile(r"(?:\\cite[a-zA-Z*]*\s*(?:\[[^\]]*\])?\s*\{[^}]+\}|\[[^\]]{2,80}\])")
 HEADING_RE = re.compile(r"^\s*(?:#{1,6}\s+|\\(?:sub)*section\{)(.+?)(?:\})?\s*$", re.IGNORECASE)
 

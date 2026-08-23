@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "pure-agent-writing-benchmark-v1",
+  "variants": [
+    {"variant_id": "candidate-a", "description": "First independently produced agent output."},
+    {"variant_id": "candidate-b", "description": "Second independently produced agent output."}
+  ],
+  "judge_policy": {
+    "minimum_judges": 3,
+    "anonymous_variants": true,
+    "randomized_order": true,
+    "isolated_judges": true,
+    "hard_gate_precedence": true,
+    "high_risk_terminal": "blocked"
+  },
+  "judge_profiles": [
+    {"judge_profile_id": "journal-editor", "role": "economics journal editor", "focus": "clarity, contribution framing, and calibrated claims"},
+    {"judge_profile_id": "methods-reviewer", "role": "empirical methods reviewer", "focus": "estimand fidelity, identification language, and quantitative bindings"},
+    {"judge_profile_id": "copy-editor", "role": "scholarly copy editor", "focus": "readability, concision, terminology, and citation placement"}
+  ],
+  "rubric": [
+    {"criterion_id": "meaning-fidelity", "weight": 3, "max_score": 4, "description": "Preserves substantive meaning and epistemic calibration."},
+    {"criterion_id": "evidence-binding", "weight": 3, "max_score": 4, "description": "Keeps numbers, variables, and citations attached to their source claims."},
+    {"criterion_id": "scholarly-clarity", "weight": 2, "max_score": 4, "description": "Improves clarity and flow without padding."},
+    {"criterion_id": "journal-style", "weight": 1, "max_score": 4, "description": "Uses disciplined economics and management prose."}
+  ],
+  "cases": [
+    {
+      "case_id": "results-low-risk",
+      "prompt": "Polish the paragraph for journal submission without changing empirical meaning, values, citations, or causal strength.",
+      "source": "evals/agentic/fixtures/source.md",
+      "discipline": "applied economics",
+      "language": "English",
+      "section": "results",
+      "risk_level": "low",
+      "variables": ["Treatment"]
+    },
+    {
+      "case_id": "results-high-risk",
+      "prompt": "Evaluate competing substantive rewrites of the reported treatment result.",
+      "source": "evals/agentic/fixtures/source.md",
+      "discipline": "applied economics",
+      "language": "English",
+      "section": "results",
+      "risk_level": "high",
+      "variables": ["Treatment"]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.4-orange.svg)](#v31-writing-reliability-foundation-alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.5-orange.svg)](#v31-writing-reliability-foundation-alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -109,6 +109,7 @@ python scripts/validate_v3.py .
 python evals/run_smoke_tests.py
 python evals/run_extended_tests.py
 python evals/run_v31_writing_tests.py
+python evals/run_agentic_tests.py
 python scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 python scripts/validate_skill_package.py . --json
 python scripts/validate_repro_lock.py . --json
@@ -125,7 +126,7 @@ network access, credentials, and separate evidence verification.
 ## v3.1 Writing Reliability Foundation (alpha)
 
 v3.1 keeps the project centered on economics/management paper writing and revision,
-not on becoming a general autonomous research platform. The consolidated alpha.1–alpha.4
+not on becoming a general autonomous research platform. The consolidated alpha.1–alpha.5
 release connects the checks
 into a recoverable writing loop: workspace/intake/route cards, candidate paper spine,
 protected snapshots, checkpoints and a JSONL revision journal; many-to-many evidence
@@ -134,10 +135,14 @@ weighted section style profiles, overlap screening and structural revision plans
 method risk cards with conservative rewrites; bounded apply/rollback, issue transitions,
 response-letter scaffolds, evidence/journal freshness gates, revision-matrix and
 submission-ready response validation, a local synthetic dogfood harness, portable
-platform/LaTeX capability reporting, 32 writing-contract checks, gold/mutation metrics,
+platform/LaTeX capability reporting, 34 writing-contract checks, gold/mutation metrics,
 package validation, a unified contract suite, an adapter repro lock, and hash-bound AI
-confirmation gates for low- and medium-risk artifacts. Retrieval, RAG,
-and multi-agent features remain supporting layers.
+confirmation gates for low- and medium-risk artifacts. Alpha.5 adds a pure AI-Agent
+control plane: independent candidate Agents, anonymous randomized comparison, at least
+three isolated judge Agents, hash-bound provenance, deterministic adjudication, and eight
+adversarial mutation operators. Low/medium-risk evaluation can run unattended end to end;
+high-risk scholarly meaning terminates safely as `blocked`, because Agent consensus is
+evidence, not authorization.
 
 * [v3.1 landscape research report](docs/v3.1-landscape-research.md)
 * [v3.1 detailed upgrade plan](docs/v3.1-upgrade-plan.md)
@@ -148,7 +153,7 @@ results, or contribution for the author. A style profile is `draft` by default a
 be used for structural diagnosis after author confirmation or two isolated AI reviews
 reach a hash-bound consensus. Numbers, citations, identification, causal direction,
 results, and contribution claims remain author-controlled. When no TeX compiler is installed, the report is
-`Documented` rather than a claimed compile. The 32 checks, ten synthetic dogfood cases,
+`Documented` rather than a claimed compile. The 34 writing checks, 12 Agentic protocol checks, ten synthetic dogfood cases,
 and gold/mutation metrics are repository-owned fixtures; they verify workflow wiring and
 deterministic gates rather than author voice, causal adjudication, or journal effectiveness.
 Real/anonymous-paper dogfooding and a human journal-effectiveness rubric remain beta
@@ -414,7 +419,7 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 
 | Agent | Install Path | Status |
 |-------|-------------|--------|
-| **Codex (OpenAI)** | `.codex/skills/` | **Verified (local package contract + Windows 32-check suite + synthetic dogfood)** |
+| **Codex (OpenAI)** | `.codex/skills/` | **Verified (local package contract + Windows 34-check writing/12-check Agentic suites + synthetic dogfood)** |
 | **OpenCode** | `.opencode/skills/` | **Documented (installation path; no host smoke in this repo)** |
 | **Claude Code** | `.claude/skills/` | **Documented (installation path; no host smoke in this repo)** |
 | **Cursor** | `.cursor/rules/` | **Documented (installation path; no host smoke in this repo)** |
@@ -427,7 +432,7 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 
 ## Version History
 
-### v3.1.0 (Writing Reliability Core, alpha.1–alpha.4) (2026-08-04)
+### v3.1.0 (Writing Reliability Core, alpha.1–alpha.5) (2026-08-24)
 
 This is the consolidated v3.1 alpha history. On top of the v3.0 reliability contracts,
 it added the writing workspace/intake/route/checkpoint/journal, candidate paper spine,
@@ -436,8 +441,9 @@ and freshness/overlap gates, section style revision plans, method risk cards and
 conservative rewrites, bounded apply/rollback, issue transitions, response-letter
 scaffolding, gold/mutation benchmarks, synthetic dogfooding, cross-platform/LaTeX
 capability smoke, a unified contract suite, and hash-bound AI review packets with
-isolated review and deterministic adjudication. The installable GitHub tag is
-`v3.1.0-alpha.4`; the 32-check writing suite passes, while real-paper dogfooding, live
+isolated review and deterministic adjudication, plus alpha.5's pure-Agent blind and
+adversarial benchmark. The current release tag is `v3.1.0-alpha.5`, with the 34-check
+writing and 12-check Agentic suites passing, while real-paper dogfooding, live
 providers, real TeX, and high-risk scholarly decisions remain author-controlled, so the
 release remains an alpha.
 
@@ -485,6 +491,10 @@ Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
 ## License
 
 [MIT](LICENSE) — free to use, modify, and distribute.
+
+For academic or software citations, use GitHub's **Cite this repository** interface or
+the versioned [`CITATION.cff`](CITATION.cff). Machine-readable software metadata is
+available in [`codemeta.json`](codemeta.json).
 
 ---
 

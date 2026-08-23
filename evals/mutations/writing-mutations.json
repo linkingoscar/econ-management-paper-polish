@@ -2,6 +2,9 @@
   "schema_version": "1.0",
   "cases": [
     {"id":"M-PROTECTED-SAFE","original":"evals/fixtures/writing/original.md","revised":"evals/fixtures/writing/revised-good.md","expected":"pass","variable":"Treatment"},
-    {"id":"M-PROTECTED-CHANGED","original":"evals/fixtures/writing/original.md","revised":"evals/fixtures/writing/revised-bad.md","expected":"fail","variable":"Treatment"}
+    {"id":"M-PROTECTED-CHANGED","original":"evals/fixtures/writing/original.md","revised":"evals/fixtures/writing/revised-bad.md","expected":"fail","variable":"Treatment"},
+    {"id":"M-LOCAL-BINDING-SAFE","original":"evals/mutations/local-binding-original.md","revised":"evals/mutations/local-binding-safe.md","expected":"pass","variable":"Treatment"},
+    {"id":"M-LOCAL-NUMBER-SWAP","original":"evals/mutations/local-binding-original.md","revised":"evals/mutations/local-binding-number-swap.md","expected":"fail","variable":"Treatment"},
+    {"id":"M-LOCAL-CITATION-SWAP","original":"evals/mutations/local-binding-original.md","revised":"evals/mutations/local-binding-citation-swap.md","expected":"fail","variable":"Treatment"}
   ]
 }

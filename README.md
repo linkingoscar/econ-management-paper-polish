@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.4-orange.svg)](#v31-写作可靠性基础alpha)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.5-orange.svg)](#v31-写作可靠性基础alpha)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -109,6 +109,7 @@ py scripts/validate_v3.py .
 py evals/run_smoke_tests.py
 py evals/run_extended_tests.py
 py evals/run_v31_writing_tests.py
+py evals/run_agentic_tests.py
 py scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 py scripts/validate_skill_package.py . --json
 py scripts/validate_repro_lock.py . --json
@@ -123,16 +124,16 @@ py scripts/validate_repro_lock.py . --json
 ## v3.1 写作可靠性基础（alpha）
 
 v3.1 仍以“经管论文写作与返修 Skill”为核心，不把项目扩张为通用自主科研平台。
-本次 alpha（alpha.1–alpha.4）已把检查器串成可恢复的写作闭环：workspace/intake/route card、候选
+本次 alpha（alpha.1–alpha.5）已把检查器串成可恢复的写作闭环：workspace/intake/route card、候选
 paper spine、protected snapshot、checkpoint 和 JSONL revision journal；many-to-many
 evidence ledger、source withdrawal impact、corpus license/freshness/sample gate、
 加权且带 locator 的 section style profile、原句重合审计和结构化 revision plan；方法
 风险卡与保守改写报告；bounded apply/rollback、hash/anchor 校验、issue 状态迁移和
 response-letter scaffold；证据/期刊新鲜度门、返修矩阵与 response-letter 提交前校验；
-本地 synthetic dogfood、跨平台/LaTeX 能力报告、32 项写作契约测试、gold/mutation
+本地 synthetic dogfood、跨平台/LaTeX 能力报告、34 项写作契约测试、gold/mutation
 benchmark、统一 contract suite、Skill 包装校验、adapter repro lock，以及哈希绑定的
-低/中风险 AI 确认门。
-检索、RAG 与多代理仍只作为这些写作能力的支撑。
+低/中风险 AI 确认门。alpha.5 新增纯 AI-Agent 控制面：多候选 Agent、匿名乱序盲评、
+至少 3 个隔离评审 Agent、哈希绑定来源、确定性裁决和 8 类对抗突变。低/中风险评测可以端到端无人执行；高风险学术含义会安全终止为 `blocked`，不把 Agent 共识当成授权。
 
 * [v3.1 外部项目调研报告](docs/v3.1-landscape-research.md)
 * [v3.1 超详细升级计划](docs/v3.1-upgrade-plan.md)
@@ -140,7 +141,7 @@ benchmark、统一 contract suite、Skill 包装校验、adapter repro lock，�
 已实现能力仍属于 alpha：脚本负责确定性扫描、契约校验和候选 diff，不自动替作者
 决定理论、识别、结果或贡献。style profile 默认是 draft，可经作者确认或两次隔离 AI
 复核共识后用于结构诊断；数字、引用、识别、因果方向、结果和贡献等高风险内容仍只由
-作者裁决。TeX 编译器缺失时只报告 Documented，不把结构审计冒充真实编译。当前 32 项检查、
+作者裁决。TeX 编译器缺失时只报告 Documented，不把结构审计冒充真实编译。当前 34 项写作检查、12 项 Agentic 协议检查、
 10 个本地 synthetic dogfood case 和 gold/mutation 指标均为公开 fixture；它们验证的是
 工作流接线与确定性闸门，不是作者声音、因果裁决或期刊效果。真实/匿名论文与期刊效果
 人工 rubric 仍是进入 beta 前的工作。
@@ -221,7 +222,7 @@ py scripts/compare_manuscript_versions.py original.md revised.md --variable Trea
 
 | 代理 | 安装路径 | 状态 |
 |------|---------|------|
-| **Codex (OpenAI)** | `.codex/skills/` | **Verified（本地包契约 + Windows 32 项写作测试 + synthetic dogfood）** |
+| **Codex (OpenAI)** | `.codex/skills/` | **Verified（本地包契约 + Windows 34 项写作/12 项 Agentic 测试 + synthetic dogfood）** |
 | **OpenCode** | `.opencode/skills/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
 | **Claude Code** | `.claude/skills/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
 | **Cursor** | `.cursor/rules/` | **Documented（安装路径已记录，未在本仓库 smoke）** |
@@ -234,7 +235,7 @@ py scripts/compare_manuscript_versions.py original.md revised.md --variable Trea
 
 ## 版本历史
 
-### v3.1.0（写作可靠性核心，alpha.1–alpha.4） (2026-08-04)
+### v3.1.0（写作可靠性核心，alpha.1–alpha.5） (2026-08-24)
 
 这是 v3.1 的统一 alpha 版本记录：在 v3.0 可靠性契约之上，依次完成了 writing
 workspace/intake/route/checkpoint/journal、候选 paper spine、protected
@@ -242,8 +243,8 @@ snapshot/hash/anchor、many-to-many evidence ledger、corpus/style 授权与 fre
 overlap gates、section style revision plan、方法风险卡与保守改写、bounded
 apply/rollback、issue transition、response-letter scaffold、gold/mutation benchmark、
 synthetic dogfood、跨平台/LaTeX capability smoke、统一 contract suite，以及哈希绑定的
-AI review packet、隔离复核和确定性 adjudication。当前 GitHub 可安装标签为
-`v3.1.0-alpha.4`；32 项写作契约测试通过，但真实论文 dogfooding、live provider、
+AI review packet、隔离复核和确定性 adjudication，以及 alpha.5 的纯 Agent 盲评/对抗基准。
+当前发布标签为 `v3.1.0-alpha.5`，34 项写作契约与 12 项 Agentic 测试通过，但真实论文 dogfooding、live provider、
 真实 TeX 和高风险学术内容仍保持作者责任，因此整体仍标记为 alpha。
 
 ### v3.0.0-alpha.1 (2026-08-03)
@@ -265,6 +266,9 @@ RAG、多代理适配器、扩展评测和 CI。旧版 41 个 reference 模块�
 ## 许可证
 
 [MIT](LICENSE) — 免费使用、修改和分发。
+
+学术或软件成果中使用本项目时，可通过 GitHub 的 **Cite this repository** 功能或
+[`CITATION.cff`](CITATION.cff) 生成版本化引用；机器可读软件元数据见 [`codemeta.json`](codemeta.json)。
 
 ---
 

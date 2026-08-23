@@ -35,7 +35,7 @@ See `README.md` for agent-specific installation instructions.
 
 ## v3.0 Runtime Contract (reliability core)
 
-The current implementation is **v3.1.0-alpha.4** on top of the v3.0 reliability
+The current implementation is **v3.1.0-alpha.5** on top of the v3.0 reliability
 core. The 41 v2 reference modules remain available for backward-compatible loading;
 the v3 core adds explicit
 contracts around routing, evidence, deterministic audits, and capability limits.
@@ -69,6 +69,11 @@ py scripts/validate_journal_card.py journal-card.json --max-age-days 365 --json
 py scripts/search_literature.py "staggered difference in differences" --provider both --json
 py scripts/rag_search.py --index .rag/index.json --ingest references --query "parallel trends" --json
 py scripts/run_agent_pipeline.py tasks.json --dry-run --json
+py scripts/run_agentic_candidates.py evals/agentic/manifest.json results-low-risk --output-dir candidate-runs --dry-run --json
+py scripts/build_agentic_review_packet.py evals/agentic/manifest.json results-low-risk --variant candidate-a=output-a.md --variant candidate-b=output-b.md --output packet.json --mapping-output private-mapping.json --json
+py scripts/run_agentic_judges.py packet.json --output-dir agentic-runs --dry-run --json
+py scripts/adjudicate_agentic_benchmark.py packet.json private-mapping.json agentic-runs/ABP-*/journal-editor.json agentic-runs/ABP-*/methods-reviewer.json agentic-runs/ABP-*/copy-editor.json --output decision.json --json
+py scripts/generate_adversarial_mutations.py evals/adversarial/manifest.json --output-dir generated-mutations --manifest-output mutation-report.json --json
 py scripts/prepare_corpus.py corpus --role target-journal --output corpus-manifest.json --json
 py scripts/extract_style_card.py corpus/paper.md --source-id SRC-0001 --output style-cards/STY-0001.json --json
 py scripts/build_style_profile.py style-cards --output style-profile.json --json
@@ -86,6 +91,7 @@ py scripts/audit_evidence_freshness.py evidence-ledger.json --max-age-days 365 -
 py scripts/audit_journal_freshness.py journal-card.json --max-age-days 365 --json
 py scripts/build_issue_ledger.py reviewer-issues.json --output review-ledger.json --json
 py scripts/route_review_issues.py review-ledger.json --output review-ledger-routed.json --json
+py scripts/check_local_bindings.py original.md revised.md --json
 py scripts/propose_bounded_patch.py original.md revised.md --output patch-report.json --json
 py scripts/verify_bounded_patch.py original.md revised.md --variable Treatment --json
 py scripts/apply_bounded_patch.py original.md revised.md --output manuscript.applied.md --variable Treatment --json
@@ -126,10 +132,13 @@ and `assets/paper-state.schema.json` when state must persist across turns.
 
 ## v3.1 Writing Foundation (P0)
 
-The v3.1 upgrade remains writing-first. Research retrieval, RAG, and agents are
-supporting layers for clearer arguments, safer method prose, traceable citations,
-journal adaptation, and reviewer response; they are not an autonomous research
-platform.
+The v3.1 upgrade remains writing-first. In alpha.5 the orchestration surface is a
+**pure AI-Agent control plane**: independent writer candidates, anonymous isolated
+judge profiles, deterministic adjudication, and adversarial regression generation can
+run without a human reviewer for low- and medium-risk work. Deterministic safety gates
+remain outside model preference so Agents cannot vote away changed numbers, citations,
+meaning markers, method regressions, or broken LaTeX. High-risk scholarly meaning has a
+terminal `blocked` result; Agent consensus is evaluation evidence, never authorization.
 
 For a substantive writing task, create or update these artifacts as applicable:
 
@@ -150,7 +159,8 @@ For a substantive writing task, create or update these artifacts as applicable:
 Use scripts/prepare_corpus.py, scripts/extract_style_card.py,
 scripts/build_style_profile.py, scripts/build_paper_spine.py,
 scripts/build_issue_ledger.py, scripts/route_review_issues.py,
-scripts/propose_bounded_patch.py, scripts/verify_bounded_patch.py,
+scripts/check_local_bindings.py, scripts/propose_bounded_patch.py,
+scripts/verify_bounded_patch.py,
 scripts/meaning_audit.py, scripts/check_method_language.py,
 scripts/compile_guard.py, scripts/check_issue_recall.py,
 scripts/validate_style_profile_gate.py, scripts/check_claim_evidence.py, and
@@ -158,6 +168,13 @@ scripts/validate_writing_contract.py for deterministic scaffolding and checks.
 Use `build_ai_review_packet.py → run_ai_reviews.py → adjudicate_ai_reviews.py`
 for replaceable confirmations. Low risk needs one isolated review, medium risk
 needs two unanimous reviews, and high-risk scholarly meaning remains author-required.
+For comparative Agent evaluation, use
+`run_agentic_candidates.py → build_agentic_review_packet.py → run_agentic_judges.py →
+adjudicate_agentic_benchmark.py`. It requires at least three declared, isolated judge
+profiles, hides candidate identities and hard-audit results until adjudication, binds
+all content and responses by hash, and labels same-model panels low-confidence. Use
+`generate_adversarial_mutations.py` to run deterministic detector regressions; generated
+cases are admitted only when an independent oracle rejects the mutation.
 These scripts do not decide whether a claim is true and do not apply prose patches
 automatically. Freshness gates block stale direct evidence and journal profiles;
 `run_dogfood_suite.py` exercises only repository-owned synthetic fixtures in temporary
@@ -165,6 +182,7 @@ workspaces and is not real-paper quality evidence. Read references/v3-writing-co
 references/v3-corpus-and-style.md, references/v3-argument-evidence.md,
 references/v3-review-ledger.md, and
 references/v3-capability-and-provenance.md when the corresponding mode is used.
+Read `references/v3-agentic-benchmark.md` before running comparative Agent evaluation.
 
 Dynamic journal adaptation has two gates: first build and inspect a structural
 style profile from supplied/verified materials, then pass explicit human review

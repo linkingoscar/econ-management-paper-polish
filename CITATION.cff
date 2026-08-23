@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this skill in academic work, please cite the software repository and version."
+title: "Econ-Management Paper Polish"
+type: software
+authors:
+  - family-names: "linkingoscar"
+    alias: "linkingoscar"
+    website: "https://github.com/linkingoscar"
+repository-code: "https://github.com/linkingoscar/econ-management-paper-polish"
+url: "https://linkingoscar.github.io/econ-management-paper-polish/"
+version: "3.1.0-alpha.5"
+date-released: "2026-08-24"
+license: MIT
+keywords:
+  - agent-skills
+  - academic-writing
+  - economics
+  - management
+  - econometrics
+  - scientific-writing
+  - paper-polishing
+  - peer-review
+  - citation-integrity
+  - multi-agent
+abstract: >-
+  An evidence-first Agent Skill for writing, polishing, reviewing, and revising
+  economics and management papers while preserving numbers, variables,
+  citations, causal strength, and scholarly meaning.

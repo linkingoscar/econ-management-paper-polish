@@ -25,6 +25,7 @@ def command_specs(root: Path, include_dogfood: bool = True) -> list[tuple[str, l
         ("legacy-smoke", [python, str(root / "evals" / "run_smoke_tests.py")]),
         ("extended-offline", [python, str(root / "evals" / "run_extended_tests.py")]),
         ("v31-writing", [python, str(root / "evals" / "run_v31_writing_tests.py")]),
+        ("agentic-benchmark", [python, str(root / "evals" / "run_agentic_tests.py")]),
         ("writing-benchmark", [python, str(root / "scripts" / "run_writing_benchmark.py"), "--json"]),
         ("platform-smoke", [python, str(root / "scripts" / "run_platform_smoke.py"), "--json"]),
     ]

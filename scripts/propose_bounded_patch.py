@@ -12,6 +12,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+from check_local_bindings import audit_local_bindings
 from writing_contract import write_json
 
 
@@ -78,6 +79,7 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2) if args.as_json else result["errors"][0], file=sys.stderr)
         return 2
     protection = compare(counts(old_text, args.variable), counts(new_text, args.variable), args.allow_added)
+    local_bindings = audit_local_bindings(old_text, new_text, allow_added=args.allow_added)
     diff = "\n".join(difflib.unified_diff(old_text.splitlines(), new_text.splitlines(), fromfile=str(args.original), tofile=str(args.revised), lineterm=""))
     old_lines = old_text.splitlines()
     new_lines = new_text.splitlines()
@@ -93,10 +95,11 @@ def main() -> int:
                 "revised_hash": hashlib.sha256("\n".join(new_lines[new_start:new_end]).encode("utf-8")).hexdigest(),
             })
     result = {
-        "status": protection["status"],
-        "risk": "safe-fix" if protection["status"] == "pass" else "author-required",
+        "status": "pass" if protection["status"] == "pass" and local_bindings["status"] == "pass" else "fail",
+        "risk": "safe-fix" if protection["status"] == "pass" and local_bindings["status"] == "pass" else "author-required",
         "applied": False,
         "protection": protection,
+        "local_bindings": local_bindings,
         "changed_lines": sum(1 for line in diff.splitlines() if line.startswith(("+", "-")) and not line.startswith(("+++", "---"))),
         "original_sha256": hashlib.sha256(old_text.encode("utf-8")).hexdigest(),
         "revised_sha256": hashlib.sha256(new_text.encode("utf-8")).hexdigest(),
@@ -118,6 +121,7 @@ def main() -> int:
         print(f"risk: {result['risk']}")
         print(f"changed lines: {result['changed_lines']}")
         print(f"protection: {result['protection']['status']}")
+        print(f"local bindings: {result['local_bindings']['status']}")
         for error in result["errors"]:
             print(f"- {error}")
     return 0 if result["status"] == "pass" else 1

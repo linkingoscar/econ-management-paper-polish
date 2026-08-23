@@ -9,6 +9,7 @@ import json
 import sys
 from pathlib import Path
 
+from check_local_bindings import audit_local_bindings
 from meaning_audit import compare_text
 from propose_bounded_patch import compare, counts
 
@@ -33,6 +34,7 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2) if args.as_json else result["errors"][0], file=sys.stderr)
         return 2
     protection = compare(counts(old, args.variable), counts(new, args.variable), args.allow_added)
+    local_bindings = audit_local_bindings(old, new, allow_added=args.allow_added)
     meaning = compare_text(old, new, author_confirmed=args.author_confirmed, rationale=args.rationale)
     original_sha256 = hashlib.sha256(old.encode("utf-8")).hexdigest()
     hash_errors = []
@@ -45,12 +47,13 @@ def main() -> int:
                 hash_errors.append("original manuscript hash does not match protected snapshot")
         except (OSError, UnicodeError, json.JSONDecodeError) as exc:
             hash_errors.append(f"cannot read protected snapshot: {exc}")
-    overall_status = "pass" if protection["status"] == "pass" and meaning["status"] == "pass" and not hash_errors else "fail"
+    overall_status = "pass" if protection["status"] == "pass" and local_bindings["status"] == "pass" and meaning["status"] == "pass" and not hash_errors else "fail"
     result = {
         "status": overall_status,
         "verified": overall_status == "pass",
         "applied": False,
         "protection": protection,
+        "local_bindings": local_bindings,
         "meaning_gate": meaning,
         "original_sha256": original_sha256,
         "hash_errors": hash_errors,
@@ -58,6 +61,8 @@ def main() -> int:
     }
     if protection["status"] != "pass":
         result["errors"].append("protected token counts changed")
+    if local_bindings["status"] != "pass":
+        result["errors"].append("local number/citation bindings changed")
     if meaning["status"] != "pass":
         result["errors"].append("meaning-risk markers changed and require author confirmation")
     result["errors"].extend(hash_errors)

@@ -34,9 +34,22 @@ class OpenAICompatibleAgent:
         try:
             with urlopen(request, timeout=self.timeout) as response:
                 body = json.loads(response.read().decode("utf-8"))
-            content = body.get("choices", [{}])[0].get("message", {}).get("content")
+            choice = body.get("choices", [{}])[0]
+            content = choice.get("message", {}).get("content")
             if not isinstance(content, str) or not content.strip():
                 return AgentResult(task.task_id, task.role, "fail", error="provider returned no message content", capability="Verified")
-            return AgentResult(task.task_id, task.role, "pass", output=content, capability="Verified", provenance={"provider": "openai-compatible", "model": self.model})
+            return AgentResult(
+                task.task_id,
+                task.role,
+                "pass",
+                output=content,
+                capability="Verified",
+                provenance={
+                    "provider": "openai-compatible",
+                    "model": self.model,
+                    "request_id": body.get("id", "unreported"),
+                    "finish_reason": choice.get("finish_reason", "unreported"),
+                },
+            )
         except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as exc:
             return AgentResult(task.task_id, task.role, "fail", error=f"agent request failed: {exc}", capability="Verified")

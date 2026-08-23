@@ -15,6 +15,8 @@ REQUIRED_FILES = (
     "SKILL.md",
     "README.md",
     "README.en.md",
+    "CITATION.cff",
+    "codemeta.json",
     "agents/openai.yaml",
     "assets/evidence-pack.schema.json",
     "assets/journal-card.schema.json",
@@ -56,10 +58,16 @@ REQUIRED_FILES = (
     "assets/ai-review.schema.json",
     "assets/ai-gate-decision.schema.json",
     "assets/writing-review-bundle.schema.json",
+    "assets/agentic-benchmark-manifest.schema.json",
+    "assets/agentic-review-packet.schema.json",
+    "assets/agentic-review.schema.json",
+    "assets/agentic-benchmark-decision.schema.json",
+    "assets/adversarial-mutation-report.schema.json",
     "references/v3-runtime-contract.md",
     "references/v3-evidence-ledger.md",
     "references/v3-method-safety.md",
     "references/v3-audit-contract.md",
+    "references/v3-agentic-benchmark.md",
     "references/v3-writing-contract.md",
     "references/v3-corpus-and-style.md",
     "references/v3-argument-evidence.md",
@@ -97,6 +105,7 @@ REQUIRED_FILES = (
     "scripts/build_paper_spine.py",
     "scripts/build_issue_ledger.py",
     "scripts/route_review_issues.py",
+    "scripts/check_local_bindings.py",
     "scripts/propose_bounded_patch.py",
     "scripts/verify_bounded_patch.py",
     "scripts/check_claim_evidence.py",
@@ -140,13 +149,25 @@ REQUIRED_FILES = (
     "scripts/adjudicate_ai_reviews.py",
     "scripts/approve_paper_spine.py",
     "scripts/build_writing_review_bundle.py",
+    "scripts/agentic_benchmark_contract.py",
+    "scripts/build_agentic_review_packet.py",
+    "scripts/run_agentic_candidates.py",
+    "scripts/run_agentic_judges.py",
+    "scripts/adjudicate_agentic_benchmark.py",
+    "scripts/generate_adversarial_mutations.py",
     "evals/run_smoke_tests.py",
     "evals/run_extended_tests.py",
     "evals/run_v31_writing_tests.py",
+    "evals/run_agentic_tests.py",
     "evals/README.md",
     "evals/evaluation-manifest.json",
     "evals/gold/writing-cases.json",
     "evals/mutations/writing-mutations.json",
+    "evals/agentic/manifest.json",
+    "evals/adversarial/manifest.json",
+    "docs/robots.txt",
+    "docs/sitemap.xml",
+    "docs/llms.txt",
     ".github/workflows/ci.yml",
 )
 
@@ -255,6 +276,15 @@ def validate_root(root: Path) -> list[str]:
         "assets/method-safety-card.schema.json",
         "assets/repro-lock.schema.json",
         "assets/style-revision-plan.schema.json",
+        "assets/ai-review-packet.schema.json",
+        "assets/ai-review.schema.json",
+        "assets/ai-gate-decision.schema.json",
+        "assets/writing-review-bundle.schema.json",
+        "assets/agentic-benchmark-manifest.schema.json",
+        "assets/agentic-review-packet.schema.json",
+        "assets/agentic-review.schema.json",
+        "assets/agentic-benchmark-decision.schema.json",
+        "assets/adversarial-mutation-report.schema.json",
     ):
         path = root / relative
         if path.is_file():
@@ -267,6 +297,20 @@ def validate_root(root: Path) -> list[str]:
                 errors.append("assets/method-safety-cards.json has an invalid catalog contract")
         except (OSError, json.JSONDecodeError) as exc:
             errors.append(f"assets/method-safety-cards.json: invalid JSON ({exc})")
+    codemeta = root / "codemeta.json"
+    if codemeta.is_file():
+        try:
+            payload = json.loads(codemeta.read_text(encoding="utf-8"))
+            if payload.get("@type") != "SoftwareSourceCode" or payload.get("version") != "3.1.0-alpha.5":
+                errors.append("codemeta.json has an unexpected software contract")
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"codemeta.json: invalid JSON ({exc})")
+    pages_index = root / "docs" / "index.html"
+    if pages_index.is_file():
+        pages_text = pages_index.read_text(encoding="utf-8")
+        for marker in ('rel="canonical"', 'name="description"', 'property="og:title"', 'type="application/ld+json"'):
+            if marker not in pages_text:
+                errors.append(f"docs/index.html missing discoverability marker: {marker}")
     packs = sorted((root / "references" / "v3").glob("[0-9][0-9]-*.md"))
     if len(packs) != 14:
         errors.append(f"references/v3 must contain exactly 14 responsibility packs (found {len(packs)})")

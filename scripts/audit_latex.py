@@ -17,6 +17,7 @@ CITE_RE = re.compile(r"\\cite[a-zA-Z*]*\s*(?:\[[^]]*\])?\s*\{([^}]+)\}")
 GRAPHIC_RE = re.compile(r"\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}")
 BIB_RE = re.compile(r"\\bibliography\{([^}]+)\}")
 BIB_KEY_RE = re.compile(r"@\w+\s*\{\s*([^,\s]+)", re.IGNORECASE)
+ENV_RE = re.compile(r"\\(begin|end)\{([^}]+)\}")
 
 
 def line_number(text: str, position: int) -> int:
@@ -56,7 +57,8 @@ def audit(tex_path: Path, bib_path: Path | None = None, strict: bool = False) ->
     text = tex_path.read_text(encoding="utf-8")
     issues: list[dict] = []
     packages = {package.strip() for raw in PACKAGE_RE.findall(text) for package in raw.split(",")}
-    labels = set(LABEL_RE.findall(text))
+    label_matches = list(LABEL_RE.finditer(text))
+    labels = {match.group(1) for match in label_matches}
     refs = [(match.group(1), line_number(text, match.start())) for match in REF_RE.finditer(text)]
     cites = [key.strip() for match in CITE_RE.finditer(text) for key in match.group(1).split(",")]
 
@@ -66,6 +68,41 @@ def audit(tex_path: Path, bib_path: Path | None = None, strict: bool = False) ->
         add_issue(issues, "error", "missing-document-begin", "No \\begin{document} found.")
     if "\\end{document}" not in text:
         add_issue(issues, "error", "missing-document-end", "No \\end{document} found.")
+
+    seen_labels: set[str] = set()
+    for match in label_matches:
+        label = match.group(1)
+        if label in seen_labels:
+            add_issue(
+                issues,
+                "error",
+                "duplicate-label",
+                f"Label '{label}' is declared more than once.",
+                line_number(text, match.start()),
+            )
+        seen_labels.add(label)
+
+    environment_stack: list[tuple[str, int]] = []
+    for match in ENV_RE.finditer(text):
+        action, name = match.groups()
+        line = line_number(text, match.start())
+        if action == "begin":
+            environment_stack.append((name, line))
+        elif not environment_stack:
+            add_issue(issues, "error", "unmatched-environment-end", f"Unexpected \\end{{{name}}}.", line)
+        elif environment_stack[-1][0] != name:
+            expected, _ = environment_stack[-1]
+            add_issue(
+                issues,
+                "error",
+                "mismatched-environment-end",
+                f"Expected \\end{{{expected}}} before \\end{{{name}}}.",
+                line,
+            )
+        else:
+            environment_stack.pop()
+    for name, line in environment_stack:
+        add_issue(issues, "error", "unclosed-environment", f"No matching \\end{{{name}}} found.", line)
 
     requirements = {
         "threeparttable": (r"\\begin\{threeparttable\}|\\begin\{tablenotes\}", "threeparttable"),

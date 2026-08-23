@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/agentic-benchmark-decision.schema.json",
+  "title": "Deterministic Agentic Benchmark Decision",
+  "type": "object",
+  "required": ["schema_version", "decision_id", "packet_id", "packet_sha256", "status", "decision", "risk_level", "decision_reason", "required_judges", "accepted_reviews", "rejected_reviews", "confidence_mode", "errors", "limitations"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "status": {"enum": ["pass", "fail", "blocked"]},
+    "decision": {"enum": ["agent-selected", "blocked", "inconclusive", "high-risk-no-ai-authorization"]},
+    "risk_level": {"enum": ["low", "medium", "high"]},
+    "confidence_mode": {"enum": ["single-model-low-confidence", "cross-model-evaluated"]},
+    "accepted_reviews": {"type": "array", "items": {"type": "string"}},
+    "rejected_reviews": {"type": "array"},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

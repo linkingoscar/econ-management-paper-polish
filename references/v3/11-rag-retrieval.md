@@ -22,4 +22,9 @@ or causal-language changes. Never cite a retrieved title without verification.
 The adapter contract lives in `adapters/rag/`; this pack defines behavior and safety,
 not a mandatory vector database or embedding vendor.
 
+The dependency-free lexical adapter emits overlapping 2–4 character n-grams for
+continuous Han text and applies character-budget chunking when whitespace word
+boundaries are absent. This is a deterministic fallback, not a substitute for
+domain-aware Chinese segmentation or semantic retrieval.
+
 Legacy sources merged: `rag-workflow.md`, `rag-retrieval.md`, `rag-verification.md`.

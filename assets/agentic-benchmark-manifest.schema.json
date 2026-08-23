@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/econ-management-paper-polish/agentic-benchmark-manifest.schema.json",
+  "title": "Agentic Writing Benchmark Manifest",
+  "type": "object",
+  "required": ["schema_version", "suite_id", "variants", "judge_policy", "judge_profiles", "rubric", "cases"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "suite_id": {"type": "string", "minLength": 1},
+    "variants": {"type": "array", "minItems": 2, "items": {"type": "object", "required": ["variant_id"], "properties": {"variant_id": {"type": "string", "minLength": 1}}, "additionalProperties": true}},
+    "judge_policy": {"type": "object", "required": ["minimum_judges", "anonymous_variants", "randomized_order", "isolated_judges", "hard_gate_precedence", "high_risk_terminal"]},
+    "judge_profiles": {"type": "array", "minItems": 3, "items": {"type": "object", "required": ["judge_profile_id", "role", "focus"]}},
+    "rubric": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["criterion_id", "weight", "max_score"]}},
+    "cases": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["case_id", "prompt", "source", "risk_level", "discipline", "language", "section", "variables"]}}
+  },
+  "additionalProperties": false
+}

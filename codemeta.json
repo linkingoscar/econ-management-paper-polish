@@ -1,0 +1,33 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Econ-Management Paper Polish",
+  "alternateName": "经管论文润色 Agent Skill",
+  "description": "Evidence-first AI Agent Skill for economics and management paper writing, polishing, peer review, journal adaptation, citation integrity, method-safety, and auditable multi-agent revision.",
+  "codeRepository": "https://github.com/linkingoscar/econ-management-paper-polish",
+  "issueTracker": "https://github.com/linkingoscar/econ-management-paper-polish/issues",
+  "url": "https://linkingoscar.github.io/econ-management-paper-polish/",
+  "version": "3.1.0-alpha.5",
+  "datePublished": "2026-08-24",
+  "license": "https://spdx.org/licenses/MIT",
+  "programmingLanguage": ["Python", "Markdown"],
+  "runtimePlatform": ["Codex", "Claude Code", "OpenCode", "Cursor", "Agent Skills"],
+  "applicationCategory": "Academic writing and research agent tooling",
+  "keywords": [
+    "agent skills",
+    "academic writing",
+    "economics paper writing",
+    "management paper polishing",
+    "econometrics",
+    "scientific writing",
+    "peer review",
+    "citation integrity",
+    "multi-agent review",
+    "LaTeX"
+  ],
+  "author": {
+    "@type": "Person",
+    "@id": "https://github.com/linkingoscar",
+    "name": "linkingoscar"
+  }
+}

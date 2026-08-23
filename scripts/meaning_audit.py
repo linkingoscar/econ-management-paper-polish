@@ -69,6 +69,33 @@ MARKERS: dict[str, tuple[str, ...]] = {
         r"外部有效性",
         r"可推广",
     ),
+    "positive_direction": (
+        r"\bpositive(?:ly)?\b",
+        r"\bincreas(?:e|es|ed|ing)\b",
+        r"\bhigher\b",
+        r"正向",
+        r"提高",
+        r"增加",
+    ),
+    "negative_direction": (
+        r"\bnegative(?:ly)?\b",
+        r"\bdecreas(?:e|es|ed|ing)\b",
+        r"\blower\b",
+        r"负向",
+        r"降低",
+        r"减少",
+    ),
+    "significant": (
+        r"(?<!not )\bstatistically significant\b",
+        r"(?<!not )\bsignificant\b",
+        r"(?<!不)显著",
+    ),
+    "nonsignificant": (
+        r"\bnot statistically significant\b",
+        r"\bnot significant\b",
+        r"\binsignificant\b",
+        r"不显著",
+    ),
 }
 
 

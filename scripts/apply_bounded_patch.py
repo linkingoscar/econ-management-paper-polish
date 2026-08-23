@@ -9,6 +9,7 @@ import json
 import sys
 from pathlib import Path
 
+from check_local_bindings import audit_local_bindings
 from meaning_audit import compare_text
 from propose_bounded_patch import compare, counts
 from writing_contract import utc_now, write_json
@@ -45,12 +46,14 @@ def main() -> int:
     if args.output.resolve() == args.original.resolve():
         errors.append("output must be a separate path; in-place overwrite is disabled")
     protection = compare(counts(old, args.variable), counts(new, args.variable), args.allow_added)
+    local_bindings = audit_local_bindings(old, new, allow_added=args.allow_added)
     meaning = compare_text(old, new, author_confirmed=args.author_confirmed, rationale=args.rationale)
     result["protection"] = protection
+    result["local_bindings"] = local_bindings
     result["meaning_gate"] = meaning
-    if protection["status"] != "pass":
+    if protection["status"] != "pass" or local_bindings["status"] != "pass":
         if not args.allow_author_required:
-            errors.append("protected fields changed; use an explicit author-required confirmation before applying")
+            errors.append("protected fields or local bindings changed; use an explicit author-required confirmation before applying")
         if not args.author_confirmed or not args.confirmed_by.strip() or not args.rationale.strip():
             errors.append("author-required apply needs --author-confirmed, --confirmed-by, and --rationale")
     if meaning["status"] != "pass":

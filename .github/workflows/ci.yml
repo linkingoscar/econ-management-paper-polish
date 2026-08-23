@@ -6,7 +6,11 @@ on:
 
 jobs:
   smoke:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,6 +30,8 @@ jobs:
         run: python evals/run_extended_tests.py
       - name: Run v3.1 writing foundation tests
         run: python evals/run_v31_writing_tests.py
+      - name: Run offline pure-Agent benchmark and adversarial tests
+        run: python evals/run_agentic_tests.py
       - name: Run writing gold and mutation benchmark
         run: python scripts/run_writing_benchmark.py --json
       - name: Run local dogfood workflow harness

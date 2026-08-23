@@ -90,6 +90,16 @@ def main() -> int:
             )
             expect(process.returncode == 0 and payload["status"] == "pass", "style card should extract from text")
         checks.append("writing/style-card-extraction")
+        chinese_style_source = temp / "style-zh.md"
+        chinese_style_source.write_text("第一句说明研究问题。第二句描述识别策略！第三句报告主要结果？", encoding="utf-8")
+        process, payload = run(
+            "extract_style_card.py",
+            str(chinese_style_source),
+            "--source-id", "SRC-ZH",
+        )
+        paragraph_length = payload["style_card"]["observations"]["paragraph_length"]
+        expect(process.returncode == 0 and paragraph_length["mean_sentences"] == 3, "Chinese sentences should split without whitespace after punctuation")
+        checks.append("writing/chinese-sentence-boundaries")
 
         profile_path = temp / "style-profile.json"
         process, payload = run(
@@ -428,6 +438,29 @@ def main() -> int:
         )
         expect(process.returncode != 0 and payload["status"] == "fail" and payload["risk"] == "author-required", "changed protected patch should block")
         checks.append("revision/bounded-protected-patch")
+
+        number_original = temp / "number-binding-original.md"
+        number_revised = temp / "number-binding-revised.md"
+        number_original.write_text("The coefficient is 0.20 and p = 0.05.\n", encoding="utf-8")
+        number_revised.write_text("The coefficient is 0.05 and p = 0.20.\n", encoding="utf-8")
+        process, payload = run("propose_bounded_patch.py", str(number_original), str(number_revised))
+        expect(
+            process.returncode != 0 and payload["protection"]["status"] == "pass" and payload["local_bindings"]["status"] == "fail",
+            "reordered coefficient and p-value must fail even when global number counts match",
+        )
+        citation_original = temp / "citation-binding-original.md"
+        citation_revised = temp / "citation-binding-revised.md"
+        citation_original.write_text("The first claim is supported \\cite{smith2020}. The second claim is supported \\cite{jones2021}.\n", encoding="utf-8")
+        citation_revised.write_text("The first claim is supported \\cite{jones2021}. The second claim is supported \\cite{smith2020}.\n", encoding="utf-8")
+        process, payload = run("verify_bounded_patch.py", str(citation_original), str(citation_revised))
+        expect(
+            process.returncode != 0 and payload["protection"]["status"] == "pass" and payload["local_bindings"]["status"] == "fail",
+            "citations swapped across claims must fail even when global citation counts match",
+        )
+        blocked_output = temp / "number-binding-blocked.md"
+        process, payload = run("apply_bounded_patch.py", str(number_original), str(number_revised), "--output", str(blocked_output))
+        expect(process.returncode != 0 and not payload["applied"] and not blocked_output.exists(), "local binding failures must block apply without author confirmation")
+        checks.append("revision/local-number-citation-bindings")
 
         process, payload = run(
             "verify_bounded_patch.py",
