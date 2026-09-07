@@ -429,7 +429,7 @@ def main() -> int:
             str(FIXTURES / "revised-good.md"),
             "--variable", "Treatment",
         )
-        expect(process.returncode == 0 and payload["status"] == "pass" and payload["risk"] == "safe-fix", "unchanged protected patch should pass")
+        expect(process.returncode == 0 and payload["status"] == "pass" and payload["risk"] == "checks-passed", "unchanged protected patch should pass without claiming semantic approval")
         process, payload = run(
             "propose_bounded_patch.py",
             str(FIXTURES / "original.md"),
@@ -445,7 +445,10 @@ def main() -> int:
         number_revised.write_text("The coefficient is 0.05 and p = 0.20.\n", encoding="utf-8")
         process, payload = run("propose_bounded_patch.py", str(number_original), str(number_revised))
         expect(
-            process.returncode != 0 and payload["protection"]["status"] == "pass" and payload["local_bindings"]["status"] == "fail",
+            process.returncode != 0
+            and not payload["protection"]["missing_numbers"] and not payload["protection"]["added_numbers"]
+            and "pvalue_relations" in payload["protection"]["changes"]
+            and payload["local_bindings"]["status"] == "fail",
             "reordered coefficient and p-value must fail even when global number counts match",
         )
         citation_original = temp / "citation-binding-original.md"

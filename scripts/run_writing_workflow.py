@@ -140,6 +140,8 @@ def workflow(workspace: Path, variables: list[str], allow_unresolved_route: bool
             append_event(journal_path, run_id, stage, payload.get("status", "fail"), f"run {stage} gate", output=payload, errors=payload.get("errors", []))
             if payload.get("status") != "pass":
                 errors.append(f"{stage} gate failed")
+            if payload.get("advisory_count"):
+                limitations.append(f"{stage}: {payload['advisory_count']} contextual advisories remain for design review; no identification approval was made.")
         if current.suffix.lower() in {".tex", ".latex"}:
             code, payload, stderr = run_script(root, "compile_guard.py", [str(current), "--strict"])
             checks.append({"stage": "compile-guard", "status": payload.get("status", "fail"), "mode": "Verified" if payload.get("compile", {}).get("status") == "passed" else "Documented", "artifact": "stdout", "errors": payload.get("structural", {}).get("issues", [])})

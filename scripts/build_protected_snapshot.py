@@ -8,33 +8,19 @@ import hashlib
 import json
 import re
 import sys
-from collections import Counter
 from pathlib import Path
 
 from writing_contract import utc_now, validate_protected_snapshot, write_json
+from protected_fields import LABEL_RE, REF_RE, equation_tokens, protected_counts
 
 
-NUMBER_RE = re.compile(r"(?<![A-Za-z])[-+]?(?:\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?|\.\d+)(?:%|[eE][-+]?\d+)?(?![A-Za-z])")
-CITATION_RE = re.compile(r"\\cite[a-zA-Z*]*\s*(?:\[[^\]]*\])?\s*\{([^}]+)\}")
-PAREN_CITATION_RE = re.compile(r"\[@([^\]]+)\]")
-LABEL_RE = re.compile(r"\\label\{([^}]+)\}")
-REF_RE = re.compile(r"\\(?:eq)?ref\{([^}]+)\}")
-EQUATION_RE = re.compile(r"\\begin\{(?:equation|align|equation\*)\}.*?\\end\{(?:equation|align|equation\*)\}", re.DOTALL)
 HEADING_RE = re.compile(r"^(?:#{1,6}\s+|\\(?:section|subsection|subsubsection)\{)(.+?)(?:\})?$", re.MULTILINE)
-
-
-def normalize_number(value: str) -> str:
-    return value.replace(",", "")
 
 
 def snapshot(path: Path, variables: list[str], locked_fragments: list[str]) -> dict:
     text = path.read_text(encoding="utf-8")
-    numbers = Counter(normalize_number(match.group(0)) for match in NUMBER_RE.finditer(text))
-    citations: list[str] = []
-    for match in CITATION_RE.finditer(text):
-        citations.extend(item.strip() for item in match.group(1).split(",") if item.strip())
-    citations.extend(item.strip() for match in PAREN_CITATION_RE.finditer(text) for item in match.group(1).split(";") if item.strip())
-    variable_counts = Counter({variable: len(re.findall(rf"(?<![A-Za-z0-9_]){re.escape(variable)}(?![A-Za-z0-9_])", text)) for variable in variables})
+    fields = protected_counts(text, variables)
+    numbers, citations, variable_counts = (fields[key] for key in ("numbers", "citations", "variables"))
     digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
     anchors = []
     for line_number, line in enumerate(text.splitlines(), start=1):
@@ -54,18 +40,20 @@ def snapshot(path: Path, variables: list[str], locked_fragments: list[str]) -> d
         "created_at": utc_now(),
         "protected": {
             "numbers": dict(sorted(numbers.items())),
-            "citations": dict(sorted(Counter(citations).items())),
+            "citations": dict(sorted(citations.items())),
             "variables": dict(sorted(variable_counts.items())),
+            "quantities": dict(sorted(fields["quantities"].items())),
+            "pvalue_relations": dict(sorted(fields["pvalue_relations"].items())),
             "latex_labels": sorted(set(LABEL_RE.findall(text))),
             "latex_refs": sorted(set(REF_RE.findall(text))),
             "locked_fragments": locked_fragments,
-            "equations": [hashlib.sha256(value.encode("utf-8")).hexdigest() for value in EQUATION_RE.findall(text)],
+            "equations": [hashlib.sha256(value.encode("utf-8")).hexdigest() for value in equation_tokens(text)],
             "anchors": anchors,
             "section_headings": headings,
         },
         "counts": {
             "number_tokens": sum(numbers.values()),
-            "citation_tokens": len(citations),
+            "citation_tokens": sum(citations.values()),
             "variable_tokens": sum(variable_counts.values()),
             "latex_labels": len(set(LABEL_RE.findall(text))),
             "latex_refs": len(set(REF_RE.findall(text))),

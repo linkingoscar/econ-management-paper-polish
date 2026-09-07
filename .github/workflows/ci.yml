@@ -33,6 +33,8 @@ jobs:
         run: python evals/run_extended_tests.py
       - name: Run v3.1 writing foundation tests
         run: python evals/run_v31_writing_tests.py
+      - name: Run protected-field and release-gate regressions
+        run: python evals/run_reliability_tests.py
       - name: Run offline pure-Agent benchmark and adversarial tests
         run: python evals/run_agentic_tests.py
       - name: Run writing gold and mutation benchmark

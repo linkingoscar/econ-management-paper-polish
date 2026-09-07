@@ -13,7 +13,7 @@ import re
 import sys
 from pathlib import Path
 
-from writing_contract import utc_now, validate_route_card, write_json
+from writing_contract import ROUTE_PROPERTIES, utc_now, validate_route_card, write_json
 
 
 def parse_override(values: list[str]) -> list[dict[str, str]]:
@@ -57,17 +57,17 @@ def build(args: argparse.Namespace) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--paper-id", default="paper-unknown")
-    parser.add_argument("--task-mode", required=True, choices=["polish", "diagnose", "adapt", "review", "revise", "audit"])
-    parser.add_argument("--discipline", required=True, choices=["economics", "management", "finance", "accounting", "marketing", "information-systems", "public-administration", "mixed"])
+    parser.add_argument("--task-mode", required=True, choices=ROUTE_PROPERTIES["task_mode"]["enum"])
+    parser.add_argument("--discipline", required=True, choices=ROUTE_PROPERTIES["discipline"]["enum"])
     parser.add_argument("--subfield")
-    parser.add_argument("--language", default="unspecified", choices=["zh-CN", "en-US", "bilingual", "unspecified"])
+    parser.add_argument("--language", default="unspecified", choices=ROUTE_PROPERTIES["language"]["enum"])
     parser.add_argument("--section")
     parser.add_argument("--method")
     parser.add_argument("--target-outlet")
-    parser.add_argument("--evidence-mode", default="offline", choices=["offline", "metadata", "web-verified", "user-provided-fulltext"])
-    parser.add_argument("--execution", default="serial", choices=["serial", "bounded_parallel"])
-    parser.add_argument("--preservation", default="strict", choices=["strict", "standard", "user-defined"])
-    parser.add_argument("--confidence", default="medium", choices=["high", "medium", "low", "unknown"])
+    parser.add_argument("--evidence-mode", default="offline", choices=ROUTE_PROPERTIES["evidence_mode"]["enum"])
+    parser.add_argument("--execution", default="serial", choices=ROUTE_PROPERTIES["execution"]["enum"])
+    parser.add_argument("--preservation", default="strict", choices=ROUTE_PROPERTIES["preservation"]["enum"])
+    parser.add_argument("--confidence", default="medium", choices=ROUTE_PROPERTIES["confidence"]["enum"])
     parser.add_argument("--rationale", action="append", default=[])
     parser.add_argument("--unresolved", action="append", default=[])
     parser.add_argument("--override", action="append", default=[])

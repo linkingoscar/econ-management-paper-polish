@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#兼容性)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.5-orange.svg)](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.5)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.6-orange.svg)](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.6)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -12,15 +12,15 @@
 [![RAG](https://img.shields.io/badge/RAG-Knowledge-4CAF50?logo=google&logoColor=white)](#)
 [![LaTeX](https://img.shields.io/badge/LaTeX-Supported-008080?logo=latex&logoColor=white)](#)
 
-**经管类学术论文全流程智能写作助手**
+**中英文经管论文写作、润色与返修助手**
 
-从选题到投稿,覆盖论文写作全生命周期的AI Skill。
+贴入段落、研究笔记、结果表或审稿意见，获得符合学科语境的修改稿与具体建议。
 
 > **适用领域**：经济学、管理学、金融、会计、营销、信息系统、公共管理、旅游/服务管理、创新创业等经管类学术论文。
 
 > **[English](README.en.md)**
 
-> **当前版本：[`v3.1.0-alpha.5`](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.5)** ｜ [GitHub Pages 文档站](https://linkingoscar.github.io/econ-management-paper-polish/) ｜ 34 项写作契约与 12 项 Agentic 测试通过
+> **当前版本：[`v3.1.0-alpha.6`](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.6)** ｜ [GitHub Pages 文档站](https://linkingoscar.github.io/econ-management-paper-polish/) ｜ 34 项写作契约与 12 项 Agentic 测试通过
 
 ---
 
@@ -150,6 +150,24 @@ benchmark、统一 contract suite、Skill 包装校验、adapter repro lock，�
 
 ---
 
+## 轻润色与完整审查
+
+短段落润色、中英翻译、根据笔记起草章节和单条审稿回复，默认直接给出可用文本，
+只解释必要修改，不要求填写路由卡或创建研究工作区、账本、多 Agent 评审。
+需要整稿持续审查或明确返修跟踪时，再启用相应记录。
+
+例如：“润色下面的中文经济学结果段，保留数字与结论”“将下面的管理学段落译成英文，
+用于 Word”“结合这张回归表检查结果解释”“根据已经完成的修改回复这条审稿意见”。
+缺少局部证据时，会完成可处理部分并具体标注缺口。
+
+alpha.6 的可靠性修正增加了 Unicode 负号、数量单位、普通作者年份引用、否定词、
+公式及 p 值关系的回归检查，并让基准中的误报、漏报或空测试集阻止通过。
+本轮进一步接回四种中英经管详细指南，补充[写作示例](references/v3/writing-examples.md)
+和[常用方法报告要点](references/v3/05-methods-identification.md)，区分方法过度主张与
+不阻断写作的上下文提醒。翻译时可选核对常见人民币金额、百分比、百分点和基点的等值表达，
+保留严格检查结果；数值等值不代表整段翻译保真，也不会放宽补丁应用保护。
+这些修正随 alpha.6 预发布提供；真实论文写作效果仍需另行评估。
+
 ## 快速开始
 
 ### 安装
@@ -237,6 +255,17 @@ py scripts/compare_manuscript_versions.py original.md revised.md --variable Trea
 
 ## 版本历史
 
+### v3.1.0-alpha.6 — 即用写作与可靠性修正 (2026-09-07)
+
+默认入口缩至 115 行，接回四种中英经管详细指南并补充 8 个写作示例。
+加强保护字段检查，修正方法表述误报和漏报；翻译可选核对常见人民币金额、
+百分比与百分点等值表达。保留严格补丁应用保护，不新增依赖或评测平台。
+
+方法报告新增非阻断的上下文提醒与更准确的检查状态；外部脚本若依赖旧的
+`safe-fix` 返回值，应查阅[完整发布说明](docs/releases/v3.1.0-alpha.6.md)。
+验证覆盖本地规则与工作流，仍为预发布，不代表真实论文质量或方法识别已获证明。
+
+
 ### v3.1.0（写作可靠性核心，alpha.1–alpha.5） (2026-08-24)
 
 这是 v3.1 的统一 alpha 版本记录：在 v3.0 可靠性契约之上，依次完成了 writing
@@ -246,7 +275,7 @@ overlap gates、section style revision plan、方法风险卡与保守改写、b
 apply/rollback、issue transition、response-letter scaffold、gold/mutation benchmark、
 synthetic dogfood、跨平台/LaTeX capability smoke、统一 contract suite，以及哈希绑定的
 AI review packet、隔离复核和确定性 adjudication，以及 alpha.5 的纯 Agent 盲评/对抗基准。
-当前发布标签为 `v3.1.0-alpha.5`，34 项写作契约与 12 项 Agentic 测试通过，但真实论文 dogfooding、live provider、
+该阶段发布标签为 `v3.1.0-alpha.5`，34 项写作契约与 12 项 Agentic 测试通过，但真实论文 dogfooding、live provider、
 真实 TeX 和高风险学术内容仍保持作者责任，因此整体仍标记为 alpha。
 
 ### v3.0.0-alpha.1 (2026-08-03)

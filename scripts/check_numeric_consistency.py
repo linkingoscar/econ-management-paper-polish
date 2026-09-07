@@ -10,27 +10,15 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from collections import Counter
 from pathlib import Path
 
-
-NUMBER_RE = re.compile(
-    r"(?<![A-Za-z])[-+]?"
-    r"(?:\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?|\.\d+)"
-    r"(?:%|[eE][-+]?\d+)?(?![A-Za-z])"
-)
-
-
-def normalize_token(token: str) -> str:
-    token = token.replace("−", "-").replace("–", "-").replace("—", "-")
-    token = token.replace(",", "")
-    return token
+from protected_fields import economic_numeric_inventory, numeric_tokens
 
 
 def extract_numeric_tokens(text: str) -> Counter[str]:
-    return Counter(normalize_token(match.group(0)) for match in NUMBER_RE.finditer(text))
+    return Counter(numeric_tokens(text))
 
 
 def report(original: Counter[str], revised: Counter[str], allow_added: bool) -> dict:
@@ -53,6 +41,8 @@ def main() -> int:
     parser.add_argument("original", type=Path)
     parser.add_argument("revised", type=Path)
     parser.add_argument("--allow-added", action="store_true")
+    parser.add_argument("--economic-units", action="store_true",
+                        help="Opt-in translation check for CNY, percent and percentage-point equivalence; requires known CNY context for 元/yuan.")
     parser.add_argument("--json", action="store_true", dest="as_json")
     args = parser.parse_args()
 
@@ -68,6 +58,19 @@ def main() -> int:
         extract_numeric_tokens(revised_text),
         args.allow_added,
     )
+    if args.economic_units:
+        original, old_records = economic_numeric_inventory(original_text)
+        revised, new_records = economic_numeric_inventory(revised_text)
+        strict_result = result
+        result = report(original, revised, args.allow_added)
+        result["strict_numeric_check"] = strict_result
+        result["normalized_quantities"] = {"original": old_records, "revised": new_records}
+        result["scope"] = (
+            "Limited CNY/percent/percentage-point inventory equivalence. Requires established CNY context for 元/yuan. "
+            "Does not check local claim binding, unrecognized units, citations, or translation meaning; does not authorize apply."
+        )
+    else:
+        result["scope"] = "Strict numeric-token counts only; not a claim of semantic equivalence."
     if args.as_json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:
@@ -76,6 +79,11 @@ def main() -> int:
         print(f"revised tokens: {result['revised_total']}")
         print(f"missing: {result['missing'] or 'none'}")
         print(f"added: {result['added'] or 'none'}")
+        if args.economic_units:
+            print(f"scope: {result['scope']}")
+            for label, records in result["normalized_quantities"].items():
+                for record in records:
+                    print(f"- {label}: {record['text']} -> {record['equivalent']}")
     return 0 if result["status"] == "pass" else 1
 
 

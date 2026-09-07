@@ -32,9 +32,16 @@ A method name alone is not a justification. If the source of variation or estima
 Run `scripts/check_method_language.py` on the manuscript before accepting a prose
 revision. It is intentionally conservative: it catches known overclaim patterns in
 Chinese and English, reports line-level evidence and a recommendation, and never
-rewrites the sentence. A flagged sentence is `author-required`; a qualified
-sentence should state the diagnostic evidence, estimand, assumptions, and remaining
-threats rather than merely swapping in softer adjectives.
+rewrites the sentence. Known overclaims are issues with `author-required` status;
+context-dependent matches are separate advisories with `review-needed` status.
+Advisories do not fail the workflow, and negated or noncausal measurement statements
+should not be treated as violations. Inspect the paragraph and supplied design
+before deciding a correction. A qualification should state the relevant evidence
+and assumptions rather than merely swapping in softer adjectives.
+
+For practical reporting questions and material-specific limits, use
+[Methods And Identification](v3/05-methods-identification.md). No data are needed
+to improve reporting, but do not claim a computed diagnostic that has not run.
 
 ## Output
 

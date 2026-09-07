@@ -25,10 +25,13 @@ STYLE_PROFILE_STATUSES = {"draft", "confirmed", "blocked"}
 ISSUE_STATUSES = {"raised", "triaged", "proposed", "applied", "verified", "closed", "blocked"}
 ISSUE_DECISIONS = {"safe-fix", "author-required", "invalid", "unresolved"}
 SEVERITIES = {"cosmetic", "moderate", "major", "blocking"}
-TASK_MODES = {"polish", "diagnose", "adapt", "review", "revise", "audit"}
-DISCIPLINES = {"economics", "management", "finance", "accounting", "marketing", "information-systems", "public-administration", "mixed"}
-ROUTE_LANGUAGES = {"zh-CN", "en-US", "bilingual", "unspecified"}
-EVIDENCE_MODES = {"offline", "metadata", "web-verified", "user-provided-fulltext"}
+ROUTE_PROPERTIES = json.loads(
+    (Path(__file__).resolve().parents[1] / "assets" / "route-card.schema.json").read_text(encoding="utf-8")
+)["properties"]
+TASK_MODES = set(ROUTE_PROPERTIES["task_mode"]["enum"])
+DISCIPLINES = set(ROUTE_PROPERTIES["discipline"]["enum"])
+ROUTE_LANGUAGES = set(ROUTE_PROPERTIES["language"]["enum"])
+EVIDENCE_MODES = set(ROUTE_PROPERTIES["evidence_mode"]["enum"])
 
 
 def utc_now() -> str:

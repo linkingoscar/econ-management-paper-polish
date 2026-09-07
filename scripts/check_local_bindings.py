@@ -16,42 +16,23 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from protected_fields import NUMBER_RE, citation_keys, mask_citations, numeric_tokens, quantity_tokens
 
-NUMBER_RE = re.compile(
-    r"(?<![A-Za-z])[-+]?(?:\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?|\.\d+)(?:%|[eE][-+]?\d+)?(?![A-Za-z])"
-)
-LATEX_CITATION_RE = re.compile(r"\\cite[a-zA-Z*]*\s*(?:\[[^\]]*\])?\s*\{([^}]+)\}")
-PANDOC_CITATION_RE = re.compile(r"\[([^\]]*@[A-Za-z0-9_:.\-/]+[^\]]*)\]")
-PANDOC_KEY_RE = re.compile(r"@([A-Za-z0-9_:.\-/]+)")
+
 SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[。！？])\s*|(?<=[.!?])\s+(?=[A-Z\u3400-\u4dbf\u4e00-\u9fff\\#])")
 
 
-def normalize_number(value: str) -> str:
-    return value.replace("−", "-").replace("–", "-").replace("—", "-").replace(",", "")
-
-
-def citation_keys(text: str) -> list[str]:
-    matches: list[tuple[int, list[str]]] = []
-    for match in LATEX_CITATION_RE.finditer(text):
-        keys = [item.strip() for item in match.group(1).split(",") if item.strip()]
-        matches.append((match.start(), keys))
-    for match in PANDOC_CITATION_RE.finditer(text):
-        matches.append((match.start(), PANDOC_KEY_RE.findall(match.group(1))))
-    return [key for _, keys in sorted(matches) for key in keys]
-
-
 def protected_values(text: str) -> dict[str, list[str]]:
-    number_text = LATEX_CITATION_RE.sub(" ", text)
-    number_text = PANDOC_CITATION_RE.sub(" ", number_text)
+    number_text = mask_citations(text)
     return {
-        "numbers": [normalize_number(match.group(0)) for match in NUMBER_RE.finditer(number_text)],
+        "numbers": numeric_tokens(number_text),
         "citations": citation_keys(text),
+        "quantities": quantity_tokens(number_text),
     }
 
 
 def masked_context(text: str) -> str:
-    masked = LATEX_CITATION_RE.sub(" <citation> ", text)
-    masked = PANDOC_CITATION_RE.sub(" <citation> ", masked)
+    masked = mask_citations(text, " <citation> ")
     masked = NUMBER_RE.sub(" <number> ", masked)
     return re.sub(r"\s+", " ", masked).strip().lower()
 
@@ -137,6 +118,12 @@ def audit_local_bindings(original: str, revised: str, *, allow_added: bool = Fal
                     "context_similarity": round(similarity, 3),
                 }
             )
+        quantities_match = _is_subsequence(old["quantities"], new["quantities"]) if allow_added else old["quantities"] == new["quantities"]
+        if not quantities_match:
+            issues.append({
+                "kind": "quantity-binding-changed", "original_line": old["line"],
+                "revised_line": new["line"], "original": old["quantities"], "revised": new["quantities"],
+            })
     return {
         "schema_version": "1.0",
         "status": "fail" if issues else "pass",

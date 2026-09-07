@@ -6,7 +6,7 @@
 Canonical website: https://linkingoscar.github.io/econ-management-paper-polish/
 Source repository: https://github.com/linkingoscar/econ-management-paper-polish
 License: MIT
-Current version: v3.1.0-alpha.5
+Current version: v3.1.0-alpha.6
 
 Primary documentation:
 - https://github.com/linkingoscar/econ-management-paper-polish/blob/main/README.en.md

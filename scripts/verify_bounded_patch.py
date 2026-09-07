@@ -51,6 +51,7 @@ def main() -> int:
     result = {
         "status": overall_status,
         "verified": overall_status == "pass",
+        "verification_scope": "Known protected-field and lexical checks only; verified does not establish semantic equivalence or authorize a scholarly change.",
         "applied": False,
         "protection": protection,
         "local_bindings": local_bindings,
@@ -60,7 +61,7 @@ def main() -> int:
         "errors": [],
     }
     if protection["status"] != "pass":
-        result["errors"].append("protected token counts changed")
+        result["errors"].append("protected fields changed: " + ", ".join(sorted(protection["changes"])))
     if local_bindings["status"] != "pass":
         result["errors"].append("local number/citation bindings changed")
     if meaning["status"] != "pass":

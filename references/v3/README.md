@@ -1,10 +1,10 @@
 # v3 Reference Packs
 
-These 14 packs are the default knowledge layer for v3.0. They replace the old
-41-file loading pattern with one responsibility per pack. Each pack contains the
-operational rules needed for its route and names the legacy modules that supplied
-the migration. The legacy files remain available, but should be opened only when
-the pack explicitly points to a detail that has not yet been migrated.
+These 14 packs are the default routing layer. Each pack links to the detail needed
+for its task; naming an old file as a migration source does not replace reading
+its guidance. In particular, the style pack explicitly loads one of the four
+Chinese/English economics/management guides and relevant field sections. Reuse
+those maintained details rather than duplicating them across packs.
 
 ## Load matrix
 
@@ -25,9 +25,10 @@ the pack explicitly points to a detail that has not yet been migrated.
 | `13-reproducibility-data.md` | data/method/result transparency | reproducibility audit, data reproducibility |
 | `14-integrations-and-capability.md` | source/RAG/agent adapters and degradation | v3 runtime and adapter contracts |
 
-The normal load order is `01` → one or more task packs → `04`/`05` when evidence or
-methods are involved → `07`/`13` before a final audit. Do not load every pack for a
-line-polish request.
+For a short polish, translation, or section draft, infer the route in context and
+start with `02` plus its chosen detail guide. Read `01` when persisting a route,
+`04`/`05` when sources or methods need attention, and `07`/`13` for an audit.
+Do not load every pack or create state files for an ordinary writing request.
 
 ## v3.1 writing contracts
 

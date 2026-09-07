@@ -6,6 +6,7 @@ The smoke suite is intentionally dependency-free and runs in CI:
 python evals/run_smoke_tests.py
 python evals/run_extended_tests.py
 python evals/run_v31_writing_tests.py
+python evals/run_reliability_tests.py
 python evals/run_agentic_tests.py
 python scripts/run_writing_benchmark.py --output writing-benchmark.json --json
 ```
@@ -25,6 +26,29 @@ are designed for later expansion:
 
 Add a normal (non-error) case whenever adding a new detector so that stricter
 checks do not turn into false-positive generators.
+
+The focused reliability suite reproduces sign, unit scale, author-year citation,
+negation, equation, and p-value regressions through proposal, verification, apply,
+and representative workspace/Agent audit paths. It also checks the documented
+route against the CLI and validator. These are synthetic regressions, not a
+real-manuscript quality benchmark.
+
+The same reliability suite also covers negated/qualified method discussions,
+noncausal measurement statements, passive-voice overclaims, and clause boundaries.
+Contextual advisories must remain visible in reports and workflow history without
+blocking valid text. The opt-in translation quantity check is tested against exact
+equivalents, wrong magnitudes/currencies, percent versus percentage points, and
+sign loss; strict verification/apply protections remain in place.
+
+The worked writing examples are synthetic instructional material, not gold
+outputs or evidence of writing quality. Review them for supplied facts, argument
+scope, field fit, and usable output; do not test exact wording or treat these
+examples as an external manuscript dataset.
+
+Gold and mutation suites require every expected result to match. A false positive,
+false negative, invalid result, or empty suite makes the benchmark report `fail`
+and return a nonzero exit code. Both matching and mismatching report/exit behavior
+are covered by regression tests; measured metrics alone are not a release gate.
 
 The v3.1 writing suite covers corpus manifest rejection logging, authorization and
 overlap gates, deterministic style-card/profile extraction, section revision planning,

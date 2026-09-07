@@ -89,6 +89,7 @@ REQUIRED_FILES = (
     "adapters/manifests/local-rag.json",
     "adapters/manifests/serial-agent.json",
     "scripts/check_numeric_consistency.py",
+    "scripts/protected_fields.py",
     "scripts/check_citations.py",
     "scripts/audit_latex.py",
     "scripts/compare_manuscript_versions.py",
@@ -158,6 +159,7 @@ REQUIRED_FILES = (
     "evals/run_smoke_tests.py",
     "evals/run_extended_tests.py",
     "evals/run_v31_writing_tests.py",
+    "evals/run_reliability_tests.py",
     "evals/run_agentic_tests.py",
     "evals/README.md",
     "evals/evaluation-manifest.json",
@@ -172,7 +174,9 @@ REQUIRED_FILES = (
 )
 
 LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
-LINK_FILES = ("SKILL.md", "README.md", "README.en.md", "CONTRIBUTING.md", "adapters/README.md", "references/v3/README.md")
+LINK_FILES = ("SKILL.md", "README.md", "README.en.md", "CONTRIBUTING.md", "adapters/README.md",
+              "references/v3/README.md", "references/v3/02-writing-style.md",
+              "references/v3/05-methods-identification.md", "references/v3-writing-contract.md")
 
 
 def validate_frontmatter(skill_path: Path) -> list[str]:
@@ -301,7 +305,7 @@ def validate_root(root: Path) -> list[str]:
     if codemeta.is_file():
         try:
             payload = json.loads(codemeta.read_text(encoding="utf-8"))
-            if payload.get("@type") != "SoftwareSourceCode" or payload.get("version") != "3.1.0-alpha.5":
+            if payload.get("@type") != "SoftwareSourceCode" or payload.get("version") != "3.1.0-alpha.6":
                 errors.append("codemeta.json has an unexpected software contract")
         except (OSError, json.JSONDecodeError) as exc:
             errors.append(f"codemeta.json: invalid JSON ({exc})")

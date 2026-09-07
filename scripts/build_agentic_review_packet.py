@@ -62,6 +62,7 @@ def hard_audit(source: str, output: str, variables: list[str]) -> dict[str, Any]
             "output_issue_count": output_method["issue_count"],
             "regression": method_regression,
             "output_issues": output_method["issues"],
+            "output_advisories": output_method.get("advisories", []),
         },
         "scope": "deterministic pre-judge gates; passing does not establish scholarly quality or truth",
     }

@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.5-orange.svg)](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.5)
+[![Version](https://img.shields.io/badge/Version-3.1.0--alpha.6-orange.svg)](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.6)
 [![Academic](https://img.shields.io/badge/Academic-Writing-005A9C?logo=google&logoColor=white)](#)
 [![Multi-Agent](https://img.shields.io/badge/MultiAgent-Supported-FF6F00?logo=javascript&logoColor=white)](#)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-000000?logo=opencode&logoColor=white)](#)
@@ -12,15 +12,15 @@
 [![RAG](https://img.shields.io/badge/RAG-Knowledge-4CAF50?logo=google&logoColor=white)](#)
 [![LaTeX](https://img.shields.io/badge/LaTeX-Supported-008080?logo=latex&logoColor=white)](#)
 
-**Full-lifecycle AI writing assistant for economics and management academic papers**
+**Chinese and English economics and management writing, polishing, and revision**
 
-An AI Skill covering the entire paper-writing pipeline — from topic selection to journal submission.
+Supply a passage, research notes, a results table, or a reviewer comment to get usable prose and field-specific advice.
 
 > **Domains**: Economics, Management, Finance, Accounting, Marketing, Information Systems, Public Administration, Tourism/Service Management, Innovation & Entrepreneurship, and other business-related academic papers.
 
 > **[中文文档](README.md)**
 
-> **Current release: [`v3.1.0-alpha.5`](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.5)** | [GitHub Pages documentation](https://linkingoscar.github.io/econ-management-paper-polish/) | 34 writing-contract checks and 12 Agentic tests passing
+> **Current release: [`v3.1.0-alpha.6`](https://github.com/linkingoscar/econ-management-paper-polish/releases/tag/v3.1.0-alpha.6)** | [GitHub Pages documentation](https://linkingoscar.github.io/econ-management-paper-polish/) | 34 writing-contract checks and 12 Agentic tests passing
 
 ---
 
@@ -186,6 +186,31 @@ econ-management-paper-polish/
 ```
 
 ---
+
+## Light Polish And Full Review
+
+Short polish, translation, drafting from supplied notes, and one-off reviewer
+responses return usable prose first, with explanations only where useful.
+No routing form, workspace, ledger, or Agent panel is required by default.
+Use tracked workflows for sustained manuscript-wide audits or explicit revision
+tracking. Complete supported portions and identify local evidence gaps.
+
+Example requests: “Polish this economics results paragraph without changing the
+numbers or conclusions”; “Translate this management paragraph into English for
+Word”; “Check this interpretation against the regression table”; “Reply to this
+reviewer comment using the changes already made.”
+
+Alpha.6 reliability fixes add regressions for Unicode numeric signs, quantity
+units, author-year citations, negation, equations, and p-value relations. Benchmark
+false positives, false negatives, and empty suites now fail the release gate.
+This round reconnects the four detailed language/discipline guides, adds
+[worked examples](references/v3/writing-examples.md) and
+[method reporting decisions](references/v3/05-methods-identification.md), and
+separates method overclaims from nonblocking contextual advisories. Translation
+can opt into limited CNY/percent/percentage-point/basis-point equivalence checks
+while retaining the strict numeric result. Numeric equivalence does not establish
+translation fidelity or relax bounded apply protections.
+These changes do not establish real-manuscript writing effectiveness.
 
 ## Quick Start
 
@@ -434,6 +459,20 @@ This Skill supports all AI coding agents that support skill/system-prompt loadin
 
 ## Version History
 
+### v3.1.0-alpha.6 — Ready-to-use writing and reliability fixes (2026-09-07)
+
+Reduces the entrypoint to 115 lines, reconnects four detailed CN/EN field guides,
+and adds eight worked writing examples. Strengthens protected-field checks, fixes
+method-language false positives and missed assertions, and adds an opt-in CNY/percent/
+percentage-point equivalence check for translation. Strict apply protections remain;
+no new dependencies or evaluation platform are introduced.
+
+Method reports now separate nonblocking contextual advisories from known overclaims.
+Integrations relying on the old `safe-fix` response should read the
+[release notes](docs/releases/v3.1.0-alpha.6.md). This prerelease validates local
+behavior and workflow contracts, not real-manuscript quality or causal identification.
+
+
 ### v3.1.0 (Writing Reliability Core, alpha.1–alpha.5) (2026-08-24)
 
 This is the consolidated v3.1 alpha history. On top of the v3.0 reliability contracts,
@@ -444,7 +483,7 @@ conservative rewrites, bounded apply/rollback, issue transitions, response-lette
 scaffolding, gold/mutation benchmarks, synthetic dogfooding, cross-platform/LaTeX
 capability smoke, a unified contract suite, and hash-bound AI review packets with
 isolated review and deterministic adjudication, plus alpha.5's pure-Agent blind and
-adversarial benchmark. The current release tag is `v3.1.0-alpha.5`, with the 34-check
+adversarial benchmark. That phase was released as `v3.1.0-alpha.5`, with the 34-check
 writing and 12-check Agentic suites passing, while real-paper dogfooding, live
 providers, real TeX, and high-risk scholarly decisions remain author-controlled, so the
 release remains an alpha.

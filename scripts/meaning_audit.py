@@ -18,6 +18,11 @@ from typing import Any
 
 
 MARKERS: dict[str, tuple[str, ...]] = {
+    "negation": (
+        r"\b(?:not|never|no|cannot|neither|nor)\b",
+        r"\b\w+n['’]t\b",
+        r"并非|无法|没有|未(?:能|发现|识别|证明|证实|表明|获得|达到|通过|观察到|排除)|不",
+    ),
     "causal": (
         r"\bcausal(?:ly)?\b",
         r"\bcauses?\b",
@@ -125,7 +130,7 @@ def compare_text(original: str, revised: str, *, author_confirmed: bool = False,
         reason = "semantic-risk-marker-change-confirmed-by-author"
     else:
         status = "pass"
-        decision = "safe-fix"
+        decision = "no-known-marker-change"
         reason = "no-count-change-in-protected-meaning-markers"
     return {
         "schema_version": "1.0",

@@ -9,7 +9,7 @@
     "file": {"type": "string", "minLength": 1},
     "issue_count": {"type": "integer", "minimum": 0},
     "issues": {"type": "array", "items": {"type": "object"}},
-    "decision": {"type": "string", "enum": ["safe-fix", "author-required"]}
+    "decision": {"type": "string", "enum": ["safe-fix", "author-required", "review-needed", "no-known-overclaim"]}
   },
   "additionalProperties": true
 }

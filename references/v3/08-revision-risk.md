@@ -2,6 +2,12 @@
 
 ## Revision lifecycle
 
+For a one-off reviewer response, use the supplied comment, actual revision, and
+evidence to draft the response directly. A simple comment/action/location note is
+enough; a ledger or workspace is needed only for explicit tracking or sustained
+revision. If analysis has not been performed, distinguish a proposed response
+from a completed action; never write "we reran" from a recommendation alone.
+
 Track one row per reviewer request or manuscript risk: ID, location, issue, action,
 evidence/Claim ID, status, and unresolved limitation. Use `open`, `in_progress`,
 `blocked`, `verified`, and `closed`. Do not mark a response verified until its text,

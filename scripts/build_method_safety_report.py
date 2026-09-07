@@ -23,6 +23,30 @@ CARD_MAP = {
 }
 
 
+def enrich(issue: dict, cards: dict) -> dict:
+    card = cards.get(CARD_MAP.get(issue.get("method")))
+    advisory = issue.get("basis") == "context-needed"
+    return {
+        **issue,
+        "risk_card_id": card.get("method_id") if card else None,
+        "why": (
+            "Check the supplied design and qualification before judging this sentence; the keyword match alone is not an error."
+            if advisory else
+            "A known overclaim pattern was found; inspect its context, assumptions, and diagnostics."
+        ),
+        # Preserve Chinese guidance for Chinese manuscripts. This is guidance for
+        # a rewrite, not an instruction to paste an unrelated canned sentence.
+        "conservative_rewrite": (
+            issue["recommendation"] if issue.get("language") == "zh" or not card
+            else card["conservative_rewrite"]
+        ),
+        "author_inputs_required": (
+            card.get("reporting_requirements", []) if card
+            else ["State the estimand, assumptions, diagnostics, and remaining threats."]
+        ),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("manuscript", type=Path)
@@ -40,22 +64,17 @@ def main() -> int:
         findings = {"schema_version": "1.0", "status": "fail", "issue_count": 0, "issues": []}
         cards = {}
         errors.append(f"cannot build method safety report: {exc}")
-    enriched = []
-    for issue in findings.get("issues", []):
-        card = cards.get(CARD_MAP.get(issue.get("method")))
-        item = dict(issue)
-        item["risk_card_id"] = card.get("method_id") if card else None
-        item["why"] = "The wording exceeds the stated method-identification boundary; inspect the listed assumptions and diagnostics." if card else "Inspect the method reference pack and author-supplied design before revising."
-        item["conservative_rewrite"] = card.get("conservative_rewrite") if card else issue.get("recommendation")
-        item["author_inputs_required"] = (card.get("reporting_requirements", []) if card else ["State the estimand, assumptions, diagnostics, and remaining threats."])
-        enriched.append(item)
+    enriched = [enrich(issue, cards) for issue in findings.get("issues", [])]
+    advisories = [enrich(issue, cards) for issue in findings.get("advisories", [])]
     report = {
         "schema_version": "1.0",
         "status": "fail" if enriched or errors else "pass",
         "file": str(args.manuscript),
         "issue_count": len(enriched),
         "issues": enriched,
-        "decision": "author-required" if enriched or errors else "safe-fix",
+        "advisory_count": len(advisories),
+        "advisories": advisories,
+        "decision": "author-required" if enriched or errors else findings["decision"],
         "scope": "writing-safe explanation and conservative rewrite guidance; not a causal-inference proof",
         "errors": errors,
     }
@@ -76,6 +95,8 @@ def main() -> int:
         print(f"issues: {result['issue_count']}")
         for issue in enriched:
             print(f"- line {issue['line']}: {issue['code']}: {issue['conservative_rewrite']}")
+        for advisory in advisories:
+            print(f"- review context at line {advisory['line']}: {advisory['recommendation']}")
     return 0 if result["status"] == "pass" else 1
 
 

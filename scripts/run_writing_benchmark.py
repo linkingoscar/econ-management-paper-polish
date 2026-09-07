@@ -112,8 +112,15 @@ def main() -> int:
         gold_details, mutation_details = [], [{"error": str(exc)}]
         benchmark_errors.append({"error": f"cannot run detector cases: {exc}"})
     for detector, metrics in (("method_language", gold_metrics), ("protected_patch", mutation_metrics)):
-        if not metrics or metrics.get("invalid", 0):
+        if not metrics or not metrics.get("total") or metrics.get("invalid", 0):
             benchmark_errors.append({"detector": detector, "error": f"invalid detector results: {metrics.get('invalid', 'unknown')}"})
+        elif metrics["false_positive"] or metrics["false_negative"]:
+            benchmark_errors.append({
+                "detector": detector,
+                "error": "detector results disagree with expected fixture behavior",
+                "false_positive": metrics["false_positive"],
+                "false_negative": metrics["false_negative"],
+            })
     failures = ([] if process.returncode == 0 else [{"stdout": process.stdout, "stderr": process.stderr}]) + benchmark_errors
     report = {
         "schema_version": "1.0",
