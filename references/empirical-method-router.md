@@ -1,147 +1,58 @@
-# Empirical Method Router
+# Method description, diagnosis, and execution
 
-Use this file when polishing or drafting empirical strategy, robustness, endogeneity, mechanisms, heterogeneity, methods justification, or when suggesting advanced/current empirical methods. For method selection, run `method-decision-tree.md` first.
+Use for empirical strategy, method advice, sensitivity, mechanisms or causal claims.
+For interpreting actual estimates start with [results-to-text](results-to-text.md).
+For choosing a design use [method-decision-tree](method-decision-tree.md).
 
-## First Principle
+## Keep three tasks distinct
 
-Match method to research question, data structure, identification threat, and target field. Do not recommend a method because it sounds advanced.
+1. **Describe:** write what the author actually did, using supplied methods/results.
+2. **Diagnose:** assess suitability and propose conditional checks or alternatives.
+3. **Execute:** run an analysis only when the user requests it and the necessary
+   data, tools and authorization are available; inspect actual outputs.
 
-Before recommending or rewriting a method section, identify:
+A method recommendation cannot be written as a completed analysis.
+A supplied result can be explained without re-running its code; label that scope.
+Missing tools do not prevent useful description or diagnosis.
 
-- Outcome, treatment/exposure, mediator/moderator, and unit of observation.
-- Data structure: cross-section, panel, repeated cross-section, matched data, survey, experiment, event data, network/platform logs, text, geospatial data.
-- Source of variation: policy shock, staggered adoption, threshold, instrument, randomized treatment, discontinuity, exposure intensity, timing, network spillover, or observational association.
-- Main threat: omitted variables, reverse causality, selection, measurement error, simultaneity, anticipation, spillovers, attrition, weak instruments, bad controls, multiple testing.
-- Target outlet and field norms.
+## Understand the empirical object
 
-## Method Families
+Identify the research question; causal/descriptive/predictive purpose; outcome and
+exposure; unit/time; comparison; data generation and measurement; estimand;
+estimator; assumptions and uncertainty.
+For a causal claim identify the counterfactual and why the comparison can represent it.
+A method name or significant coefficient is not an identification argument.
 
-### Baseline Panel Or Archival Regression
+Do not impose econometric requirements on qualitative, theoretical or review work.
+Use [discipline-router](discipline-router.md) to follow those approaches.
 
-Use when the design is observational and no credible quasi-experimental variation is claimed.
+## Conditional method concerns
 
-Writing style:
+| Actual approach | Concerns that may change interpretation |
+|---|---|
+| Observational regression / panel | Confounding, measurement, selection, timing, actual controls/FE, dependence and inference; causal interpretation requires a justified identification argument |
+| DID / event study | Treatment timing, comparison groups, target effects, parallel-trend assumptions, anticipation, contamination, dynamic/heterogeneous effects and estimator compatibility |
+| IV | Instrument relevance and independence, exclusion reasoning, weak identification, target population/effect; monotonicity when needed for the claimed interpretation |
+| RD | Assignment rule, running variable, cutoff, continuity assumptions, manipulation, local target, bandwidth/specification and inference |
+| Synthetic control | Donor suitability, pre-period fit/information, contamination, concurrent shocks and justified uncertainty |
+| Matching / weighting / selection | Assignment/selection assumptions, overlap, balance, target population and sensitivity; neither balance nor matching removes all unobserved confounding |
+| Mediation / moderation | Construct and timing, mediator-outcome confounding, chosen estimand, interactions, evidence discriminating mechanisms; see [method reporting](method-reproducibility.md) |
+| Text / ML / prediction | Measurement validity, labels, leakage, validation target/splits, error and distribution shift; prediction is not causal identification |
 
-- Explain fixed effects, controls, clustering, and economic magnitude.
-- Use association language unless identification is strong.
-- Recommend robustness around alternative measures, samples, fixed effects, clustering, and omitted-variable sensitivity.
+These are diagnostic prompts, not a required battery of tests. Select checks
+because they address a concrete threat in this study.
 
-### Difference-In-Differences And Event Studies
+## Methods evidence
 
-Use when treatment timing or policy shocks create before/after treated/control variation.
+Verify sources before adding method citations. Use methodological work for the
+estimand and assumptions; official software documentation for implementation.
+An applied exemplar may show practice but does not establish validity for this study.
+For claims about current estimators or package options, inspect current primary
+documentation rather than citing remembered names as authoritative.
 
-Checks:
+## Deliver
 
-- Parallel trends or pre-trends.
-- Treatment timing, anticipation, and dynamic effects.
-- Staggered adoption issues and appropriate estimators when treatment timing varies.
-- Spillovers and treatment contamination.
-
-If suggesting a modern DID estimator, first search current method literature and recent field applications. Do not cite method names without verification.
-
-### Instrumental Variables
-
-Use when an instrument plausibly shifts treatment but not the outcome except through treatment.
-
-Checks:
-
-- Relevance, exclusion restriction, monotonicity if relevant.
-- First-stage strength and weak-IV diagnostics.
-- Plausible violation channels.
-- Whether the estimate is LATE and for whom.
-
-### Regression Discontinuity
-
-Use when treatment assignment changes at a threshold.
-
-Checks:
-
-- Running variable and cutoff.
-- Manipulation/sorting.
-- Bandwidth choice and sensitivity.
-- Covariate balance and local interpretation.
-
-### Synthetic Control And Matrix Completion
-
-Use for aggregate interventions with limited treated units or policy shocks.
-
-Checks:
-
-- Pre-treatment fit.
-- Donor pool validity.
-- Placebo and permutation tests.
-- Whether post-treatment shocks contaminate interpretation.
-
-### Matching, Weighting, And Selection Models
-
-Use for covariate imbalance or sample selection, but do not describe them as solving endogeneity by themselves.
-
-Checks:
-
-- Common support.
-- Balance diagnostics.
-- Sensitivity to unobservables.
-- Selection equation assumptions for Heckman-type models.
-
-### Mediation, Mechanism, And Moderation
-
-Use when theory requires a channel or boundary condition.
-
-Checks:
-
-- Whether the mediator is measured after treatment.
-- Whether the mediator is itself endogenous.
-- Whether interaction terms are interpreted correctly.
-- Whether mechanism evidence is direct or only suggestive.
-
-### Text, ML, And High-Dimensional Methods
-
-Use when variables are constructed from text, images, digital traces, or high-dimensional predictors.
-
-Checks:
-
-- Construct validity and labeling.
-- Model training/evaluation leakage.
-- Interpretability.
-- Out-of-sample validation.
-- Whether ML is prediction, measurement, heterogeneity discovery, or causal estimation.
-
-For causal ML or double/debiased machine learning, search and verify method references before citing.
-
-## Source Support For Methods
-
-For method claims, retrieve and cite at least one of:
-
-- A canonical methodology article/book.
-- A recent field-journal paper using the method in a similar setting.
-- Official software/package documentation for implementation only.
-
-When the task is journal-specific, inspect recent papers in that journal family and summarize the observed method conventions.
-
-## Writing Patterns
-
-Use precise language:
-
-- "We estimate..." for model description.
-- "The identifying variation comes from..." when there is a design.
-- "This specification absorbs..." for fixed effects.
-- "The results are consistent with..." for suggestive evidence.
-- "This design mitigates [specific threat]" instead of "solves endogeneity."
-
-Avoid:
-
-- "To overcome all endogeneity problems..."
-- "The robustness tests prove..."
-- "The mechanism is verified..." without direct channel evidence.
-- "Advanced method" as a justification.
-
-## Output For Method Support Tasks
-
-Default output:
-
-1. Method diagnosis: data, variation, threats.
-2. Recommended method route.
-3. Draft/revised method paragraph.
-4. Required checks and robustness tests.
-5. Method references in APA, with traceable DOI/URL.
-6. Caveats and reviewer-risk notes.
+For a writing request, provide the method passage supported by known facts, with
+local questions where needed. For a diagnosis, explain the main issue, why it
+matters, a feasible response and its assumptions. Do not append an unsolicited
+method upgrade or fixed robustness checklist to ordinary editing.

@@ -1,5 +1,10 @@
 # Chinese Economics Style
 
+This is a conditional language/audience profile, not a mandatory research design.
+Use only the parts appropriate to the paper's actual approach. Descriptive,
+predictive, theoretical and qualitative studies need not add causal identification,
+directional hypotheses, mechanism tests or managerial/policy implications.
+
 Use for Chinese economics papers, especially CSSCI-style manuscripts, Chinese policy-oriented empirical papers, and Chinese journal submissions in applied economics.
 
 ## Core Orientation
@@ -41,15 +46,15 @@ End with what the paper adds. Do not merely list domestic and foreign studies.
 
 ## Empirical Strategy
 
-Chinese economics journals often expect clear model, variable, sample, and robustness descriptions. High-level CSSCI outlets increasingly expect credible identification.
+For empirical writing, make the actual model, variables, sample and relevant checks clear. When claiming causality, explain the identifying argument and its assumptions; this is not a claim about current requirements at every CSSCI outlet.
 
-Must clarify:
+For the actual empirical design, clarify as applicable:
 
 - Sample construction and data source.
 - Variable definitions and descriptive statistics.
-- Baseline model and fixed effects.
+- The actual model and any fixed effects used.
 - Identification logic or causal-language limits.
-- Robustness, endogeneity, mechanism, and heterogeneity checks.
+- Checks actually performed and the specific concerns they address.
 
 Use "本文识别/检验/考察" according to evidence strength. Avoid saying "解决内生性" unless the design supports it.
 
@@ -61,7 +66,7 @@ Preferred pattern:
 表X报告了基准回归结果。第X列显示，核心解释变量的系数为...，在...水平上显著。这表明...。从经济含义看，...。该结果支持/印证了...
 ```
 
-Every result paragraph should include table reference, sign, significance, magnitude if available, and interpretation.
+Use table references, magnitude, uncertainty and interpretation where relevant; do not fabricate significance or force a hypothesis-confirming conclusion. Follow [results-to-text](results-to-text.md).
 
 ## Policy Implications
 
@@ -75,7 +80,7 @@ Use "政策启示" for economics and public policy; use "管理启示" only when
 
 ## Subfield Adaptation
 
-Pair with `subfields-economics.md` for:
+Consult relevant portions of `subfields-economics.md` for:
 
 - Macro and monetary.
 - Labor and education.

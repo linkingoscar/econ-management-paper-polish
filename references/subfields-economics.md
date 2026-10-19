@@ -1,6 +1,6 @@
 # Economics Subfield Router
 
-Use after routing to economics. Select the closest subfield, then combine with `cn-economics-style.md` or `en-economics-style.md`.
+Use the relevant subfield when it improves the task. Language profiles are optional. These prompts are conditional on the actual research approach; causal identification, mechanism tests and policy implications are not required for every economics paper.
 
 ## Applied Microeconomics
 
@@ -8,15 +8,15 @@ Routing clues: individuals, firms, households, regions, policies, treatment effe
 
 Writing focus:
 
-- Research question and causal effect.
-- Identification and identifying variation.
+- Research question and empirical object, including descriptive or measurement contributions.
+- Identification and identifying variation when a causal effect is claimed.
 - Economic magnitude and mechanism.
 - External validity and policy relevance.
 
 Reviewer risks:
 
 - Descriptive association framed causally.
-- Weak mechanism tests.
+- Mechanism claims stronger than the available mechanism evidence.
 - Missing magnitude interpretation.
 
 ## Labor, Education, And Health

@@ -15,7 +15,7 @@ module:
    - `cn-{subfield}-style.md` for Chinese writing styles
    - `en-{subfield}-style.md` for English writing styles
    - `subfield-{name}.md` for subfield-specific routing
-2. Register the new file in `SKILL.md` under the **Reference Files** section.
+2. Link the new file from the appropriate task route in `SKILL.md` or a relevant reference; explain when to read it.
 3. Submit a pull request with a clear description of what the module covers.
 
 ### 2. Improve Style Rules
@@ -32,8 +32,9 @@ If you have expertise with a specific journal or journal family:
 
 1. Edit or create entries in `references/journal-families-econ.md` or
    `references/journal-families-management.md`.
-2. Include: journal scope, typical contribution logic, preferred methods,
-   formatting quirks, and recent trends.
+2. Separate observed conventions and editorial judgment from requirements.
+   For binding requirements, record the official source, check date, article type
+   and submission stage; sample articles alone do not establish rules.
 3. Cite the journal's author guidelines or recent accepted papers as evidence.
 
 ### 4. Fix Bugs or Improve Routing
@@ -68,7 +69,7 @@ When adding claims about journal requirements, method conventions, or field norm
 
 ### What NOT to Contribute
 
-- Personal opinions without evidence.
+- Unsupported factual claims or unlabeled editorial judgments.
 - Specific journal requirements that are not sourced from official guidelines.
 - Content that duplicates existing modules without adding value.
 - Proprietary or copyrighted material.
@@ -76,9 +77,11 @@ When adding claims about journal requirements, method conventions, or field norm
 ## Pull Request Process
 
 1. Fork the repository.
-2. Create a feature branch: `git checkout -b add-tourism-economics-style`
+2. Create an appropriately named feature branch, for example `codex/tourism-style`.
 3. Make your changes.
-4. Ensure `SKILL.md` references any new files.
+4. Check frontmatter and reference links. For changed non-trivial behavior, use
+   the relevant cases in `evals/README.md` or add a meaningful regression case.
+   Do not treat phrase matching or a validator exit status as semantic validation.
 5. Submit a pull request with:
    - Clear description of what changed and why.
    - Links to sources if adding journal/field knowledge.

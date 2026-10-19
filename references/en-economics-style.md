@@ -1,5 +1,10 @@
 # English Economics Style
 
+This is a conditional language/audience profile, not a mandatory research design.
+Use only the parts appropriate to the paper's actual approach. Descriptive,
+predictive, theoretical and qualitative studies need not add causal identification,
+directional hypotheses, mechanism tests or managerial/policy implications.
+
 Use for English economics papers, applied micro papers, economics field-journal submissions, and economics-style finance/IS/platform papers.
 
 ## Core Orientation
@@ -74,5 +79,5 @@ When translating a China-based paper into English:
 
 ## Subfield Adaptation
 
-Pair with `subfields-economics.md` and `journal-families-econ.md` for field-specific tone.
+Consult relevant portions of `subfields-economics.md` and `journal-families-econ.md` for field-specific tone.
 

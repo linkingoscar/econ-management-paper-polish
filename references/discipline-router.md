@@ -1,114 +1,57 @@
-# Discipline Router
+# Research approach, field, and audience
 
-Classify before polishing. If the draft is ambiguous, infer the most likely category from constructs, methods, citations, datasets, and section language. State the assumed route when it affects style.
+Use when these distinctions change the reasoning or writing. Choose the user's
+action first; the paper's argument and evidence determine the research approach.
+Language and journal family then refine presentation.
 
-After classification, choose a quadrant-specific style file:
+## Research approach before style
 
-- Chinese economics -> `cn-economics-style.md`.
-- English economics -> `en-economics-style.md`.
-- Chinese management -> `cn-management-style.md`.
-- English management -> `en-management-style.md`.
+| Approach | Understand before writing | Do not force |
+|---|---|---|
+| Causal empirical | Target effect, assignment or identifying variation, counterfactual, assumptions, population, uncertainty | Causality from an estimator name |
+| Descriptive / measurement | Population, coverage, construct validity, sampling, comparability, what the measure reveals | A treatment or instrument |
+| Prediction | Prediction target/horizon, evaluation split, leakage, baselines, validation scope | Predictive accuracy as causal explanation |
+| Formal theory | Assumptions, propositions, proof status, economic intuition, limits | Regression results or directional empirical hypotheses |
+| Structural / quantitative model | Model restrictions, parameter identification, estimation/calibration, fit, counterfactual assumptions | Counterfactual outputs as observed treatment effects |
+| Hypothesis-testing management | Construct definitions and levels, mechanism, competing logic, measured implications | Extra hypotheses for their own sake |
+| Qualitative / case / process | Sampling, access, observations, analytic steps, negative cases, process evidence, transferability | Fixed effects, p-values, or mandatory hypotheses |
+| Review / synthesis | Search scope, inclusion logic, source access, comparability, contradictory findings | A novelty claim from an incomplete search |
+| Mixed methods | What each component establishes and how they connect | Treating one component as automatic validation of the other |
 
-Then refine with `subfields-economics.md` or `subfields-management.md` when relevant. Use `field-style-packs.md` only for adjacent or mixed fields such as finance, accounting, marketing, IS, operations, tourism, and public management.
+A paper may combine approaches. Resolve a disputed route from its actual question,
+design and requested outlet, not keywords alone. A descriptive or qualitative
+study can have a substantial contribution without claiming causality.
 
-## Main Discipline Families
+## Field refinements
 
-### Economics
+- **Economics:** clarify the economic object, incentives, allocation, institutions,
+  measurement or welfare question. Identification matters for causal claims;
+  proofs, measurement quality or model assumptions may be central in other work.
+- **Management and organization:** distinguish constructs and levels, explain
+  actors/processes and the theoretical change. Theory building and phenomenon-led
+  work need not begin with confirmatory hypotheses.
+- **Finance and accounting:** specify market participants, reporting/institutional
+  details, measurement and comparison; distinguish archival, experimental,
+  analytical and descriptive work.
+- **Marketing and IS:** make the decision, consumer/firm/platform or technology
+  process explicit; distinguish behavioral, quantitative and design-oriented work.
+- **Public management, tourism and other applied fields:** specify context and
+  scope; connect implications to supported findings.
 
-Typical center: identification, mechanism, welfare, market/institutional effects, policy relevance, or model-derived implications.
+Use the relevant subfield portion only when it adds something:
+[economics](subfields-economics.md), [management](subfields-management.md),
+[adjacent fields](field-style-packs.md).
 
-Writing priorities:
+## Language and outlet
 
-- State the research question as an economic relationship or institutional puzzle.
-- Emphasize identifying variation, assumptions, estimation strategy, and economic magnitude.
-- Keep theory concise unless the paper is formal theory.
-- Avoid management-style overemphasis on managerial implications when the target is economics.
-- Use causal language only when the empirical design supports it.
+Choose [Chinese economics](cn-economics-style.md),
+[English economics](en-economics-style.md),
+[Chinese management](cn-management-style.md), or
+[English management](en-management-style.md) only for additional language guidance.
+These are conditional profiles, not universal templates. Treat any empirical or
+hypothesis examples in field files as applicable only to that type of research.
 
-Common subfields: labor, development, environmental, urban/regional, industrial organization, international trade, public finance, health, education, political economy, digital economy.
-
-### Management And Organization
-
-Typical center: constructs, mechanisms, boundary conditions, organizational behavior, strategy, governance, capabilities, innovation, entrepreneurship, or managerial decision-making.
-
-Writing priorities:
-
-- Define constructs clearly and distinguish them from adjacent concepts.
-- Build a theory chain from phenomenon to mechanism to testable hypothesis.
-- Make contribution to named theory streams explicit.
-- Include managerial implications only when grounded in findings and scope conditions.
-- In English management journals, theory density and construct precision matter as much as empirical results.
-
-Common subfields: strategic management, organization theory, OB, HRM, entrepreneurship, innovation management, international business, operations management.
-
-### Finance
-
-Typical center: asset pricing, corporate finance, market microstructure, banking, governance, risk, disclosure effects, or investor behavior.
-
-Writing priorities:
-
-- State the financial mechanism and identify who responds: firms, managers, investors, lenders, analysts, or regulators.
-- Emphasize identification, alternative explanations, economic magnitude, and market/institutional channel.
-- Avoid loose "management implication" language unless the target is managerial finance or corporate governance.
-
-### Accounting
-
-Typical center: disclosure, audit, taxation, earnings quality, internal control, accounting standards, analyst behavior, capital market consequences, or managerial reporting incentives.
-
-Writing priorities:
-
-- Specify the institutional setting and measurement choices.
-- Treat construct validity and alternative proxies carefully.
-- Distinguish archival, experimental, survey, and analytical accounting styles.
-- Keep causal claims conservative unless design is strong.
-
-### Marketing
-
-Typical center: consumers, firms, brands, channels, platforms, pricing, advertising, sales, product strategy, or marketing analytics.
-
-Writing priorities:
-
-- Connect findings to consumer behavior or firm decision-making.
-- Translate coefficients into marketing-relevant implications.
-- For behavioral work, theory and experimental validity matter.
-- For quantitative marketing, model, identification, and decision relevance matter.
-
-### Information Systems And Digital Business
-
-Typical center: IT adoption, platforms, digital transformation, algorithms, AI, online communities, data governance, or sociotechnical mechanisms.
-
-Writing priorities:
-
-- Clarify the technology artifact, digital mechanism, and organizational or market outcome.
-- Avoid treating "digital" as a contribution by itself.
-- Align with either IS behavioral/theory style or economics/quantitative platform style depending on method and target outlet.
-
-### Public Administration, Policy, Tourism, And Other Applied Fields
-
-Typical center: governance, policy implementation, public service, regional development, tourism behavior, service management, or applied institutional settings.
-
-Writing priorities:
-
-- Make the institutional or sectoral context explicit.
-- Keep implications scoped to the governance, industry, or population studied.
-- Avoid overgeneralizing from one region, industry, or policy episode.
-
-## Mixed Or Borderline Papers
-
-When a paper spans fields, choose the target outlet's dominant paradigm. Examples:
-
-- Platform regulation in an economics journal: emphasize identification, welfare, market effects.
-- Platform regulation in an IS journal: emphasize digital artifact, sociotechnical mechanism, organizational/market consequences.
-- ESG in finance: emphasize capital market channel, risk, investor or firm response.
-- ESG in management: emphasize stakeholder theory, governance, strategy, and organizational mechanisms.
-
-If the target outlet is unknown, use a compatible hybrid style: clear research question, disciplined theory, precise identification language, concrete results, and scoped implications.
-
-## Method-Sensitive Style
-
-- **Formal theory/model**: prioritize assumptions, propositions, intuition, comparative statics, and testable implications.
-- **Archival empirical**: prioritize data construction, identification, controls, fixed effects, standard errors, robustness, and economic magnitude.
-- **Survey**: prioritize construct validity, scale reliability, common-method concerns, sampling, and theory-hypothesis alignment.
-- **Experiment**: prioritize design, manipulation, randomization, validity checks, treatment interpretation, and mechanism.
-- **Qualitative case**: prioritize phenomenon framing, sampling logic, process evidence, theoretical abstraction, and transferability.
-- **Review/meta-analysis**: prioritize scope, search strategy, inclusion criteria, coding, synthesis logic, and research agenda.
+For a mixed paper with no outlet, preserve its research approach and write for the
+stated audience. Do not recast its contribution as causal or theory-testing just
+to resemble an outlet family. Use [journal-style-card](journal-style-card.md) for
+verified journal requirements.

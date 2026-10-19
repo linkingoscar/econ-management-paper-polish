@@ -1,206 +1,78 @@
-# Method Reproducibility (方法可复现性)
+# Method reporting and interpretation checks
 
-Use this file for detailed method-level reproducibility checks. This is a sub-module of `reproducibility-audit.md`.
+Use with [reproducibility-audit](reproducibility-audit.md).
+A reporting check identifies what is documented; it does not prove an analysis ran.
 
-## General Method Reporting
+## Applicable information
 
-### Required Information
+For the actual analysis, inspect the estimand/question, procedure, model if used,
+sample, variables/transformations, weights, inference method and implementation
+details needed to understand or repeat it.
+Report controls, fixed effects or clustering when used or relevant; they are not
+universal requirements. Record "not reported", "not applicable" and "unverified"
+separately from a confirmed methodological error.
 
-| Item | Required | Location | Status |
-|------|----------|----------|--------|
-| Estimation method | Yes | Section/equation | ☐ |
-| Model specification | Yes | Equation | ☐ |
-| Fixed effects | Yes | Section/table notes | ☐ |
-| Control variables | Yes | Section/table notes | ☐ |
-| Standard errors | Yes | Table notes | ☐ |
-| Cluster level | If applicable | Table notes | ☐ |
-| Weighting | If applicable | Section | ☐ |
-| Software | Recommended | Footnote | ☐ |
+## Conditional checks
 
-## Method-Specific Checks
+- **Regression/panel:** equation and text agree; controls/FE and their roles are
+  clear; outcome scale, dependence and inference are described. Do not prescribe
+  a fixed SE type, cluster level or bootstrap count without the design.
+- **DID/event study:** target effects, timing, comparison groups, estimator,
+  aggregation, assumptions, anticipation and uncertainty are specified.
+  A two-group/two-period Post × Treat equation is one special case, not the required
+  form for staggered or multi-period studies. Non-significant pre-trends do not
+  prove parallel trends. Absence of an event plot may be a reporting/design
+  limitation, not proof that no valid analysis is possible.
+  The authors' [did introduction](https://bcallaway11.github.io/did/articles/did-basics.html)
+  illustrates group-time effects and aggregation.
+- **IV:** record first stage, relevant weak-identification diagnostics, exclusion
+  and independence arguments, estimation/inference and the target effect.
+  Overidentification tests apply only where identified by the design and cannot
+  prove all instruments valid. Do not assume every IV estimand has the same LATE
+  interpretation or impose a universal F threshold.
+- **RD:** state the rule/cutoff, sharp/fuzzy design, local target, bandwidth,
+  functional form and inference. Check sorting/continuity evidence appropriate
+  to the running variable; no named density test is mandatory for every design.
+- **Matching/weighting:** state target population, covariates and timing, procedure,
+  overlap, balance, weighting and inference. A conventional balance threshold
+  is not proof of exchangeability or absence of unmeasured confounding.
+- **Heterogeneity:** define groups/interaction contrasts and their uncertainty;
+  one significant subgroup and one non-significant subgroup do not demonstrate
+  a statistically significant difference.
 
-### OLS / Panel FE
+## Mediation and mechanisms
 
-| Check | Description | Status |
-|-------|-------------|--------|
-| Model equation | Full equation with subscripts | ☐ |
-| Fixed effects | Entity, time, or both | ☐ |
-| Controls | List of control variables | ☐ |
-| SE type | Robust, clustered, heteroskedastic | ☐ |
-| Cluster level | Firm, industry, state, etc. | ☐ |
+Distinguish a causal indirect/direct effect from a descriptive mediator association.
+Inspect construct definitions, treatment–mediator–outcome ordering, the chosen
+estimand and its identification assumptions. For common causal mediation
+approaches, treatment and mediator ignorability and mediator-outcome confounding
+are central; exposure-induced confounders may require different designs/methods.
 
-**Standard reporting:**
-```
-Y_it = α + β X_it + γ Z_it + μ_i + λ_t + ε_it
+Randomizing treatment does not automatically randomize the mediator.
+A significant indirect-effect estimate, bootstrap interval or coefficient
+attenuation does not alone identify a mechanism. Baron–Kenny steps, a Sobel test
+and "no direct path from an instrument to the outcome" are not universal mediation
+requirements. Instrumental-variable mediation has additional, design-specific
+restrictions; do not conflate an exposure with an instrument.
 
-Where μ_i are firm fixed effects, λ_t are year fixed effects.
-Standard errors are clustered at the firm level.
-```
+Discuss sensitivity to assumptions and rival explanations where material.
+[Imai, Keele and Yamamoto (2010)](https://imai.fas.harvard.edu/research/files/mediation.pdf)
+derive mediation identification under a version of sequential ignorability and
+examine sensitivity to violations; this is a conditional framework, not a checklist
+proving causality in every study.
 
-### Difference-in-Differences (DID)
+## Other research approaches
 
-| Check | Description | Status |
-|-------|-------------|--------|
-| Treatment definition | What constitutes treatment | ☐ |
-| Treatment timing | When treatment occurs | ☐ |
-| Control group | Who is in the control group | ☐ |
-| Parallel trends | Assumption discussed/tested | ☐ |
-| Pre-treatment period | How many pre-treatment periods | ☐ |
-| Event study | Pre-trends shown | ☐ |
-| Anticipation effects | Addressed or ruled out | ☐ |
+For qualitative work inspect sampling, evidence collection, analysis and interpretive
+trace; do not invent coding, saturation or member checking.
+For prediction inspect actual evaluation, leakage and deployment population.
+For theory/structural work distinguish assumptions, derivation/proof, calibration,
+estimation, fit and counterfactuals.
 
-**Required specifications:**
-```
-Y_it = α + β (Post_t × Treat_i) + γ Z_it + μ_i + λ_t + ε_it
+## Output
 
-Parallel trends test: Event study with leads and lags
-```
-
-### Instrumental Variable (IV)
-
-| Check | Description | Status |
-|-------|-------------|--------|
-| Instrument | What is the instrument | ☐ |
-| First stage | First-stage equation reported | ☐ |
-| First-stage F | F-statistic reported | ☐ |
-| Exclusion restriction | Why instrument is valid | ☐ |
-| Overidentification | Test if multiple instruments | ☐ |
-| LATE interpretation | Acknowledged if applicable | ☐ |
-
-**Required reporting:**
-```
-First stage: X_it = α + π Z_it + γ W_it + μ_i + λ_t + ν_it
-Second stage: Y_it = α + β X̂_it + γ W_it + μ_i + λ_t + ε_it
-
-First-stage F-statistic: [value]
-```
-
-### Regression Discontinuity (RD)
-
-| Check | Description | Status |
-|-------|-------------|--------|
-| Running variable | What determines treatment | ☐ |
-| Cutoff | Where is the cutoff | ☐ |
-| Bandwidth | How is bandwidth chosen | ☐ |
-| Manipulation test | McCrary density test | ☐ |
-| Functional form | Polynomial order | ☐ |
-| Robustness | Different bandwidths | ☐ |
-
-**Required reporting:**
-```
-Y_i = α + β D_i + f(X_i - c) + ε_i
-
-Where D_i = 1[X_i ≥ c], c is the cutoff.
-Bandwidth: [value], chosen by [method].
-```
-
-### Matching / PSM
-
-| Check | Description | Status |
-|-------|-------------|--------|
-| Matching variables | What variables are used | ☐ |
-| Matching method | Nearest neighbor, caliper, etc. | ☐ |
-| Balance tests | SMD reported | ☐ |
-| Common support | Overlap discussed | ☐ |
-| Sensitivity | Rosenbaum bounds or similar | ☐ |
-
-**Required reporting:**
-```
-Matching variables: [list]
-Method: [nearest neighbor/caliper/kernel]
-Caliper: [value if applicable]
-Balance: SMD < 0.1 for all covariates
-```
-
-### Mediation / Mechanism
-
-| Check | Description | Status |
-|-------|-------------|--------|
-| Mediator variable | What is the mediator | ☐ |
-| Causal steps | Baron-Kenny or similar | ☐ |
-| Indirect effect | Sobel test or bootstrap | ☐ |
-| Direct effect | After controlling for mediator | ☐ |
-| Exclusion restriction | No direct path from IV to DV | ☐ |
-
-**Caution:** Standard mediation analysis has limitations. Acknowledge that mediation does not prove causation of the mechanism.
-
-### Heterogeneity Analysis
-
-| Check | Description | Status |
-|-------|-------------|--------|
-| Subgroups | How are subgroups defined | ☐ |
-| Theoretical motivation | Why these subgroups | ☐ |
-| Coefficient comparison | How is difference tested | ☐ |
-| Multiple testing | Corrections if many subgroups | ☐ |
-
-## Standard Error Reporting
-
-### Required Information
-
-| SE Type | When to Use | Report As |
-|---------|-------------|-----------|
-| Robust | Default for cross-section | "Robust standard errors" |
-| Clustered | Panel data, grouped data | "Standard errors clustered at [level]" |
-| HC2/HC3 | Small samples | "HC3 standard errors" |
-| Bootstrapped | Complex statistics | "Bootstrap standard errors (B=1000)" |
-
-### Common Errors
-
-- Reporting "standard errors in parentheses" without type.
-- Clustering at wrong level (e.g., individual when treatment varies at state level).
-- Not clustering when using clustered treatment.
-
-## Software and Version Reporting
-
-### Recommended Reporting
-
-```
-All analyses are conducted in [Stata 17 / R 4.3 / Python 3.11].
-[Package/version] is used for [specific method].
-Code is available at [repository URL] upon request.
-```
-
-## Output Template
-
-```markdown
-## 方法可复现性检查
-
-### 总体评估
-- 方法描述清晰度: [⭐⭐⭐⭐⭐]
-- 参数报告完整性: [⭐⭐⭐⭐⭐]
-- 识别策略论证: [强/中/弱]
-- 标准误报告: [✅/⚠️/❌]
-
-### 详细检查
-
-#### 模型设定
-- 模型类型: [OLS/FE/IV/DID/RD/...]
-- 方程: [是否完整报告]
-- 固定效应: [是否说明]
-- 控制变量: [是否列出]
-
-#### 识别策略
-- 识别方法: [描述]
-- 关键假设: [是否讨论]
-- 稳健性检验: [是否充分]
-
-#### 标准误
-- 类型: [Robust/Clustered/...]
-- 聚类层级: [Firm/Industry/State/...]
-- 报告位置: [Table notes]
-
-### 问题清单
-1. [Method issue 1]
-2. [Method issue 2]
-
-### 改进建议
-1. [Specific recommendation]
-2. ...
-```
-
-## Integration With Other Modules
-
-- **empirical-method-router.md**: Method selection guidance.
-- **method-decision-tree.md**: Decision tree for method choice.
-- **quality-gates.md**: Identification And Causal Language Gate.
-- **reproducibility-audit.md**: Parent module for overall audit.
+Locate omissions and conflicts and explain their effect on interpretation or
+reproduction. A statement such as "the draft does not specify the cluster level"
+is different from "the analysis used the wrong cluster level".
+Do not assign reproducibility stars or report successful execution without code
+and output evidence.

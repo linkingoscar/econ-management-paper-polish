@@ -1,15 +1,15 @@
 # Adjacent Field Style Packs
 
-Use only after the four-quadrant route is chosen. This file refines adjacent or mixed business-school fields that do not fit cleanly into pure economics or pure management.
+Use relevant portions when the research approach and audience need adjacent-field detail. Do not require a four-quadrant route before working. These are conditional editorial prompts, not mandatory designs or claims about every journal.
 
-Primary routes remain:
+Optional language profiles:
 
 - Chinese economics: `cn-economics-style.md`.
 - English economics: `en-economics-style.md`.
 - Chinese management: `cn-management-style.md`.
 - English management: `en-management-style.md`.
 
-Use this file to add field-specific constraints for finance, accounting, marketing, IS, operations, public management, tourism/service, and mixed papers.
+Preserve descriptive, predictive, theoretical, qualitative and design-science contributions. Use these field refinements only where they change the requested writing.
 
 ## Finance
 
@@ -19,7 +19,7 @@ Writing focus:
 
 - Name the market participant: firms, managers, investors, lenders, analysts, auditors, regulators, or intermediaries.
 - Clarify the financial channel: information, agency, risk, liquidity, financing, valuation, governance, or disclosure.
-- Treat endogeneity and alternative explanations as central.
+- Assess endogeneity and alternatives when causal interpretation is claimed.
 - Report economic magnitude and market relevance.
 
 Reviewer risks:
@@ -121,7 +121,7 @@ Writing focus:
 
 Reviewer risks:
 
-- Tourism setting is descriptive only.
+- The contribution claimed exceeds what the description of the tourism setting establishes.
 - Consumer/service mechanism is not measured.
 - Policy or managerial implications are generic.
 
@@ -129,8 +129,8 @@ Reviewer risks:
 
 When fields overlap:
 
-1. Choose target outlet first.
-2. Choose the dominant contribution logic: identification, theory, market mechanism, construct/mechanism, decision relevance, or policy evaluation.
-3. Use the closest quadrant file.
+1. Identify the actual research question, approach and requested audience.
+2. Identify the supported contribution: explanation, measurement, description, prediction, theory, design or policy evaluation.
+3. Use a relevant language profile only when useful; the outlet does not change the evidence.
 4. Add only the adjacent-field constraints needed for precision.
 

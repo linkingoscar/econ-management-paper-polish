@@ -1,104 +1,82 @@
-# Theory Backing Router
+# Theory, constructs, mechanisms, and alternatives
 
-Use this when drafting or revising theory, mechanisms, hypotheses, construct definitions, literature positioning, or when the user asks for 理论背书.
+Use for theory development, construct definitions, mechanism explanations,
+hypotheses, theory contribution or requests for theoretical support.
 
-## Theory Diagnosis First
+## Find the reasoning task
 
-Before adding theory citations, identify the role each citation must play:
+Is the passage defining a construct, explaining a relationship, comparing theories,
+deriving a prediction, locating a boundary, interpreting observations, or proposing
+a new process account? Do that work before selecting more theory names.
 
-- **Construct definition**: defines the concept or distinguishes it from adjacent concepts.
-- **Theoretical lens**: agency theory, resource-based view, transaction cost, institutional theory, stakeholder theory, upper echelons, information asymmetry, signaling, behavioral theory, social exchange, attention-based view, legitimacy, etc.
-- **Mechanism source**: explains why X affects Y.
-- **Boundary condition**: explains when, where, or for whom the effect changes.
-- **Competing explanation**: provides an alternative mechanism that must be acknowledged or tested.
-- **Measurement/proxy basis**: justifies how a construct is operationalized.
-- **Contextual extension**: shows why the theory travels to this industry, country, policy, platform, or institutional setting.
+Map the argument where useful:
+actors/objects and levels → assumptions or conditions → process/incentive →
+observable implication → evidence that can discriminate explanations.
 
-Do not add a citation unless its role is clear.
+For theory-building or qualitative work, distinguish prior concepts, observations
+and interpretations that emerged from analysis. Do not retrofit all findings as
+pre-specified hypotheses. For formal theory, distinguish assumptions, propositions,
+proofs and intuition; do not claim a proof was checked from an abstract.
 
-## Theory Chain Template
+## Construct validity
 
-For management, marketing, IS, accounting, and many CSSCI papers:
+- Define the concept and distinguish adjacent concepts.
+- Keep individual, team, firm, industry and institutional levels distinct.
+- Separate construct from its proxy/scale and from a causal mechanism.
+- Ask what variation the measure actually captures, including rival interpretations.
+- A new proxy needs a justification or validation; renaming it does not establish
+  the intended construct.
 
-```text
-Construct or phenomenon -> theoretical lens -> mechanism -> expected effect -> boundary condition or competing force -> hypothesis/testable implication
-```
+Example (constructed): frequency of AI-related words may measure disclosure
+emphasis. It is not automatically organizational AI capability or actual adoption.
 
-For economics and finance papers:
+## Mechanisms and hypotheses
 
-```text
-Economic mechanism or model intuition -> identifying implication -> expected sign/magnitude or testable prediction -> alternative explanation
-```
+Locate the step that needs explaining, rather than expanding every arrow equally.
+Specify whose information, options, incentives or interpretation changes and why
+that change alters the focal choice or relationship. A moderator must change
+something in this account. "Expertise changes the response because experts respond
+differently" still restates a relation: what do they notice, expect or do differently,
+and why does that affect the outcome? Ground this premise in the task's material;
+keep unmeasured explanations theoretical.
 
-## Hypothesis Check
+For opposing demands or dimensions, identify what each governs and how they fit
+together: different decisions, actors, conditions or phases may be involved.
+An attempt to reconcile demands is not evidence of success. Check the comparison
+behind a directional prediction: blocking a benefit does not itself predict harm,
+and coexistence does not establish a sequence. If the reasoning supports less than
+the author's hypothesis, offer the narrower formulation and disclose that change.
 
-Each hypothesis should pass:
+Use hypotheses when the study tests them; retain ambiguity when direction is open.
+Questions, process accounts or descriptive propositions can be appropriate.
+Post-hoc explanations remain exploratory, not pre-specified expectations.
 
-- Constructs are defined.
-- Direction follows from mechanism.
-- Boundary condition is theoretically motivated.
-- Hypothesis is testable with available data.
-- Competing mechanisms are not ignored.
-- Citation support maps to the specific mechanism, not just the topic.
+Keep separate:
+- A plausible mechanism.
+- An observable pattern consistent with that mechanism.
+- Evidence that discriminates it from alternatives.
+- An identified causal mediation effect under stated assumptions.
 
-If a hypothesis is descriptive, tautological, or not falsifiable, flag it before polishing.
+Do not equate a mediator regression, subgroup result or attenuation of a coefficient
+with mechanism identification. Use [method-reproducibility](method-reproducibility.md)
+when causal mediation assumptions are the issue.
 
-## Source Selection
+## Literature support and contribution
 
-Use `evidence-citation-workflow.md` for retrieval and `evidence-grading.md` for confidence.
+Use [evidence-citation-workflow](evidence-citation-workflow.md) for new references.
+A theory source should support the definition, process, assumption or boundary
+actually used. A classic framework need not support a later empirical proxy.
+A shared keyword does not establish support.
 
-Preferred source mix:
+Evaluate whether the paper refines a mechanism, changes a boundary, resolves an
+apparent contradiction, connects concepts with explanatory value, or develops a
+supported process account. Do not call a new sample a theoretical contribution
+without explaining how it changes understanding.
 
-- Seminal theory source for the theoretical lens.
-- Field-specific application for construct or mechanism.
-- Recent review/meta-analysis for literature mapping.
-- Target-field empirical paper for operationalization or boundary conditions.
-- Chinese CSSCI source when writing a Chinese paper or grounding China-specific institutional context.
+## Deliverable
 
-Avoid:
-
-- Citing only recent empirical papers for foundational theory.
-- Citing classic theory for a specific empirical operationalization it never discussed.
-- Mixing Chinese and English terms in ways that change construct meaning.
-- Using "based on X theory" without explaining the mechanism.
-
-## Theory Contribution Patterns
-
-Choose the real contribution pattern:
-
-- **New mechanism**: same X-Y relationship, new channel.
-- **New boundary condition**: effect holds under specific institutional, organizational, or market conditions.
-- **New construct linkage**: connects two previously separate literatures.
-- **New context with theoretical value**: context changes assumptions or reveals a mechanism.
-- **New measurement or data**: allows a previously untested theory to be examined.
-- **Contradicting or refining existing evidence**: resolves mixed findings or changes scope.
-
-Do not call a paper theoretical contribution merely because it studies a new sample.
-
-## Writing Patterns
-
-Good theory prose:
-
-- Defines constructs before relating them.
-- Names actors and incentives.
-- Explains why the mechanism should operate.
-- Acknowledges countervailing forces when plausible.
-- Ends with a testable implication.
-
-Weak theory prose:
-
-- "Prior studies show X, therefore we hypothesize Y."
-- "This enriches theory" without naming what changes.
-- "The mechanism is..." without evidence or logic.
-- Long lists of citations without synthesis.
-
-## Output For Theory Support Tasks
-
-Default output:
-
-1. Theory diagnosis.
-2. Revised theory/hypothesis text.
-3. Evidence pack by citation role.
-4. Added/replaced APA references.
-5. Remaining unsupported claims or competing explanations.
+For drafting, provide usable theory prose plus only material unresolved issues.
+For diagnosis, locate the reasoning break and give a feasible repair, including a
+narrower claim if that is all the evidence supports. Separate proposed ideas from
+established findings and new references from unverified candidates.
 

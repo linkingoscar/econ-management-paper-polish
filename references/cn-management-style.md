@@ -1,5 +1,10 @@
 # Chinese Management Style
 
+This is a conditional language/audience profile, not a mandatory research design.
+Use only the parts appropriate to the paper's actual approach. Descriptive,
+predictive, theoretical and qualitative studies need not add causal identification,
+directional hypotheses, mechanism tests or managerial/policy implications.
+
 Use for Chinese management papers, CSSCI management journals, Chinese strategy/organization/innovation/HR/marketing/IS/operations/public management manuscripts, and Chinese firm-level empirical papers.
 
 ## Core Orientation
@@ -31,13 +36,13 @@ Avoid:
 
 ## Theory And Hypotheses
 
-Management theory sections need more logic than economics-style empirical papers:
+For hypothesis-driven management work, make the reasoning explicit:
 
 - Define each construct.
 - Identify theoretical lens.
 - Explain mechanism.
 - Acknowledge competing or countervailing logic.
-- Derive directional hypotheses.
+- Derive directional hypotheses only when the theory supports direction and this study tests hypotheses.
 - Explain moderators as boundary conditions, not post-hoc subgroups.
 
 Hypotheses should be concise but not merely restated regression expectations.
@@ -46,7 +51,7 @@ Hypotheses should be concise but not merely restated regression expectations.
 
 For archival management papers:
 
-- Clarify sample, variables, controls, fixed effects, endogeneity concerns, robustness.
+- Clarify sample, measures and actual analysis; describe controls, fixed effects and causal concerns when relevant.
 - Return results to theory and mechanisms.
 
 For survey/experiment papers:
@@ -63,5 +68,5 @@ Separate:
 
 ## Subfield Adaptation
 
-Pair with `subfields-management.md` for strategy, OB/HR, innovation/entrepreneurship, marketing, IS, operations, public management, tourism, and corporate governance.
+Consult relevant portions of `subfields-management.md` for strategy, OB/HR, innovation/entrepreneurship, marketing, IS, operations, public management, tourism, and corporate governance.
 

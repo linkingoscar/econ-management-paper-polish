@@ -1,320 +1,148 @@
 ---
 name: econ-management-paper-polish
-description: >
-  Universal academic paper skill for economics, management, finance, accounting,
-  marketing, information systems, public administration, tourism, innovation,
-  entrepreneurship, and broader business-school disciplines. Supports polishing,
-  rewriting, review, topic/revision advice, variable suggestions, theory/hypothesis
-  support, empirical-method diagnosis, reviewer response, and traceable citation
-  and reference help. Routes by discipline, subfield, language context, method,
-  target outlet, and section type before editing.
-  Triggers: 经管论文, 经济学论文, 管理论文, 实证论文, 论文润色, 学术润色,
-  降AI味, 选题调整, 变量建议, 改稿方向, 研究前沿, 主流研究, 贡献定位,
-  文献背书, 理论背书, 方法背书, 补充参考文献, 替代参考文献, APA格式, 返修回复,
-  研究流水线, 端到端, 从选题到投稿, 完整论文流程,
-  论点骨架, 核心论点, 论证链, 论点诊断,
-  RAG, 知识库, 文献库, 跨论文问答, 引用验证,
-  调研工作区, 文献池, 逐文精读, 文献整理,
-  LaTeX, tex, BibTeX, 期刊模板, 三线表,
-  可复现性, 复现检查, 数据透明度, 方法透明度,
-  修订矩阵, 返修跟踪, 风险清单,
-  paper polish, paper review, citation help, methodology diagnosis,
-  reviewer response, literature augmentation,
-  research pipeline, end-to-end, paper spine, argument structure,
-  RAG knowledge base, cross-paper QA, citation verification,
-  survey workspace, paper pool, close reading,
-  LaTeX writing, BibTeX management, reproducibility audit,
-  revision matrix, risk register.
-version: 2.0.0
+description: >-
+  Write, revise, translate, and review economics and management research papers.
+  Use for 经管论文润色、贡献与理论诊断、文献核查、结果解释、返修回复 and
+  journal adaptation, including related business disciplines. Preserve meaning
+  and connect claims to actual evidence. General LaTeX, RAG, and statistics
+  requests alone do not activate this paper-writing skill.
 license: MIT
+metadata:
+  version: "2.4.0"
 ---
 
 # Econ and Management Paper Polish
 
-Use this skill for econ/management paper writing, revision, and polishing.
-First identify the paper's disciplinary paradigm and target writing context;
-then keep the user's claims, numbers, variables, model notation, citations,
-and intended contribution intact unless the user explicitly asks for substantive rewriting.
+Help the author produce clear, defensible, usable writing. Understand what the
+research actually establishes, then improve the requested text or diagnosis.
+Support topic and design advice without presenting proposed research as completed.
 
-## Compatibility
+## Start with the requested work
 
-This skill is designed to work with any coding agent that supports skill/system-prompt
-loading, including but not limited to:
+Identify the action and available material before choosing depth. Infer the
+research approach, language, and audience from the draft; reuse known preferences.
+Ask only for missing information that materially changes the answer. Continue
+independent work when a missing table, source, or decision blocks only one part.
 
-- **OpenCode** — place under `.opencode/skills/` or reference via `skill` tool
-- **Claude Code** — place under `.claude/skills/` or reference via `skill` tool
-- **Codex (OpenAI)** — place under `.codex/skills/`
-- **Cursor** — place under `.cursor/rules/` or reference as project rules
-- **Windsurf** — place under `.windsurf/rules/`
-- **Cline** — place under `.clinerules/`
-- **GitHub Copilot** — reference as custom instructions
-- **Aider** — place in repo root or reference via `/add`
+For ordinary line editing or translation, read only
+[style-and-polish](references/style-and-polish.md), then deliver the revision.
+Do not require a routing card, target journal, literature search, full manuscript,
+or pipeline before editing a self-contained passage.
 
-See `README.md` for agent-specific installation instructions.
+Papers supplied to develop or evaluate this skill, evaluation fixtures and past
+test outputs are not standing sources for manuscript work. Do not load them or
+carry their topics, theories, citations or phrasing into a new task unless the
+user explicitly selects those materials for that manuscript. Apply the transferable
+writing principles to the current author's text and evidence.
 
-## Core Rules
+For deeper work, select the relevant route below. Read linked extensions only
+when they resolve a need in the current task, not as a cumulative checklist.
+For drafting or substantial rewriting, also use the substantive editing pass in
+[style-and-polish](references/style-and-polish.md) to turn the analysis into prose.
 
-1. Do not invent citations, data, regression results, mechanisms, institutions,
-   journal requirements, or author claims.
-2. Preserve coefficient signs, p-values, sample sizes, variable names, equation
-   notation, table numbers, and citation keys exactly unless correcting an explicit
-   inconsistency.
-3. Separate polishing from substantive risk. If a claim is unsupported, overcausal,
-   vague, or inconsistent with evidence, flag it instead of silently smoothing it.
-4. Match the target language. For Chinese drafts, use precise mainland academic
-   Chinese. For English drafts, use journal-style academic English without inflated
-   adjectives.
-5. Do not impose one paradigm on all papers. Economics, management, finance,
-   accounting, marketing, information systems, and other fields differ in contribution
-   logic, theory density, methods language, and implication style.
-6. For empirical papers, prioritize claim-evidence alignment: every theoretical claim
-   should connect to an empirical test, and every empirical result paragraph should
-   state economic meaning, not only statistical significance.
-7. Any new, replaced, or corrected reference must be based on a traceable source found
-   in the current session, an accessible Zotero/library record, a user-provided source,
-   or a verified bibliographic database/API result. Never add references from memory.
-8. Default citation output is APA 7 for English references and APA-compatible
-   translated bibliographic details for Chinese references unless the user requests
-   GB/T 7714, Chicago, journal style, or another format.
-9. If required context is missing, write the best revision using placeholders such as
-   `[需补充数据来源]`, `[check table number]`, or `[citation needed]`.
+| User's task | Start here | Deliverable |
+|---|---|---|
+| Polish, translate, shorten, restructure prose | [Style and polish](references/style-and-polish.md) | Usable text; material caveats only |
+| Diagnose question, contribution, or feasible revision | [Topic and revision advice](references/topic-revision-advisor.md) | Main bottleneck and feasible choices |
+| Develop constructs, mechanisms, theory, or hypotheses | [Theory reasoning](references/theory-backing-router.md) | Reasoned text, alternatives, evidence gaps |
+| Find, replace, verify, or format references | [Evidence workflow](references/evidence-citation-workflow.md) | Claim-specific sources and support limits |
+| Explain supplied tables or write results | [Results to text](references/results-to-text.md) | Accurate interpretation and result paragraphs |
+| Draft sections or organize a full paper | [Section patterns](references/section-patterns.md) | Requested sections linked by a coherent argument |
+| Respond to reviews or track major revision | [Revision matrix](references/revision-matrix.md) | Responses tied to actual manuscript changes |
+| Adapt to a journal or deliver a manuscript file | [Journal style card](references/journal-style-card.md) | Adapted text/file and checked requirements |
 
-## First Step
+Use [intake and modes](references/intake-and-modes.md) when requested actions
+conflict or their scope is ambiguous. Use [discipline router](references/discipline-router.md)
+when research approach or audience changes the reasoning; language alone is not
+a research paradigm.
 
-Before editing, read `references/intake-and-modes.md` for any non-trivial request.
-Build a short intake/routing card. Infer from the supplied text when possible;
-ask concise questions only when missing context would change the style or risk
-fabricating requirements.
+## Rules that hold across routes
 
-Routing card:
+- Preserve facts, numbers, units, variable meanings, notation, citation attachment,
+  negation, scope, uncertainty, and claim strength. Clear original text may remain
+  unchanged. Substantive rewriting may omit redundancy or nonessential detail,
+  but not evidence that changes the claim. Neither strengthening nor weakening
+  a claim is a routine style edit.
+- Separate language repair from substantive correction. For an unsupported or
+  conflicting claim, flag the exact issue; when substantive revision is requested,
+  propose supported wording and explain a material change. Do not guess which of
+  two conflicting numbers is correct.
+- Do not invent data, results, performed tests, mechanisms as established facts,
+  sources, novelty, journal rules, or completed revisions. Label proposed ideas,
+  planned analyses, and unresolved placeholders so they cannot read as findings.
+- Existing references can be preserved or reformatted without a new literature
+  audit. For new or replaced support, inspect a traceable source and the relevant
+  content. Source identity, material actually read, and support for this exact
+  claim are separate judgments: [evidence standard](references/evidence-grading.md).
+- Respect the research approach. Causal, descriptive, predictive, theoretical,
+  structural, qualitative, and review work need different evidence. Do not impose
+  directional hypotheses, fixed effects, mediation, or causal identification on all papers.
+- Distinguish method description, design advice, and actual analysis. Explain
+  supplied results without pretending to have reproduced them. Execute analyses
+  only within the user's requested scope with available data and tools.
+- Retain null, contradictory, and uncertain evidence. A plausible explanation is
+  not a demonstrated mechanism. Search limits are not proof of an empty literature.
+- Use current official instructions for journal compliance, distinguishing article
+  type and submission stage. General style advice is not verified compliance.
+- Finish the requested deliverable with the evidence available. Missing support
+  limits the relevant claim, not every useful part of the task.
 
-- **Discipline family**: economics, finance, accounting, management, marketing,
-  strategy, OB/HR, information systems, public administration, tourism,
-  innovation/entrepreneurship, or mixed.
-- **Specific direction**: e.g., labor economics, environmental economics,
-  corporate finance, corporate governance, archival accounting, consumer behavior,
-  strategic management, platform economy, digital transformation.
-- **Method/paradigm**: theory/model, archival empirical, survey, experiment,
-  qualitative case, mixed methods, review, meta-analysis, or policy evaluation.
-- **Language context**: Chinese CSSCI-style, English international journal-style,
-  translation polish, or bilingual manuscript.
-- **Target outlet**: specific journal if known; otherwise Chinese CSSCI-compatible
-  or English field-journal-compatible.
-- **Section type**: introduction, literature review, theory/hypotheses, empirical
-  strategy, results, mechanism, robustness, heterogeneity, discussion, abstract,
-  reviewer response, or full manuscript.
-- **Evidence need**: no new references, policy/background support, theory support,
-  method support, topic/frontier support, replacement references, or full reference audit.
+## Complex tasks: keep only useful working context
 
-Style route:
+For whole-paper reasoning use [paper spine](references/paper-spine.md).
+Track only relationships needed to prevent drift:
+claim → source or result and allowed interpretation;
+number → table/column, unit, sample, model and uncertainty;
+review comment → proposed/actual change and location.
 
-- Chinese economics -> `cn-economics-style.md` + `subfields-economics.md`
-  + `journal-families-econ.md` when relevant.
-- English economics -> `en-economics-style.md` + `subfields-economics.md`
-  + `journal-families-econ.md` when relevant.
-- Chinese management -> `cn-management-style.md` + `subfields-management.md`
-  + `journal-families-management.md` when relevant.
-- English management -> `en-management-style.md` + `subfields-management.md`
-  + `journal-families-management.md` when relevant.
-- Finance, accounting, marketing, IS, public management, tourism, operations,
-  and mixed papers -> start from the closest economics/management route, then
-  refine with `field-style-packs.md` and subfield files.
+A short task can keep these in context. For long or repeated work, reuse the
+author's notes or save a compact working record if useful; do not create duplicate
+ledgers, scores, or reports for the same issue.
 
-If the user provides a specific target journal, use the journal's current author
-instructions and recent accepted papers when available before enforcing journal-specific
-style. If browsing is unavailable, say the journal-specific adaptation is based on
-general field conventions, not verified current requirements.
+Apply [quality checks](references/quality-gates.md) to the affected content.
+A review should report location, evidence, consequence, and a practical correction.
+Use [risk register](references/risk-register.md) only to organize substantial findings.
 
-Then identify the task type:
+## Conditional extensions
 
-- **Line polish**: improve clarity, concision, academic tone, and flow while
-  keeping meaning fixed.
-- **Structural rewrite**: reorganize the paragraph or section to improve argument order.
-- **Section drafting**: produce or expand a section from notes, tables, or bullet points.
-- **Reviewer-style audit**: find weaknesses, unsupported claims, causal overreach,
-  citation gaps, and readability problems.
-- **Bilingual translation/polish**: translate and then adapt to academic convention
-  rather than literal word order.
-- **Evidence-backed expansion**: add policy background, theoretical support, method
-  support, or alternative references using only verified sources.
-- **Topic/revision advisory**: diagnose topic contribution, suggest new directions,
-  variable designs, manuscript repositioning, or revision roadmaps with literature support.
+- **Methods:** [empirical-method router](references/empirical-method-router.md);
+  [method decision tree](references/method-decision-tree.md) for design choice.
+- **Transparency or replication:** [reproducibility audit](references/reproducibility-audit.md),
+  with [data](references/data-reproducibility.md) and
+  [method](references/method-reproducibility.md) details when applicable.
+- **Source access:** [source-access policy](references/source-access-policy.md)
+  for unavailable, partial, or institutionally accessed materials.
+- **Repeated literature work:** [survey workspace](references/survey-workspace.md),
+  [paper pool](references/paper-pool.md), [close reading](references/close-reading.md).
+- **Library retrieval:** [RAG workflow](references/rag-workflow.md),
+  [retrieval](references/rag-retrieval.md), [verification](references/rag-verification.md).
+  Use existing tools; a vector database is not a prerequisite.
+- **File work:** [LaTeX support](references/latex-support.md),
+  [templates](references/latex-templates.md), [rendered checks](references/latex-audit.md).
+  Use available document/PDF tools for Word and final rendering; preserve editable sources.
+- **Project planning:** [research pipeline](references/research-pipeline.md) and
+  [stage checks](references/pipeline-stage-gates.md) only for extended research work.
+  [Delegation](references/pipeline-delegation.md) is conditional, never a default for polishing.
+- **Field and language refinements:** choose relevant portions of
+  [Chinese economics](references/cn-economics-style.md),
+  [English economics](references/en-economics-style.md),
+  [Chinese management](references/cn-management-style.md),
+  [English management](references/en-management-style.md).
+  Refine only when useful with [economics subfields](references/subfields-economics.md),
+  [management subfields](references/subfields-management.md), or
+  [adjacent fields](references/field-style-packs.md).
+- **Outlet conventions:** [economics families](references/journal-families-econ.md),
+  [management families](references/journal-families-management.md),
+  [style adaptation](references/journal-style-adaptation.md) are heuristics, not requirements.
 
-Ask for missing context only when it is necessary to avoid changing meaning or
-fabricating evidence. Otherwise proceed and mark assumptions.
+## Delivery
 
-## Literature and Evidence Rule
+Lead with the requested text, diagnosis, or file. Add reasons only when they help
+the author assess a meaningful change. Do not expose internal routing or an
+unchanged checklist. Preserve the manuscript's reference style unless asked to
+change it; use APA 7 only when a new bibliography has no specified style.
 
-When the user asks to add, replace, verify, or strengthen references, or when the
-draft clearly needs new support:
-
-1. Identify the claim type: policy/background, stylized fact, theory/mechanism,
-   method/identification, measurement/proxy, empirical benchmark, or implication.
-2. Search or inspect available sources before writing the citation. Prefer the user's
-   Zotero/library sources, school-authorized databases, CNKI/publisher pages, DOI
-   landing pages, Crossref/OpenAlex metadata, journal pages, working-paper
-   repositories, and official policy documents.
-3. Build an evidence pack with source title, authors, year, venue, DOI/URL/CNKI/
-   source link, claim supported, and confidence.
-4. Add only sources that actually support the sentence. If a source is adjacent but
-   not supportive, label it as an alternative candidate rather than citing it.
-5. Output the added or modified references in complete APA format by default.
-   Include DOI URLs when available.
-6. If no reliable source is found, do not fill the gap; write `[citation needed]`
-   or ask the user for database access/Zotero material.
-
-Do not use secondary summaries when the primary paper, official policy, or journal
-page is available.
-
-## Output Pattern
-
-For a polishing request, default to:
-
-1. **Revised text** first.
-2. **Key changes** in 3-6 bullets, only if useful.
-3. **Risks to check** when there are unsupported claims, missing citations,
-   inconsistent numbers, or causal language issues.
-
-For a review request, lead with issues ordered by severity. Include exact quoted
-fragments only when short and necessary.
-
-## Reference Files
-
-Read these only when relevant:
-
-- `references/intake-and-modes.md`: task-mode selection for light polish, rewrite,
-  theory reconstruction, literature augmentation, method diagnosis, journal adaptation,
-  reviewer response, and full-manuscript audit.
-- `references/discipline-router.md`: how to classify economics, management, and
-  related business-school subfields before editing.
-- `references/field-style-packs.md`: adjacent-field refinements for finance,
-  accounting, marketing, IS, operations, public management, tourism/service, and
-  mixed papers after choosing a four-quadrant route.
-- `references/cn-economics-style.md`: Chinese economics/CSSCI writing route,
-  including policy-background-to-research-question conversion and empirical result style.
-- `references/en-economics-style.md`: English economics writing route, including
-  identification-first framing, economic magnitude, and field-journal prose.
-- `references/cn-management-style.md`: Chinese management/CSSCI writing route,
-  including constructs, mechanisms, hypotheses, theory contribution, and management
-  implications.
-- `references/en-management-style.md`: English management writing route, including
-  theory-driven contribution, constructs, boundary conditions, and discussion style.
-- `references/subfields-economics.md`: economics subfield router for applied micro,
-  labor, development, environment, regional/urban, IO/digital, public finance, trade,
-  macro, and political economy.
-- `references/subfields-management.md`: management subfield router for strategy,
-  organization theory, OB/HR, innovation/entrepreneurship, governance/ESG, marketing,
-  IS, operations, public management, and tourism/service.
-- `references/journal-families-econ.md`: economics outlet-family heuristics for
-  general, applied/field, policy, finance-economics boundary, Chinese CSSCI, and
-  working-paper/seminar style.
-- `references/journal-families-management.md`: management outlet-family heuristics
-  for general management, strategy, OB/HR, organization theory, marketing, IS,
-  operations, Chinese CSSCI, and English field journals.
-- `references/journal-style-adaptation.md`: how to adapt Chinese CSSCI-style writing
-  and English field-journal writing by outlet family.
-- `references/journal-style-card.md`: target-journal style-card workflow based on
-  author guidelines and recent sample papers.
-- `references/topic-revision-advisor.md`: topic adjustment, research-direction
-  recommendation, variable advice, manuscript repositioning, and evidence-backed
-  revision roadmap.
-- `references/source-access-policy.md`: source-access tiers and downgrade rules
-  for Zotero, CNKI, school databases, publisher pages, public web, and unavailable
-  sources.
-- `references/evidence-citation-workflow.md`: how to search, verify, add, replace,
-  and format references with traceable sources.
-- `references/evidence-grading.md`: confidence grading for newly added, replacement,
-  candidate, and rejected references.
-- `references/theory-backing-router.md`: how to support constructs, mechanisms,
-  hypotheses, boundary conditions, and competing explanations with verified theory
-  literature.
-- `references/empirical-method-router.md`: how to choose and justify empirical
-  methods using current field literature and method-specific checks.
-- `references/method-decision-tree.md`: empirical method decision tree based on
-  data structure, source of variation, identification threat, and journal fit.
-- `references/section-patterns.md`: section-specific structures for introduction,
-  theory, hypotheses, empirical strategy, results, robustness, heterogeneity,
-  discussion, abstract, and reviewer response.
-- `references/style-and-polish.md`: Chinese and English academic style rules,
-  AI-tone reduction, sentence-level rewrites, and banned vague phrasing.
-- `references/quality-gates.md`: integrity checks for citations, numbers,
-  identification, causal claims, tables, and reviewer risks.
-
-## Extended Capabilities (v2.0)
-
-The following modules were added in v2.0, inspired by leading academic research
-skills projects (nature-skills, academic-research-skills-codex, PaperSpine,
-PaperRAG, Cite Verity, LaTeX Writer, Survey Builder).
-
-### Paper Spine (论点骨架)
-
-When diagnosing or building argument structure, read:
-
-- `references/paper-spine.md`: core claim, contribution chain, hypothesis chain,
-  evidence map, and risk register for the manuscript.
-- `references/revision-matrix.md`: tracking revision actions during major revision
-  or reviewer response.
-- `references/risk-register.md`: identifying and classifying risks to the paper's
-  argument, methodology, evidence, and publication prospects.
-
-### Reproducibility Audit (可复现性审计)
-
-When checking reproducibility or transparency, read:
-
-- `references/reproducibility-audit.md`: overall reproducibility audit covering
-  data transparency, method transparency, result consistency, identification logic,
-  and robustness completeness.
-- `references/data-reproducibility.md`: detailed data-level checks for source
-  verification, sample construction, variable construction, and sample size consistency.
-- `references/method-reproducibility.md`: detailed method-level checks for model
-  specification, identification strategy, standard errors, and method-specific
-  requirements (DID, IV, RD, matching, mediation).
-
-### Research Pipeline (研究流水线)
-
-When supporting end-to-end research workflow, read:
-
-- `references/research-pipeline.md`: 8-stage pipeline from topic diagnosis to
-  final submission, with stage definitions and transition rules.
-- `references/pipeline-stage-gates.md`: quality gates between stages to ensure
-  prerequisites are met before proceeding.
-- `references/pipeline-delegation.md`: delegation rules for parallel subtask
-  execution (literature search, method diagnosis, style polish, quality audit,
-  peer review), with **step-by-step execution mode** for single-threaded agents
-  and **integrated mode** for agents without subagent support.
-
-### LaTeX Support (LaTeX写作支持)
-
-When working with .tex files or LaTeX formatting, read:
-
-- `references/latex-support.md`: LaTeX basics for academic writing, including
-  document structure, table formatting, equation formatting, figure formatting,
-  and citation management.
-- `references/latex-templates.md`: journal-specific LaTeX template guidance for
-  economics, management, finance, and accounting journals.
-- `references/latex-audit.md`: LaTeX quality audit checklist for document structure,
-  cross-references, citations, tables, figures, equations, and bibliography.
-
-### RAG Knowledge Base (RAG知识库)
-
-When building or querying a local literature knowledge base, read:
-
-- `references/rag-workflow.md`: RAG architecture, document processing, query types,
-  output formats, and **degradation modes** (Full RAG → Manual Index → BibTeX Search
-  → User-Guided Search) for environments without vector database infrastructure.
-- `references/rag-retrieval.md`: retrieval strategies including semantic search,
-  keyword search, hybrid search, and result ranking.
-- `references/rag-verification.md`: citation verification process to ensure RAG
-  results actually support the claims they are cited for.
-
-### Survey Workspace (调研工作区)
-
-When organizing research on a specific topic, read:
-
-- `references/survey-workspace.md`: workspace structure for long-term research
-  organization, including research question definition, paper pool, timeline,
-  method map, comparable group, and gap analysis.
-- `references/paper-pool.md`: detailed paper pool management with three-tier
-  classification (core, extended, peripheral) and entry templates.
-- `references/close-reading.md`: templates and guidelines for detailed reading
-  of individual papers, including extraction checklists and quality assessment.
+For files, inspect the final rendered output when feasible. Report what was
+actually read, checked, calculated, compiled, or rendered and what remains
+unverified. No checker, simulated review, or polished wording establishes
+publication readiness or guarantees acceptance.

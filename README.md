@@ -1,444 +1,148 @@
 # Econ-Management Paper Polish
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Agent Compatible](https://img.shields.io/badge/Agents-Universal-green.svg)](#compatibility)
-[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](#version-history)
-
-**经管类学术论文全流程智能写作助手**
-
-从选题到投稿，覆盖论文写作全生命周期的AI Skill。
-
-> **适用领域**：经济学、管理学、金融、会计、营销、信息系统、公共管理、旅游/服务管理、创新创业等经管类学术论文。
-
----
-
-## 项目简介
-
-Econ-Management Paper Polish 是一个专为经管类学术论文设计的AI Skill，支持多种AI编程代理（OpenCode、Claude Code、Codex、Cursor等）。
-
-### 核心目标
-
-| 目标 | 说明 |
-|------|------|
-| **写作质量** | 中英文学术写作规范化、降AI味、期刊适配 |
-| **论证质量** | 论点清晰、证据充分、方法合理、因果语言准确 |
-| **引用质量** | 可追溯、不造假、证据分级 |
-| **返修质量** | 审稿意见有效回应、修订可追踪 |
-| **研究效率** | 文献管理、调研组织、流水线协作 |
-
-### 设计原则
-
-1. **不造假** — 绝不虚构引用、数据、回归结果或期刊要求
-2. **可追溯** — 每个新引用必须有当前会话中的可验证来源
-3. **学科感知** — 经济学 ≠ 管理学 ≠ 金融学，尊重范式差异
-4. **证据分级** — Grade A（全文验证）到 Grade D（不可验证），绝不过度宣称
-5. **保留意图** — 除非用户要求，保留用户的主张、数字、变量和贡献定位
-
----
-
-## 功能特性
-
-### v1.0 核心能力（23个模块）
-
-| 能力 | 说明 | 触发词示例 |
-|------|------|-----------|
-| **论文润色** | 轻润色、同行化改写、降AI味、中英文风格适配 | 论文润色, 降AI味, paper polish |
-| **结构改写** | 引言→文献综述→理论→假设→实证→结果→稳健性→异质性→讨论→结论 | 结构改写, 重组段落 |
-| **四象限路由** | 中文经济学 / 英文经济学 / 中文管理学 / 英文管理学 | 自动识别 |
-| **细分方向路由** | 应用微观、劳动、环境、产业组织、战略、OB/HR、IS、营销等 | 自动识别 |
-| **目标期刊适配** | 基于作者指南和近期样刊生成journal style card | 适配AER, 适配管理世界 |
-| **文献补强** | 政策背景、理论机制、方法背书、变量测量、替代参考文献 | 补充文献, 文献背书 |
-| **证据分级** | Grade A/B/C/D 区分可直接引用→不建议引用 | 自动分级 |
-| **方法诊断** | DID、事件研究、IV、RD、SCM、匹配、中介、文本/ML、DML等 | 方法诊断, 方法是否合适 |
-| **选题与改稿** | 贡献诊断、变量建议、保守改稿/激进转向路径 | 选题调整, 改稿方向 |
-| **返修回复** | 审稿意见拆解、回应语气、修改动作和证据补充 | 返修回复, response letter |
-
-### v2.0 新增能力（18个模块）
-
-| 能力 | 说明 | 触发词示例 | 对标项目 |
-|------|------|-----------|---------|
-| **论点骨架** | 核心主张、贡献链、假说链、证据地图、风险清单 | 论点骨架, 核心论点 | PaperSpine |
-| **修订矩阵** | 返修跟踪、修改动作记录、状态管理 | 修订矩阵, 返修跟踪 | PaperSpine |
-| **风险清单** | 方法风险、理论风险、证据风险、表述风险、发表风险 | 风险清单, 审稿人可能的问题 | PaperSpine |
-| **可复现性审计** | 数据透明度、方法透明度、结果一致性检查 | 可复现性, 复现检查 | Repro Pack |
-| **研究流水线** | 8阶段端到端流程 | 研究流水线, 从选题到投稿 | academic-research-skills |
-| **阶段门控** | 每个阶段的质量检查点 | 阶段门控 | academic-research-skills |
-| **子代理委派** | 并行/顺序/分步执行模式 | 全面审查, 系统分析 | academic-research-skills |
-| **LaTeX支持** | LaTeX写作规范、期刊模板、格式审计 | LaTeX, 三线表, BibTeX | LaTeX Writer |
-| **RAG知识库** | 本地PDF检索、语义搜索、跨论文问答、引用验证 | RAG, 知识库, 跨论文问答 | PaperRAG / Cite Verity |
-| **调研工作区** | 文献池管理、主脉络梳理、逐文精读、缺口分析 | 调研工作区, 文献整理 | Survey Builder |
-
----
-
-## 文件结构
-
-```
-econ-management-paper-polish/
-├── SKILL.md                           # 核心技能定义和规则 (v2.0)
-├── README.md                          # 项目说明文档
-├── LICENSE                            # MIT许可证
-├── CONTRIBUTING.md                    # 贡献指南
-├── .gitignore                         # Git忽略规则
-└── references/                        # 41个参考模块
-    │
-    ├── 【核心路由】 (6个)
-    │   ├── intake-and-modes.md            # 任务模式选择
-    │   ├── discipline-router.md           # 学科路由
-    │   ├── subfields-economics.md         # 经济学细分方向
-    │   ├── subfields-management.md        # 管理学细分方向
-    │   ├── field-style-packs.md           # 相邻领域风格包
-    │   └── source-access-policy.md        # 来源访问层级
-    │
-    ├──【写作风格】 (6个)
-    │   ├── cn-economics-style.md          # 中文经济学风格
-    │   ├── en-economics-style.md          # 英文经济学风格
-    │   ├── cn-management-style.md         # 中文管理学风格
-    │   ├── en-management-style.md         # 英文管理学风格
-    │   ├── style-and-polish.md            # 风格润色规则
-    │   └── section-patterns.md            # 章节结构模板
-    │
-    ├── 【期刊适配】 (4个)
-    │   ├── journal-families-econ.md       # 经济学期刊家族
-    │   ├── journal-families-management.md # 管理学期刊家族
-    │   ├── journal-style-adaptation.md    # 期刊风格适配
-    │   └── journal-style-card.md          # 期刊风格卡生成
-    │
-    ├── 【文献引用】 (4个)
-    │   ├── evidence-citation-workflow.md  # 引用搜索/验证/格式化
-    │   ├── evidence-grading.md            # 证据分级 (A/B/C/D)
-    │   ├── theory-backing-router.md       # 理论背书路由
-    │   └── topic-revision-advisor.md      # 选题/改稿建议
-    │
-    ├── 【方法诊断】 (2个)
-    │   ├── empirical-method-router.md     # 实证方法路由
-    │   └── method-decision-tree.md        # 方法决策树
-    │
-    ├── 【质量门控】 (1个)
-    │   └── quality-gates.md               # 质量门控检查
-    │
-    ├── 【v2.0新增：论点骨架】 (3个) ★
-    │   ├── paper-spine.md                 # 论点骨架系统
-    │   ├── revision-matrix.md             # 修订矩阵
-    │   └── risk-register.md               # 风险清单
-    │
-    ├── 【v2.0新增：可复现性审计】 (3个) ★
-    │   ├── reproducibility-audit.md       # 可复现性审计
-    │   ├── data-reproducibility.md        # 数据可复现性
-    │   └── method-reproducibility.md      # 方法可复现性
-    │
-    ├── 【v2.0新增：研究流水线】 (3个) ★
-    │   ├── research-pipeline.md           # 研究流水线
-    │   ├── pipeline-stage-gates.md        # 阶段门控
-    │   └── pipeline-delegation.md         # 子代理委派
-    │
-    ├── 【v2.0新增：LaTeX支持】 (3个) ★
-    │   ├── latex-support.md               # LaTeX写作支持
-    │   ├── latex-templates.md             # 期刊LaTeX模板
-    │   └── latex-audit.md                 # LaTeX质量审计
-    │
-    ├── 【v2.0新增：RAG知识库】 (3个) ★
-    │   ├── rag-workflow.md                # RAG工作流
-    │   ├── rag-retrieval.md               # RAG检索策略
-    │   └── rag-verification.md            # RAG引用验证
-    │
-    └── 【v2.0新增：调研工作区】 (3个) ★
-        ├── survey-workspace.md            # 调研工作区
-        ├── paper-pool.md                  # 论文池管理
-        └── close-reading.md               # 逐文精读
-```
-
----
-
-## 快速开始
-
-### 安装
-
-#### OpenCode
-
-```bash
-git clone https://github.com/YOUR_USERNAME/econ-management-paper-polish.git \
-  ~/.opencode/skills/econ-management-paper-polish
-```
-
-#### Claude Code
-
-```bash
-git clone https://github.com/YOUR_USERNAME/econ-management-paper-polish.git \
-  ~/.claude/skills/econ-management-paper-polish
-```
-
-#### Codex (OpenAI)
-
-```bash
-git clone https://github.com/YOUR_USERNAME/econ-management-paper-polish.git \
-  ~/.codex/skills/econ-management-paper-polish
-```
-
-#### Cursor
-
-```bash
-git clone https://github.com/YOUR_USERNAME/econ-management-paper-polish.git \
-  .cursor/rules/econ-management-paper-polish
-```
-
-### 基本使用
-
-```text
-用 econ-management-paper-polish 帮我润色这段中文管理学论文引言，保留原意和引用。
-```
-
----
-
-## 使用场景
-
-### 场景1：论文润色
-
-```text
-按英文应用微观经济学field journal风格，帮我重写这段introduction，
-突出identification和economic magnitude。
-```
-
-### 场景2：方法诊断
-
-```text
-我现在用双向固定效应DID，帮我判断这个实证策略是否合适，
-需要哪些稳健性和方法文献支持。
-```
-
-### 场景3：选题建议
-
-```text
-这篇文章创新性不足。基于当前题目、数据和目标CSSCI管理类期刊，
-帮我给出保守改稿方向和激进转向方向，并提供必要文献支持。
-```
-
-### 场景4：返修回复
-
-```text
-根据这些审稿意见，帮我制定返修路线和response letter，
-要求语气克制，不夸大修改效果。
-```
-
-### 场景5：论点骨架诊断（v2.0）
-
-```text
-帮我诊断这篇论文的论点骨架，检查核心主张、贡献链、假说链是否清晰，
-识别证据缺口和风险点。
-```
-
-### 场景6：可复现性审计（v2.0）
-
-```text
-帮我检查这篇论文的可复现性，包括数据透明度、方法透明度、
-结果一致性、识别逻辑和稳健性完整性。
-```
-
-### 场景7：研究流水线（v2.0）
-
-```text
-我想从选题到投稿走一遍完整流程，现在有一个初步的研究方向，
-帮我诊断当前阶段并规划下一步。
-```
-
-### 场景8：LaTeX支持（v2.0）
-
-```text
-帮我检查这个.tex文件的格式问题，包括三线表、公式编号、
-交叉引用、BibTeX条目是否完整。
-```
-
-### 场景9：RAG知识库（v2.0）
-
-```text
-我有一个PDF文献库，帮我检索哪些文献支持"数字金融减少贫困"这个观点，
-并验证引用的准确性。
-```
-
-### 场景10：调研工作区（v2.0）
-
-```text
-帮我整理"数字金融与农村发展"这个方向的文献，
-建立文献池、梳理研究脉络、分析文献缺口。
-```
-
----
-
-## 工作流程
-
-### 整体流程
-
-```
-用户请求
-  → 识别任务模式（润色/改写/诊断/建议/返修/流水线...）
-    → 四象限路由（中文经济学 / 英文经济学 / 中文管理学 / 英文管理学）
-      → 细分方向叠加（劳动经济学 / 战略管理 / IS / ...）
-        → 目标期刊适配
-          → 检查来源访问层级
-            → 执行输出 + 证据包
-```
-
-### 研究流水线（v2.0）
-
-```
-Stage 1: 选题诊断
-    ↓
-Stage 2: 文献综述
-    ↓
-Stage 3: 理论构建
-    ↓
-Stage 4: 研究设计
-    ↓
-Stage 5: 写作执行
-    ↓
-Stage 6: 自审自查
-    ↓
-Stage 7: 同行模拟审稿
-    ↓
-Stage 8: 迭代完善
-```
-
----
-
-## 降级方案
-
-### RAG知识库降级
-
-当没有向量数据库等基础设施时，支持4种降级模式：
-
-| 模式 | 要求 | 能力 | 适用场景 |
-|------|------|------|---------|
-| **Full RAG** | 向量数据库+PDF解析+嵌入模型 | 语义搜索、跨论文QA | 有技术基础设施 |
-| **Manual Index** | 用户提供结构化索引 | 关键词搜索 | 有PDF但无向量DB |
-| **BibTeX Search** | BibTeX文件 | 元数据搜索 | 只有参考文献列表 |
-| **User-Guided** | 用户提供引文 | 引用验证 | 无任何基础设施 |
-
-### 子代理委派降级
-
-当不支持并行执行时，支持4种执行模式：
-
-| 模式 | 要求 | 速度 | 适用场景 |
-|------|------|------|---------|
-| **Parallel** | 支持并行子代理 | 快 | 大型文稿、时间紧迫 |
-| **Sequential** | 支持顺序子代理 | 中 | 一般审查 |
-| **Step-by-Step** | 单线程代理 | 慢 | 大多数场景 |
-| **Integrated** | 无子代理支持 | 中 | 小型文稿 |
-
----
-
-## 触发词参考
-
-### 中文触发词
-
-```
-经管论文, 经济学论文, 管理论文, 实证论文, 论文润色, 学术润色,
-降AI味, 选题调整, 变量建议, 改稿方向, 研究前沿, 主流研究, 贡献定位,
-文献背书, 理论背书, 方法背书, 补充参考文献, 替代参考文献, APA格式, 返修回复,
-研究流水线, 端到端, 从选题到投稿, 完整论文流程,
-论点骨架, 核心论点, 论证链, 论点诊断,
-RAG, 知识库, 文献库, 跨论文问答, 引用验证,
-调研工作区, 文献池, 逐文精读, 文献整理,
-LaTeX, tex, BibTeX, 期刊模板, 三线表,
-可复现性, 复现检查, 数据透明度, 方法透明度,
-修订矩阵, 返修跟踪, 风险清单
-```
-
-### 英文触发词
-
-```
-paper polish, paper review, citation help, methodology diagnosis,
-reviewer response, literature augmentation,
-research pipeline, end-to-end, paper spine, argument structure,
-RAG knowledge base, cross-paper QA, citation verification,
-survey workspace, paper pool, close reading,
-LaTeX writing, BibTeX management, reproducibility audit,
-revision matrix, risk register
-```
-
----
-
-## 兼容性
-
-本Skill支持所有支持skill/系统提示加载的AI编程代理：
-
-| 代理 | 安装路径 | 状态 |
-|------|---------|------|
-| **OpenCode** | `.opencode/skills/` | ✅ 支持 |
-| **Claude Code** | `.claude/skills/` | ✅ 支持 |
-| **Codex (OpenAI)** | `.codex/skills/` | ✅ 支持 |
-| **Cursor** | `.cursor/rules/` | ✅ 支持 |
-| **Windsurf** | `.windsurf/rules/` | ✅ 支持 |
-| **Cline** | `.clinerules/` | ✅ 支持 |
-| **GitHub Copilot** | 自定义指令 | ✅ 支持 |
-| **Aider** | 仓库根目录 | ✅ 支持 |
-
----
-
-## 版本历史
-
-### v2.0.0 (2026-06-05)
-
-**新增18个模块**，实现经管论文全流程覆盖：
-
-- **论点骨架系统**：借鉴PaperSpine，新增论点骨架、修订矩阵、风险清单
-- **可复现性审计**：借鉴Repro Pack概念，新增数据/方法可复现性检查
-- **研究流水线**：借鉴academic-research-skills，新增8阶段端到端流程
-- **LaTeX支持**：借鉴LaTeX Writer，新增LaTeX写作、模板、审计
-- **RAG知识库**：借鉴PaperRAG/Cite Verity，新增RAG工作流（含降级方案）
-- **调研工作区**：借鉴Survey Builder，新增调研工作区、论文池、逐文精读
-
-### v1.0.0 (2026-05-01)
-
-**初始版本**，23个核心模块：
-
-- 四象限路由（中/英 × 经济/管理）
-- 细分方向路由（20+子领域）
-- 目标期刊适配
-- 文献引用工作流
-- 证据分级系统
-- 方法诊断决策树
-- 质量门控检查
-
----
-
-## 贡献指南
-
-欢迎贡献！请参阅 [CONTRIBUTING.md](CONTRIBUTING.md) 了解：
-
-- 如何添加子领域模块
-- 如何改进风格规则
-- 如何提交Pull Request
-
----
-
-## 许可证
-
-[MIT](LICENSE) — 免费使用、修改和分发。
-
----
-
-## 致谢
-
-v2.0升级受到以下开源学术研究技能项目的启发：
-
-| 项目 | Stars | 借鉴内容 |
-|------|-------|---------|
-| [nature-skills](https://github.com/Yuan1z0825/nature-skills) | 16.7k | 期刊特定写作规范 |
-| [academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 2.9k | 端到端研究流水线 |
-| [PaperSpine](https://github.com/WUBING2023/PaperSpine) | 2.2k | 论点骨架、修订矩阵 |
-| [PaperRAG](https://github.com/GeederX/paper-rag-skill) | — | RAG知识库 |
-| [Cite Verity](https://github.com/kronzie/verity) | — | 跨论文问答、引用验证 |
-| [LaTeX Writer](https://github.com/Listen-Sun/ieee-latex-writer) | 8 | LaTeX写作规范 |
-| [Survey Builder](https://github.com/zane-gao/paper-survey-builder) | 1 | 调研工作区组织 |
-
-感谢所有开源贡献者的创新！
-
----
-
-## 联系方式
-
-- 问题反馈：[GitHub Issues](https://github.com/YOUR_USERNAME/econ-management-paper-polish/issues)
-- 功能建议：[GitHub Discussions](https://github.com/YOUR_USERNAME/econ-management-paper-polish/discussions)
-
----
-
-**Built for the academic community in economics, management, and business research.**
+[![Version](https://img.shields.io/badge/Version-2.4.0_candidate-orange.svg)](#版本)
+
+**经管论文写作与论证助手。** 围绕研究问题、贡献、证据与文字的一致性，
+帮助作者完成中英文润色、论文组织、文献核查、结果解释和返修。
+
+适用于经济学、管理学及金融、会计、营销、信息系统等相关研究。
+保留因果、描述、预测、理论、结构模型和定性研究的区别。
+指令按需加载，不附带论文数据库、统计引擎或排版软件。
+用于开发和验证 skill 的论文只作为测试材料；日常润色依据当前作者的稿件与要求，
+不会默认检索测试论文，也不会沿用它们的研究主题、理论、引文或措辞。
+
+当前仓库为 **2.4.0 候选**，尚未证明相对 2.3.0 的整体写作优势。
+两批比较使用不同候选，结果与完整成稿见[本轮报告](docs/validation/2026-10-19-writing-quality/report.md)。
+
+## 八项主要工作
+
+| 工作 | 交付 |
+|---|---|
+| 保真润色与翻译 | 可直接使用的文字；保护数字、术语、引用归属和结论强度 |
+| 问题与贡献诊断 | 当前瓶颈、支持得住的贡献和可行的改稿选择 |
+| 理论、机制与构念推敲 | 推理完整的文字，竞争解释和测量边界 |
+| 文献定位与核查 | 针对具体主张的来源、实际阅读范围和支持判断 |
+| 真实结果解释 | 单位、比较、样本、模型和不确定性一致的结果段落 |
+| 章节与整篇组织 | 摘要、引言、结果、讨论和结论相互对应的稿件 |
+| 返修与审稿回复 | 审稿关切、实际修改、证据与位置对应 |
+| 期刊适配与文件交付 | 依据适用规则的正文或可编辑文件，并说明实际检查范围 |
+
+## 使用
+
+整个目录应保留在宿主支持的 skill 位置，不能只复制入口而遗漏 references。
+Codex 的用户技能目录默认为 ~/.codex/skills；设置了 CODEX_HOME 时使用其 skills
+子目录。其他客户端按其当前文档配置技能加载，不将“能读 Markdown”等同于
+已验证原生兼容。此版本没有进行所有客户端的安装测试。
+
+已有安装副本与本仓库是不同目录；更新时先检查该副本的本地修改，不应直接覆盖。
+在仓库内也可以明确要求代理读取 SKILL.md 执行任务。
+
+示例：
+
+- “润色这段中文引言，保留意思、数字和引用，只给修订文字。”
+- “结合现有数据，判断这篇论文的贡献能否成立，给出可行的修改方向。”
+- “这些摘要能支持这句话吗？不要推测没有提供的全文内容。”
+- “根据表 3 和表注写结果段落，说明量级和不确定性。”
+- “这是案例研究，请检查过程解释和证据，保留其定性研究定位。”
+- “这项检验尚未做，请把返修计划和能完成的回复分开。”
+- “按目标期刊当前初投要求整理稿件，交付可编辑文件并检查渲染。”
+
+## 工作方式
+
+先看用户要完成什么，再判断研究方式和材料是否足够，最后按需要调整语言和期刊风格。
+普通润色只进入编辑模块；不会先要求完整理论框架、目标期刊、数据包或流程卡。
+
+对复杂任务，只保留有用的对应关系：
+
+- 主张 → 来源或结果 → 允许的解释。
+- 数字 → 表列、单位、样本、模型和不确定性。
+- 审稿意见 → 计划/实际修改 → 稿件位置。
+
+文献标准分开记录来源身份、实际阅读内容和对当前主张的支持。
+元数据真实不等于支持论断；读过摘要不等于读过全文；反证可以作为反证使用。
+旧版 A/B/C/D 记录需要按具体主张重新判断，不能直接作为新引用准入依据。
+
+统计计算、外部检索与文件工具按需使用。描述已有分析、建议改进和实际执行分析
+是三个层次。稿件检查只能说明报告与内部一致性；实际复现需要执行并检查相关结果。
+
+## 文件组织
+
+- [SKILL.md](SKILL.md)：用途、关键约束和任务入口。
+- references/：按需读取的写作、证据、方法、返修、期刊和可选工作区模块。
+- [evals/cases.jsonl](evals/cases.jsonl)：合成任务输入，不含标准答案。
+- [evals/README.md](evals/README.md)：行为验收方法和判定标准。
+- [真实论文任务](evals/real-paper-cases.jsonl)：12 个基于真实论文的请求及来源身份，不附论文全文。
+- [深入写作对照任务](evals/substantive-cases.jsonl)：多篇综合、受限设计、全稿修订及返修等七题，包含明确标为虚构的作者材料。
+- [可迁移写作对照任务](evals/writing-transfer-cases.jsonl)：2.2.1 与 2.3.0 的六题对照，使用据原文改编的作者笔记；这些论文现已用于开发与回归。
+- [成稿质量对照任务](evals/writing-quality-cases.jsonl)：重构工作稿、来源身份及页码；记录两个 2.4.0 候选分别对 2.3.0 的比较，这些材料现也已使用。
+- [调研与能力方案](docs/research/2026-10-19-经管写作skill调研与能力方案.md)：设计依据、外部参考和取舍。
+
+没有为短任务强制创建账本、风险表或目录树，也没有要求先搭建向量数据库。
+保留旧参考文件路径，便于既有调用继续定位；具体流程与证据语义已更新。
+
+## 验证
+
+技能格式校验只检查入口元数据等结构，不证明写作有效。
+行为验收应让执行者只看到任务、原始材料和技能，之后再按标准审阅输出。
+检查是否保真、是否解决论证问题、是否越过证据，以及交付是否可用。
+工具检查通过、文件哈希一致、检查项数量和模拟审稿分数都不能替代这些判断。
+
+本仓库不以“降 AI 味”分数、顶刊录用概率或未经实验的提升比例作为质量指标。
+实际执行结果另记于 docs/validation；未运行的比较不应被称为已验证效果。
+
+## 版本
+
+### 2.4.0（候选）
+
+- 重新诊断上一轮五个持平案例，修订现有文字、章节和理论推理模块，集中处理材料取舍、推理跳步和段落推进；没有新增工具、模块或论文库。
+- 开发题中补出了政治技能改变判断的具体前提，区分了政策收益未兑现与创新投入下降；小米案例的证据取舍仍只部分改善。
+- candidate-r2 对四篇新论文：一题有实质但有限的优势，三题持平。继续修改后的 candidate-r3 对另外两篇新论文：两题持平。当前仓库保留 r3，不能将 r2 的胜出直接计入 r3，也不能合并为同一版本的六题成绩。
+- 尚未通过“成稿质量整体明显提升”的验收，未同步个人安装副本。见[诊断与结论](docs/validation/2026-10-19-writing-quality/report.md)及[完整新旧成稿](docs/validation/2026-10-19-writing-quality/full-comparison.md)。
+
+### 2.3.0
+
+- 从四篇开发论文提炼文献定位、推理连接与讨论推进方法，重写三个现有写作模块；没有新增工具或运行时模块。
+- 将版本冻结后，再以六篇论文、六种期刊、中英文各三题完成同题成稿与匿名审阅。相对 2.2.1，一题出现有文本依据的局部优势，五题持平；尚不能据此宣称整体写作能力显著提升。
+- 保留开发材料与日常写作的用途边界，复查轻度润色与翻译。见 [验证报告](docs/validation/2026-10-19-writing-transfer/report.md) 和 [全部新旧成稿](docs/validation/2026-10-19-writing-transfer/full-comparison.md)。
+
+### 2.2.1
+
+- 纠正开发材料的用途：测试论文用于提炼和验证可迁移的写作判断，不作为日常稿件的默认知识来源。
+- 撤回 2.2.0 新增的本地索引工具和调用入口，删除本轮生成的全文索引。
+- 保留真实写作对照及其有限结论；文献检索仍以当前稿件任务和用户选择的材料为准。
+
+### 2.2.0（检索扩展已撤回）
+
+- 完成七组原版与升级版的同题成稿比较，记录具体差异和平局。
+- 曾加入本地全文索引；该扩展偏离了“用论文开发和验证 skill”的用途，已在 2.2.1 撤回。
+- 历史执行及纠正说明见[本轮记录](docs/validation/2026-10-19-substantive/report.md)，不再将索引覆盖量计作写作能力提升。
+
+### 2.1.1
+
+- 依据真实论文试用，补充交互项、简单斜率和调节变量尺度之间的一致性核对。
+- 遇到无法对齐的报告数值，说明所需信息，不擅自修正估计，也不阻断有依据的文字交付。
+- 增加[真实论文验证记录](docs/validation/2026-10-19-real-papers/report.md)，区分开发、复测和保留样本。
+
+### 2.1.0
+
+- 以用户任务为入口，缩小自动触发范围，移除普通润色的前置流程负担。
+- 加强保真、贡献、构念、理论、全稿和返修之间的一致性。
+- 统一来源身份、阅读范围和主张支持，保留反证与不确定性。
+- 增加结果解释模块，修正单位、显著性符号、样本差异等检查。
+- 修正中介、DID 等方法清单中的普遍化要求；区分报告检查与实际复现。
+- 期刊要求动态核验，文件交付区分生成、编译和渲染检查。
+- 文献库与项目流程按需启用，并增加具体行为验收案例。
+
+此前的 2.0 加入了论点骨架、工作区、流水线、LaTeX 和复现检查等参考模块；
+本次保留其有用职责，重整使用边界，不沿用未经验证的自动化承诺。
+
+## 参考与贡献
+
+此次设计参考了 Yila 的保真规则、经济学专项写作项目、PaperSpine 的结果解释、
+ARS 的证据区分和 paper-survey-builder 的候选/证据分层等思路。
+具体文件、版本、可借鉴部分与局限见[调研报告](docs/research/2026-10-19-经管写作skill调研与能力方案.md)。
+本次指令为面向本项目重新编写，未直接并入第三方代码或整段指令。
+
+参与贡献请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
+许可证：[MIT](LICENSE)。

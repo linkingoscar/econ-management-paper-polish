@@ -1,117 +1,50 @@
-# Journal Style Card
+# Journal adaptation and deliverable requirements
 
-Use this when the user names a target journal, journal family, journal tier, or asks for CSSCI/SSCI/top-journal style. The aim is to build a compact style card before rewriting.
+Use when the task requires a named journal's fit, format or submission compliance.
+A request for "top-journal style" can receive clear field-appropriate prose without
+inventing a particular outlet's rules.
 
-## Verification Rule
+## Separate three kinds of evidence
 
-Do not claim journal-specific requirements unless they are checked from:
+| Kind | Source | Permitted use |
+|---|---|---|
+| Binding requirements | Current official author/submission instructions for the journal, article type and stage | Word limits, files, anonymization, references, data policies and other actual requirements |
+| Observed conventions | Relevant published/sample papers | Rhetorical patterns, terminology and presentation choices; not mandatory rules |
+| Editorial judgment | Analysis of the draft and audience | Recommendations, labeled as such; not claimed reviewer preferences |
 
-- Current author guidelines or submission instructions.
-- Recent accepted articles from the journal.
-- User-provided sample papers.
-- A verified journal style guide or publisher page.
+A sample article does not prove a submission word limit, required template or
+accepted file format. A ranking/category such as CSSCI, SSCI, FT50 or UTD does not
+define a single style or contract.
 
-If verification is not available, label the result as "general field-style adaptation."
+## Verify only what the task needs
 
-## Style Card Inputs
+Identify the outlet, article type, language, stage (initial/revision/accepted) and
+requested output. Infer known values; ask only when the missing value changes
+compliance. For exact compliance inspect the current official instructions.
+Record URL, check date, scope and relevant requirement. Use article samples only
+when their writing patterns help the requested adaptation.
 
-Collect or infer:
+If instructions are inaccessible, continue general style work and identify the
+specific unchecked requirements. Do not replace uncertainty with remembered limits.
+If sources conflict, distinguish publisher/journal/stage and report the unresolved
+item rather than silently choosing the strictest rule.
 
-- Target journal or journal family.
-- Discipline and subfield.
-- Quadrant route: Chinese economics, English economics, Chinese management, English management, or adjacent/mixed.
-- Article type: empirical, theory, review, experiment, qualitative, methods, perspective.
-- Language: Chinese or English.
-- Target section: abstract, introduction, theory, methods, results, discussion, response letter, full manuscript.
-- User's desired strictness: broad suitability, strong style adaptation, or close sample-paper imitation.
+## Apply and deliver
 
-Ask the user for target outlet only when the style choice materially changes the revision.
+Adapt organization, tone, contribution framing and formatting within the supplied
+evidence. Do not change results, fabricate support or copy sample-paper phrasing.
+Preserve terminology and the author's research approach.
 
-## Sample Learning Workflow
+Deliver adapted prose or the requested file first. Include a short requirement
+record only when useful:
+requirement → official source/date/type/stage → applied change → checked/open.
 
-When web or files are available and journal-specific adaptation matters:
+For Word, LaTeX or PDF use available file tools; retain editable source and relevant
+assets. Check rendered tables, equations, citations, page breaks and anonymization
+as applicable. An exported file is not automatically a checked file.
+Use [LaTeX support](latex-support.md) for TeX projects and
+[LaTeX templates](latex-templates.md) for template selection.
 
-1. Read author guidelines for formal constraints: word limits, abstract style, references, tables, data/code policy, reporting expectations.
-2. Inspect 2-5 recent papers in the same article type and subfield.
-3. Extract patterns rather than copying wording.
-4. Build a style card.
-5. Apply the style card to the draft.
-6. Report what was verified and what remains inferred.
-
-## Style Card Template
-
-Use this compact template:
-
-```text
-Journal style card
-- Target outlet:
-- Verification basis:
-- Article type:
-- Contribution framing:
-- Introduction pattern:
-- Literature/theory density:
-- Method and identification language:
-- Results paragraph style:
-- Implications style:
-- Citation/reference style:
-- Common reviewer sensitivities:
-- Do-not-do list:
-```
-
-## Chinese CSSCI Journal Card
-
-For Chinese journals, check:
-
-- Whether the journal expects a strong policy/problem opening.
-- Whether literature review is usually independent or embedded.
-- Whether contributions are framed as "边际贡献", "理论贡献", "实践/政策启示".
-- Whether empirical strategy sections emphasize model construction, variable definition, robustness, or identification.
-- Whether references use GB/T 7714, author-year, footnotes, or journal-specific style.
-
-Default if unspecified:
-
-- Use CSSCI-compatible prose.
-- Keep "问题意识 -> 文献缺口 -> 研究设计 -> 主要发现 -> 边际贡献" clear.
-- Avoid bloated policy openings and empty contribution language.
-
-## English Journal Card
-
-For English journals, check:
-
-- Whether the article opens with a puzzle, debate, identification opportunity, or theoretical gap.
-- Whether theory is compact or extensive.
-- Whether hypotheses are used.
-- Whether the journal prefers "we" or impersonal wording.
-- Whether results sections emphasize identification, theory, magnitude, mechanism, or managerial relevance.
-- Whether discussion separates theoretical contribution and practical implications.
-
-Default if unspecified:
-
-- Use claim-first paragraphs.
-- Translate institutional context into scholarly relevance.
-- Avoid generic "important contribution" and overbroad implications.
-
-## Style Adaptation Boundaries
-
-Allowed:
-
-- Align section order and paragraph function.
-- Adjust tone, concision, contribution framing, and transition logic.
-- Recommend missing sections or checks.
-
-Not allowed:
-
-- Invent journal rules.
-- Copy phrasing from sample papers.
-- Add unsupported claims to fit style.
-- Change empirical results or citations without verification.
-
-## Output For Journal Adaptation
-
-Default output:
-
-1. Journal style card.
-2. Revised text.
-3. Changes made for outlet fit.
-4. Unverified assumptions.
-5. Required next checks before submission.
+Submitting to a journal, emailing or uploading the manuscript is a separate
+external action requiring the user's scope/authorization; preparing files is not
+itself permission to submit.

@@ -1,6 +1,6 @@
 # Economics Journal Families
 
-Use when the paper targets economics journals or economics-style outlets. This file provides general outlet-family heuristics only. For a named journal, build a `journal-style-card.md` using current guidelines and recent papers.
+Use relevant portions for an economics audience. These are editorial heuristics, not verified universal outlet expectations. Apply design and test suggestions only to the paper's actual approach. For named-journal compliance use [journal-style-card](journal-style-card.md): official instructions establish requirements; sample articles only illustrate conventions.
 
 ## General Economics Journals
 
@@ -80,7 +80,7 @@ Typical emphasis:
 - 问题意识.
 - 文献缺口.
 - 规范的模型与变量说明.
-- 稳健性、内生性、机制和异质性分析.
+- 与实际研究设计相称的证据、局限和必要检查，不强制增加机制或异质性分析.
 - 政策启示.
 
 Writing style:
@@ -96,5 +96,5 @@ When the user is preparing a working paper or seminar draft:
 - Lead with research design and novelty.
 - Make assumptions and limitations explicit.
 - Surface threats before audience Q&A.
-- Use a reviewer-risk list as output.
+- Include located review concerns only when they help the requested deliverable.
 

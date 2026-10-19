@@ -1,133 +1,58 @@
-# Evidence Grading
+# Evidence standard: identity, access, support
 
-Use this whenever adding, replacing, verifying, or recommending references. The goal is to distinguish "verified support" from "possibly relevant candidate."
+Use when adding, replacing or verifying a supporting citation. This is the single
+source of citation admissibility rules for all literature and retrieval modules.
+Do not treat legacy A/B/C/D grades as permission to cite: re-evaluate the exact claim.
 
-## Evidence Grades
+## Three separate judgments
 
-### Grade A: Directly Verified And Supportive
+| Dimension | Record what is known | What it does not establish |
+|---|---|---|
+| Source identity | Author/title/year/version and DOI, URL, library key or supplied file; checked, supplied-only, conflicting or unresolved | That any claim is supported |
+| Material inspected | Metadata only, abstract, excerpt, relevant full-text sections, full text, or unavailable; exact locator and source of access | That available full text was read, or that an excerpt represents the whole paper |
+| Relation to this claim | Supports, partly supports, contradicts, background only, not addressed, or undetermined; explain why | Study validity, causal identification, or universal truth |
 
-Use when:
+Verification is claim-specific. A genuine paper can be the wrong citation.
+A supplied PDF can support a statement even without a DOI, but do not claim its
+bibliographic identity was independently verified if it was only user supplied.
+An exact quotation match proves provenance, not interpretation.
 
-- Full text, user-provided PDF, Zotero PDF, or official source has been inspected.
-- The source directly supports the exact claim.
-- Metadata is complete enough for the requested citation style.
+## What may enter writing
 
-Allowed use:
+- **Supporting citation:** the source is traceable and inspected content supports
+  the actual sentence at its stated scope and strength. Metadata must suffice to
+  identify it; do not invent missing publication details.
+- **Abstract-only support:** permitted for a claim directly stated in the abstract,
+  within its scope. Tell the author the access limit when relevant. Do not infer
+  mechanism, specification, table values or robustness absent from the abstract.
+- **Partial support:** narrow the claim transparently or identify the unsupported
+  part. Do not attach one citation to an enlarged compound sentence.
+- **Contradictory evidence:** may be cited accurately as contrary or mixed evidence.
+  Do not reject it merely because it challenges the author's hypothesis.
+- **Background only:** cite only for the background it supports, not as proof of a
+  mechanism or effect.
+- **Metadata/title/snippet only or undetermined:** discovery candidate, not substantive
+  support. Metadata can verify a bibliographic fact, but not unseen study findings.
+- **Unavailable:** report access limits; do not describe an inaccessible source as
+  false, retracted, or non-supportive merely because retrieval failed.
 
-- Add to text and reference list.
-- Use as main theoretical, empirical, policy, or method support.
+Retractions, corrections, duplicate versions and identity mismatches require
+source-specific examination. Do not invent a rejection reason from venue prestige.
+A retracted source may be discussed as such, not used uncritically as reliable
+support for its invalidated finding.
 
-### Grade B: Metadata Verified, Claim Support Plausible
+## Keep the evidence record proportional
 
-Use when:
+For a small task one sentence and a locator can suffice. For several sources use:
 
-- DOI/publisher/CNKI/Crossref/OpenAlex/Zotero metadata is verified.
-- Title, abstract, or source description strongly indicates relevance.
-- Full text has not been inspected.
+| Target claim | Source / version | Material read + locator | Relation | Allowed use / remaining limit |
+|---|---|---|---|---|
 
-Allowed use:
+Separate the source's statement from your inference. Include short quotations only
+when useful and within applicable quotation limits; otherwise paraphrase with a
+locator. Do not force the full table into every writing response.
 
-- Use cautiously for background or candidate support.
-- Prefer wording such as "related work suggests" only if claim support is clear from abstract/metadata.
-- Mark as not fully read when important.
-
-### Grade C: Candidate Source, Needs Confirmation
-
-Use when:
-
-- Source is found through search results or secondary references.
-- Metadata or relevance is incomplete.
-- It may be a good substitute but has not been verified.
-
-Allowed use:
-
-- List as candidate only.
-- Do not insert into manuscript as a supporting citation.
-
-### Grade D: Rejected Or Unsafe
-
-Use when:
-
-- Metadata cannot be verified.
-- Source does not support the claim.
-- Source is too tangential.
-- Source appears predatory, non-authoritative, retracted, duplicated, or mismatched.
-
-Allowed use:
-
-- Report as rejected if useful.
-- Do not cite.
-
-## Source Authority Tags
-
-Add one or more tags:
-
-- **Seminal theory**
-- **Recent top/field journal**
-- **Method canonical**
-- **Recent method application**
-- **Official policy**
-- **Dataset/manual**
-- **Chinese CSSCI**
-- **Working paper**
-- **Review/meta-analysis**
-- **Context-specific evidence**
-- **Candidate only**
-
-These tags help explain why a reference is included.
-
-## Claim Fit Tags
-
-Map every source to one claim function:
-
-- Construct definition.
-- Mechanism.
-- Hypothesis direction.
-- Boundary condition.
-- Measurement/proxy.
-- Method/estimator.
-- Identification assumption.
-- Policy/background fact.
-- Empirical benchmark.
-- Managerial/policy implication.
-
-If one source cannot be mapped to a claim function, do not cite it.
-
-## Evidence Pack With Grades
-
-Use this format:
-
-| Grade | Role | Source | Supports | Trace | Note |
-| --- | --- | --- | --- | --- | --- |
-| A | Theory | Author (Year) | Mechanism | DOI/URL/Zotero | Full text checked |
-| B | Method | Author (Year) | Estimator choice | DOI/URL | Abstract/metadata checked |
-| C | Alternative | Author (Year) | Possible substitute | Search result | Needs confirmation |
-
-## Replacement Rules
-
-When replacing a weak reference:
-
-1. Identify the exact claim the old citation was supposed to support.
-2. Find a replacement with the same claim function.
-3. Prefer higher evidence grade and higher field authority.
-4. Preserve seminal citations unless the user asks for recent alternatives.
-5. Do not replace theory with empirical evidence or method references with software documentation unless the claim changes.
-
-## Minimum Thresholds
-
-- New in-text citation: Grade A or strong Grade B.
-- Theory/hypothesis backbone: Grade A preferred; Grade B allowed only with explicit caution.
-- Method justification: Grade A or Grade B from canonical method/source metadata; verify before strong wording.
-- Policy fact: Grade A official source preferred.
-- Reference list addition: Grade A or B only.
-- Candidate list: Grade C allowed, clearly labeled.
-
-## Output Wording
-
-Use transparent wording:
-
-- "已核验并可直接引用" for Grade A.
-- "元数据/摘要已核验，建议进一步阅读全文" for Grade B.
-- "候选文献，需确认" for Grade C.
-- "不建议引用" for Grade D.
+Reusing a prior record is acceptable when its source, inspected passage and claim
+remain traceable and applicable. Recheck changed claims or versions, time-sensitive
+facts, or lost provenance; do not repeat retrieval merely because a turn changed.
 

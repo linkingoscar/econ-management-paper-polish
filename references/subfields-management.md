@@ -1,6 +1,6 @@
 # Management Subfield Router
 
-Use after routing to management or broader business-school fields. Select the closest subfield, then combine with `cn-management-style.md` or `en-management-style.md`.
+Use relevant portions for management or related fields. Language profiles are optional. These are editorial prompts conditional on the actual approach, not requirements to add hypotheses, causal identification or mechanisms to every paper. Preserve qualitative, descriptive and theory-building work.
 
 ## Strategic Management
 
@@ -82,7 +82,7 @@ Writing focus:
 
 - Technology artifact or digital affordance.
 - Sociotechnical, behavioral, economics-of-IS, or design-science route.
-- Digital context should create theory or identification value.
+- Explain the context's theoretical, descriptive, measurement, design or identification value as supported by the actual work.
 
 ## Operations And Supply Chain Management
 
@@ -117,7 +117,7 @@ Writing focus:
 
 For Chinese CSSCI management papers:
 
-- Problem consciousness must become a theoretical question.
+- Turn the phenomenon into a precise research question; explain its theoretical significance when a theoretical contribution is claimed.
 - Use "管理启示" only after theory and evidence are clear.
 - Chinese institutional context can be valuable, but not automatically a contribution.
 

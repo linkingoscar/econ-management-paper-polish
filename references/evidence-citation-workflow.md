@@ -1,128 +1,71 @@
-# Evidence And Citation Workflow
+# Claim-specific literature and citations
 
-Use this file whenever the task involves adding, replacing, verifying, formatting, or strengthening references; adding policy background; supporting theory and hypotheses; justifying methods; or finding alternative references. If source access is uncertain, read `source-access-policy.md` first. For theory and hypotheses, pair it with `theory-backing-router.md`. For every added, replacement, or candidate reference, use `evidence-grading.md`.
+Use for finding, replacing, checking or formatting references and for evidence-backed
+theory, method, background or contribution work.
+Read [evidence-grading](evidence-grading.md) before deciding support.
+Use [source-access-policy](source-access-policy.md) only when access/coverage matters.
 
-## Non-Negotiable Rule
+## Start with the sentence, not a list of papers
 
-No new reference enters the text or bibliography unless it is traceable to at least one current-session source:
+Identify what needs support: definition, theory, mechanism, measurement, empirical
+pattern, method/assumption, policy fact, contribution comparison or implication.
+Preserve the distinction between the author's claim and a cited author's claim.
 
-- User-provided PDF, manuscript, Zotero item, BibTeX, RIS, note, or link.
-- Publisher or journal landing page.
-- DOI resolver, Crossref, OpenAlex, Semantic Scholar, Web of Science, Scopus, CNKI, CSSCI source, Google Scholar page, SSRN, NBER, CEPR, arXiv, RePEc, OSF, or institutional repository.
-- Official government, regulator, standards body, statistical bureau, exchange, central bank, or international organization page for policy/background claims.
+For a bibliography-formatting request, format the supplied records and flag missing
+fields. Do not turn it into an unsolicited literature audit.
+For ordinary polishing preserve existing citations; flag a serious support concern
+without silently adding references.
 
-If only a memory-based citation seems relevant, search it first. If verification fails, do not cite it.
+## Retrieve, read, compare
 
-## Source Priority By Claim Type
+1. Reuse relevant sources or traceable records supplied or selected for this manuscript.
+2. Search the specific question and plausible competing/null explanations.
+3. Check source identity and version; resolve materially conflicting metadata.
+4. Inspect the relevant content and surrounding context, not only title/keywords.
+5. Compare population, constructs, timing, design, finding, uncertainty and scope
+   with the sentence being supported.
+6. Select sources by argumentative role and relevance; explain mixed findings
+   rather than counting supportive papers.
+7. Integrate only supported wording; keep candidates and unresolved claims distinct.
 
-### Policy Or Background Claims
+Use seminal work for what it establishes, validation work for measurement,
+methodological sources for assumptions/estimands, official documentation for
+implementation, and official policy/statistical sources for those facts.
+A recent applied paper using an estimator does not establish its assumptions for
+the user's study. A classic theory does not validate every modern proxy.
+Chinese sources can be relevant irrespective of manuscript language.
 
-Preferred sources:
+## Write with the evidence
 
-1. Official policy text, laws, regulations, government notices, central bank/regulator releases, statistical bureau data.
-2. Authoritative institutional reports from OECD, World Bank, IMF, BIS, ILO, UN agencies, central banks, exchanges, or industry regulators.
-3. Peer-reviewed empirical papers or working papers analyzing the policy/event.
-4. Reputable news only for dates and event facts when primary sources are not available.
+A literature paragraph should explain an issue or disagreement and locate the
+current study's increment. Do not replace synthesis with a string of citations.
+When replacing a reference, preserve its evidential role; explain any change in
+claim scope. Keep contrary sources if they materially qualify the conclusion.
 
-For Chinese CSSCI papers, policy background may be useful, but it must be tied to the research question rather than used as decorative opening material.
+A source's existence, a matched quotation and a supportive interpretation are
+different checks. Apply the common evidence standard rather than inventing an
+alternate confidence score. Retrieval rankings and citation counts are not
+measures of scientific support.
 
-### Theory And Hypothesis Claims
+## Bibliography and provenance
 
-Preferred sources:
+Preserve the manuscript's citation style and keys unless a change is requested.
+For a new unspecified bibliography, use APA 7. Preserve original Chinese titles
+and names unless translation is needed; mark a translation where appropriate.
+Add DOI/URL or supplied-file/library locators when available. Do not guess authors,
+year, venue, volume, issue, pages or DOI to make an entry look complete.
 
-1. Seminal theory articles/books in the target field.
-2. Top or field-journal papers that operationalize the theory in a similar setting.
-3. Recent review/meta-analysis papers when mapping a literature stream.
-4. Chinese CSSCI literature only when the target is Chinese or China-specific and the theory use is recognized in that literature.
+New support must be traceable to inspected material; memory is only a search lead.
+A supplied incomplete entry can be formatted with its omissions made explicit
+without falsely claiming independent verification.
 
-Every theory citation should support a mechanism, boundary condition, construct definition, or hypothesis direction. Do not cite a paper merely because it shares keywords.
+## Delivery
 
-### Empirical Method Or Identification Claims
+For requested augmentation, return the revised passage, the added/replaced sources
+and a compact explanation of what they support. For source evaluation, lead with
+the support decision and locator. For a literature scan, report the substantive
+synthesis, relevant disagreements and actual coverage.
 
-Preferred sources:
-
-1. Econometrics/statistics/methodology articles or books.
-2. Recent applied papers in the target journal family that use the same method.
-3. Software/package documentation only for implementation details, not methodological validity.
-4. Working papers when they are the current method reference and widely used.
-
-When recommending methods, distinguish "methodologically appropriate" from "currently fashionable."
-
-### Measurement Or Proxy Claims
-
-Preferred sources:
-
-1. Original scale, construct, or proxy paper.
-2. Field-standard applications in the same discipline.
-3. Validation studies or robustness papers.
-4. Database documentation for variable construction.
-
-Do not relabel a proxy as the construct itself.
-
-### Topic, Frontier, Or Variable Recommendation Claims
-
-Preferred sources:
-
-1. Recent review articles, editorials, special issues, calls for papers, and target-journal clusters.
-2. Recent top/field-journal papers in the routed subfield.
-3. Citation networks from seminal work to recent applications.
-4. Verified CNKI/CSSCI literature for Chinese topics and China-specific debates.
-5. Official datasets, policy documents, database manuals, or user-provided data documentation for variable feasibility.
-
-Do not label a direction as mainstream, frontier, or promising based only on intuition or search-result snippets.
-
-## Retrieval Workflow
-
-1. Identify available source access using `source-access-policy.md` when needed.
-2. Parse the sentence or section into citation needs.
-3. Generate search queries by discipline, construct, method, and target outlet.
-4. Search at least two source channels when adding important references: e.g., Zotero/CNKI/school database plus Crossref/OpenAlex/publisher page when available.
-5. Prefer sources with full text or DOI, stable URL, journal venue, complete metadata, and clear relevance.
-6. Verify metadata: author names, year, title, journal, volume/issue/pages, DOI/URL.
-7. Check support: confirm what claim the source supports.
-8. Grade the evidence using `evidence-grading.md`.
-9. Add in-text citation and reference-list entry only when grade threshold is met.
-10. Report uncertain or weaker candidates separately, with source-access limits.
-
-## Evidence Pack Format
-
-When adding or replacing references, include a compact evidence pack:
-
-| Use | Source | Supports | Trace |
-| --- | --- | --- | --- |
-| Theory | Author (Year), Title, Venue | Mechanism or construct | DOI/URL/CNKI/Zotero key |
-| Method | Author (Year), Title, Venue | Identification or estimation choice | DOI/URL |
-| Policy | Institution (Year), Document | Policy fact or institutional setting | Official URL |
-
-Then list complete references in the requested style. Default: APA 7.
-
-## Alternative Reference Search
-
-When the user asks for alternative references:
-
-- Preserve the claim's exact function: seminal theory, recent evidence, Chinese context, top-journal method exemplar, or policy fact.
-- Return 3-8 candidates, grouped by function.
-- For each candidate, state why it is a substitute and what it cannot support.
-- Do not replace a seminal citation with a recent empirical citation unless the claim changes.
-
-## APA Defaults
-
-Use APA 7 style by default:
-
-- Journal article: Author, A. A., & Author, B. B. (Year). Title of article. *Journal Title, volume*(issue), pages. https://doi.org/...
-- Working paper: Author, A. A. (Year). Title. *Series or repository*. URL/DOI.
-- Government document: Institution. (Year). *Title of document*. URL.
-- Chinese sources: preserve Chinese title and institution names unless the target manuscript requires translation. If translating, include the original title when useful.
-
-If metadata is incomplete, mark missing fields explicitly rather than guessing.
-
-## Output Rules
-
-For citation-augmentation tasks, default output:
-
-1. Revised text.
-2. Evidence pack.
-3. Added/replaced references in APA.
-4. Sources rejected or needing user confirmation.
-
-If the user only asked for polished prose and did not request reference expansion, do not add references unless an unsupported claim is severe. Flag the need instead.
+Do not impose a fixed candidate count or a mandatory evidence table on a single
+citation. An unsupported claim may remain marked for evidence or be narrowed
+transparently; do not fill the gap to complete a template.

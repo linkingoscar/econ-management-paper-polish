@@ -1,129 +1,108 @@
-# Section Patterns
+# Section tasks and drafting
 
-Use these structures as defaults only after routing the paper by discipline, method, language, and target outlet. Adapt to the journal, discipline, method, and user's draft.
+Use for requested section drafting or restructuring. These are rhetorical jobs,
+not fixed paragraph counts or a mandatory empirical-paper outline.
+Use [discipline-router](discipline-router.md) when the research approach is unclear.
+
+## Match material to the section
+
+A draft, notes, design or actual tables can support different writing.
+Write the parts that the material permits. Mark missing evidence locally rather
+than filling in estimates, performed checks, citations or novelty. With only a
+study plan, use planned/proposal language and leave findings explicitly open.
+Use [paper-spine](paper-spine.md) for a full paper or global reorganization.
+
+## Title and abstract
+
+State the question/object, approach, supported answer and consequence as appropriate
+to the article type. Include magnitude and uncertainty when known and informative.
+Do not promise a mechanism, causal effect or generality absent from the work.
+A request for a concrete abstract without results permits a clearly labeled
+provisional abstract, not invented findings. Verify a journal word limit only
+when the user asks for that journal's compliance.
 
 ## Introduction
 
-Compatible default order for empirical econ/management papers:
+Give the reader a consequential question and a reason it remains open. With the
+closest supplied research, ask: even if that finding is right, what cannot yet be
+inferred, and why does that matter? Use this comparison to motivate the present
+study's question, design and supported answer. An absence of studies is not itself
+an explanation of importance. If close literature is unavailable, bound the
+positioning rather than invent a field-wide gap.
 
-1. Context or stylized fact: define the phenomenon and why it matters.
-2. Puzzle or gap: explain what current literature cannot yet answer.
-3. Research question: state the question in one direct sentence.
-4. Empirical setting and data: explain why this setting identifies the question well.
-5. Method and identification: mention core design, not every control.
-6. Main findings: state direction, magnitude, and economic interpretation.
-7. Mechanism, robustness, heterogeneity: summarize only the strongest supporting tests.
-8. Contributions: map to specific literature streams, not generic "theoretical and practical significance."
+Make the stakes specific: what would be misunderstood, decided differently or
+left unexplained without this answer? A new audience, setting or variable needs
+that reason, not another assertion of importance. Develop the central explanation
+before spending space on secondary moderators, outcome lists or survey procedures.
+Include those details when they help the reader understand the study's answer.
 
-Avoid an introduction that is only a topic summary. The contribution should answer: "What do readers know after this paper that they did not know before?"
+## Literature positioning
 
-Discipline adaptation:
+Organize sources around their role in the question: competing explanations,
+what is known, disagreements, measurement or method, and the actual increment.
+Preserve contrary and mixed findings. Do not treat newer or more prestigious work
+as automatically correct. Separate reviewed scope from claims about the whole field.
+For new support use [evidence workflow](evidence-citation-workflow.md).
 
-- Economics: keep the opening lean; foreground research question, identification challenge, data, and magnitude.
-- Management: give more room to construct definition, theory gap, mechanism, and boundary condition.
-- Finance/accounting: foreground institutional setting, market/reporting mechanism, proxy validity, and identification threat.
-- Marketing/IS: foreground the decision, consumer/platform/technology mechanism, and managerial or sociotechnical relevance.
+## Theory, constructs and mechanisms
 
-## Literature Review And Positioning
+Define the objects and explain the reasoning connecting them. Distinguish a
+theoretical expectation, observed pattern and identified mechanism.
+Use [theory reasoning](theory-backing-router.md) for competing explanations,
+levels of analysis, construct validity and boundary conditions.
+Use hypotheses only for the study's actual hypothesis-testing approach.
+Theory building, descriptive inquiry and qualitative process studies can use
+questions, propositions, observations or evolving explanations instead.
 
-Use thematic positioning, not an annotated bibliography.
+## Methods
 
-- Cluster prior work into 2-4 streams.
-- For each stream: what it explains, what assumption or boundary it leaves open, and how this paper enters.
-- Avoid "scholars have studied X from many perspectives." Name the specific unresolved issue.
-- End with a positioning sentence: "This paper differs by..."
-
-## Theory, Mechanism, And Hypotheses
-
-Default mechanism paragraph:
-
-1. Define the focal construct or treatment.
-2. State the behavioral, organizational, market, or institutional channel.
-3. Explain the boundary condition or countervailing force.
-4. Derive the testable implication.
-5. State the hypothesis.
-
-Hypotheses should be testable and directional when the theory supports direction. Do not hide ambiguity by using vague phrases such as "may have an impact."
-
-In economics-style papers, hypotheses may be replaced by testable predictions, propositions, or empirical implications. In management-style papers, hypotheses usually require fuller construct logic and boundary conditions.
-
-## Empirical Strategy
-
-Default order:
-
-1. Data source, sample construction, time span, and exclusions.
-2. Dependent variable, independent variable, mediator/moderator, and controls.
-3. Baseline model with fixed effects and standard errors.
-4. Identification logic: what variation identifies the effect.
-5. Threats: omitted variables, reverse causality, selection, measurement error, common shocks.
-6. Planned checks: robustness, placebo, alternative measures, IV, DID/event study, PSM, Heckman, or sensitivity analysis as appropriate.
-
-Use causal language only when the design supports it. Otherwise prefer "is associated with", "predicts", "is consistent with", or "provides evidence that".
+Describe the study actually conducted. Explain the object, material/sample,
+measurement, design or analytic process, assumptions, and inference relevant to it.
+Fixed effects, controls, instruments and standard errors are conditional on method.
+For causal designs distinguish the estimand from the estimator and assumptions.
+For qualitative work explain data generation, sampling and analysis without
+inventing interviews, coding steps, saturation or triangulation.
+For predictive work report validation as performed, without causal reinterpretation.
+Use [empirical-method-router](empirical-method-router.md) for method diagnosis.
 
 ## Results
 
-Each empirical result paragraph should include:
+Follow [results-to-text](results-to-text.md) for quantitative evidence.
+For qualitative results show how actions or relationships change and which
+observations support that interpretation, including negative cases. Let analytic
+labels name an explanation the reader can already follow; a paragraph for every
+code can obscure the process. Do not invent temporal order between concurrent
+arrangements. For theory distinguish proposition,
+proof and intuition; for structural work distinguish fitted and counterfactual
+quantities. Do not fabricate quotations or state a proof was checked unless it was.
 
-1. Table/column reference.
-2. Coefficient sign and statistical significance.
-3. Magnitude or economic significance.
-4. Interpretation in terms of the hypothesis.
-5. Limits of interpretation when needed.
+Select results by their role in answering the question, not by statistical success.
+Describe sensitivity checks by the concern addressed, what changed, what was found
+and what remains unresolved. Do not write a planned test in past tense.
 
-Do not say only "the coefficient is significantly positive." Explain what a one-unit or relevant change means.
+## Discussion and conclusion
 
-## Robustness And Endogeneity
+Organize around what the decisive finding changes in understanding, not a second
+tour of the results. Bring together the pieces of evidence that earn this inference,
+including tensions between them. Explain what they distinguish and what remains
+open. Place a limitation beside the inference it limits; use a separate limitations
+paragraph when it adds a useful scope judgment rather than repeating these clauses.
 
-Robustness paragraphs should state:
+Develop implications through the actor's actual decision and the conditions under
+which the finding informs it. A result does not establish an intervention's
+effectiveness or welfare benefit. Prioritize future work by the unresolved inference
+it would settle; an interesting topic alone does not warrant another item. End with
+the consequence of the answer, not another inventory of findings and qualifications.
 
-- What concern is addressed.
-- What alternative specification or sample is used.
-- Whether the result remains directionally, statistically, and economically consistent.
-- What residual limitation remains.
+## Reviewer response
 
-Endogeneity language must be precise. Robustness checks do not "solve" endogeneity unless the design actually addresses the threat.
+Use [revision-matrix](revision-matrix.md). A response can agree, partly agree,
+clarify, or respectfully disagree with reasons. Misunderstanding may call for clearer
+writing, but does not automatically make the reviewer scientifically correct.
 
-## Mechanism And Heterogeneity
+## Complete the requested writing
 
-Mechanism tests should connect back to theory:
-
-- Name the channel.
-- State the observable proxy.
-- Explain why the proxy captures the mechanism.
-- Interpret results as evidence for or against the channel.
-
-Heterogeneity should be motivated before results. Avoid listing subgroup results without explaining why the subgroup matters.
-
-## Discussion, Implications, And Conclusion
-
-Discussion should synthesize, not repeat tables.
-
-- Restate the central answer.
-- Explain theoretical implications for named literature streams.
-- Explain managerial or policy implications with scope conditions.
-- State limitations in a way that sets up future work.
-- Avoid overbroad claims such as "provides important reference for all enterprises."
-
-## Abstract
-
-A strong abstract follows:
-
-1. Problem and gap.
-2. Data and method.
-3. Main result with direction and magnitude when possible.
-4. Mechanism or boundary result.
-5. Contribution or implication.
-
-Keep the abstract concrete. Remove generic claims of importance unless tied to evidence.
-
-## Reviewer Response
-
-Use this order:
-
-1. Thank the reviewer briefly.
-2. Restate the concern accurately.
-3. Say what changed in the manuscript.
-4. Point to section/table/page location.
-5. Explain why the change addresses the concern.
-
-Never sound defensive. If the reviewer misunderstood, treat it as a writing problem to fix.
+Deliver usable prose, not just a template, when materials support it. Keep author
+notes and unresolved questions outside manuscript text unless placeholders were
+requested or are necessary for a provisional draft. For full papers check that
+abstract/introduction promises, results and conclusion still agree after revision.

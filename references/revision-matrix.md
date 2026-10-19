@@ -1,116 +1,55 @@
-# Revision Matrix (修订矩阵)
+# Reviewer response and actual revision
 
-Use this file when tracking revision actions during major revision, reviewer response, or manuscript restructuring. The revision matrix maps each required change to a specific action, evidence, and location.
+Use for response letters, major revision or tracking substantive changes.
+A short response need not create a matrix. For multiple comments, keep one shared
+record that links concerns, decisions, actions and manuscript locations.
 
-## When To Use
+## Read what was actually requested and changed
 
-- User is responding to reviewer comments.
-- User is doing a major revision after diagnosis.
-- User asks to track what changed between versions.
-- User asks "这篇返修改了哪些地方？"
+Separate the reviewer's underlying concern from the suggested remedy.
+Check the current manuscript and supplied changes before describing completion.
+A reviewer may be right about the concern but propose an infeasible or unsuitable
+method. Agree, partly agree, clarify or respectfully disagree with reasons.
 
-## Matrix Structure
+| Comment / concern | Author's decision | Planned action | Actual change + evidence | Current location | Status |
+|---|---|---|---|---|---|
+| Use the real comment | Agree / partly agree / reasoned disagreement | What remains to do | What is visible in the draft or supplied outputs | Section/table/page/quote anchor | Proposed / in progress / complete / partial / not adopted |
 
-### Standard Revision Matrix
+Reuse existing issue IDs when available. Cover every substantive concern without
+requiring a new row for every sentence or a second risk ledger.
+Mark "complete" only for changes actually made; if only the author's account is
+available, distinguish author-reported completion from independently checked edits.
 
-| ID | Source | Concern/Requirement | Action Taken | Evidence Added | New Location | Status |
-|----|--------|--------------------|--------------| ---------------|--------------|--------|
-| R1 | Reviewer 1 | Weak identification | Added IV approach | Table A5 | Section 4.2 | ✅ Done |
-| R2 | Reviewer 2 | Missing mechanism | Added channel test | Table 6 | Section 5.3 | ✅ Done |
-| R3 | Editor | Contribution unclear | Rewrote intro | — | Section 1 | ✅ Done |
-| R4 | Self | Robustness concern | Added placebo test | Table A8 | Appendix | 🔄 Pending |
+## Draft a truthful response
 
-### Column Definitions
+Explain:
+1. The concern as understood.
+2. The decision and its rationale.
+3. The actual revision or new evidence, if completed.
+4. A real locator and how the change addresses the concern.
+5. Any remaining limitation.
 
-- **ID**: Unique identifier for each revision item.
-- **Source**: Where the concern came from (Reviewer 1/2/3, Editor, Self, Coauthor).
-- **Concern/Requirement**: Exact or paraphrased concern from the source.
-- **Action Taken**: What was changed in the manuscript.
-- **Evidence Added**: New tables, figures, analyses, or citations added.
-- **New Location**: Section, table, or page where the change appears.
-- **Status**: ✅ Done, 🔄 Pending, ❌ Not Addressed, ⚠️ Partially Addressed.
+Keep courtesy brief and specific. Do not automatically promise new analyses,
+claim that confounding is solved, or accept a demand that damages the study's logic.
+For an unperformed test, provide a clearly provisional response or author action
+note. Do not write "we have conducted" simply because it sounds submission-ready.
+Do not invent page/line numbers; use an actual section or quote anchor until pagination exists.
 
-## Reviewer Response Integration
+## Coordinate manuscript and letter
 
-When building a response letter, each matrix row maps to:
+If the user asks for both revision and response, make the authorized feasible edits
+first and draft the response from those edits. If new data/analysis is needed,
+complete the writing that is supported and identify the dependent items.
+For changed estimates check abstract, introduction, results, discussion and
+conclusion through [paper-spine](paper-spine.md).
 
-```markdown
-**[R1] Reviewer 1, Comment 1:**
-> [Original concern quoted or paraphrased]
+For a first submission without reviewer comments, do not require a response letter.
+A self-review can yield a revision list without pretending an external reviewer
+requested it.
 
-**Response:** We thank the reviewer for this insightful comment. [Action taken]. Specifically, [evidence added]. This can be found in [new location]. [Explanation of how this addresses the concern].
+## Delivery
 
-**Changes in manuscript:**
-- Section 4.2: [Description of change]
-- Table A5: [New analysis]
-```
-
-## Revision Severity Classification
-
-| Severity | Description | Response Strategy |
-|----------|-------------|-------------------|
-| **Fatal** | Methodology flaw, data error, or core claim unsupported | Must fix; may require new analysis |
-| **Major** | Missing mechanism, weak identification, or contribution gap | Should fix with evidence |
-| **Minor** | Clarity, presentation, or formatting issues | Fix in revision |
-| **Optional** | Nice-to-have improvements | Acknowledge or explain why not addressed |
-
-## Tracking Rules
-
-1. Every reviewer comment gets a matrix row, even if not addressed.
-2. If a concern is not addressed, explain why in the response letter.
-3. Evidence additions must be traceable to specific table/figure numbers.
-4. Status must reflect actual manuscript state, not intent.
-5. When a single comment requires multiple actions, use sub-IDs (R1a, R1b, R1c).
-
-## Output Template
-
-When the user provides reviewer comments, output:
-
-```markdown
-## 修订矩阵 (Revision Matrix)
-
-### 汇总统计
-- 总意见数: [N]
-- 已完成: [X]
-- 进行中: [Y]
-- 未处理: [Z]
-
-### 详细矩阵
-[Table as above]
-
-### 优先级排序
-1. [Most critical item]
-2. [Second priority]
-3. ...
-
-### 建议的返修路线
-[Ordered list of actions with dependencies]
-```
-
-## Common Patterns
-
-### Endogeneity Concern
-
-```
-| R1 | R2 | 内生性问题未充分讨论 | 新增工具变量回归 + 讨论局限性 | Table A5 + Section 4.3 | ✅ |
-```
-
-### Missing Literature
-
-```
-| R2 | R1 | 未引用关键文献 Author (Year) | 添加引用并定位与本文差异 | Section 2.2 + References | ✅ |
-```
-
-### Contribution Clarity
-
-```
-| R3 | Editor | 贡献定位不清晰 | 重写引言贡献段落，映射到具体文献流 | Section 1, ¶3-5 | ✅ |
-```
-
-## Integration With Paper Spine
-
-The revision matrix should be consistent with the paper spine:
-
-- Each revision action should strengthen a spine link.
-- Risks identified in the spine should appear in the matrix if reviewers flagged them.
-- After revision, re-run the spine diagnosis to check if the argument is now stronger.
+Return the requested letter or revision first. Include an action list or matrix
+only when it helps track unresolved work. Keep author-facing notes separate from
+text intended for reviewers; label provisional passages so they cannot be mistaken
+for completed work.

@@ -1,5 +1,10 @@
 # English Management Style
 
+This is a conditional language/audience profile, not a mandatory research design.
+Use only the parts appropriate to the paper's actual approach. Descriptive,
+predictive, theoretical and qualitative studies need not add causal identification,
+directional hypotheses, mechanism tests or managerial/policy implications.
+
 Use for English management, strategy, organization theory, OB/HR, entrepreneurship, innovation, marketing, IS, operations, and broader business-school manuscripts.
 
 ## Core Orientation
@@ -25,7 +30,7 @@ A strong English management introduction:
 
 Avoid:
 
-- Economics-style "we estimate the effect of X on Y" without theory.
+- Claiming a theoretical advance from an effect estimate without explaining the advance; a phenomenon-led or descriptive contribution can be stated on its own terms.
 - Overlong context before theory.
 - Claiming contribution from a new sample alone.
 
@@ -50,7 +55,7 @@ Methods must be credible, but results should be interpreted through theory:
 - For experiments, emphasize design, manipulation, validity, and mechanism.
 - For qualitative work, emphasize sampling logic, process evidence, and theoretical abstraction.
 
-Results should return to hypotheses, mechanisms, and boundary conditions.
+Results should answer the actual research question; connect to hypotheses, mechanisms and boundaries when these belong to the study.
 
 ## Discussion
 
@@ -72,5 +77,5 @@ When writing from a China-based context:
 
 ## Subfield Adaptation
 
-Pair with `subfields-management.md` and `journal-families-management.md`.
+Consult relevant portions of `subfields-management.md` and `journal-families-management.md`.
 

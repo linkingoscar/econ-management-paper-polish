@@ -1,6 +1,6 @@
 # Management Journal Families
 
-Use when the paper targets management, strategy, organization, OB/HR, marketing, IS, operations, or broader business-school outlets. This file provides general outlet-family heuristics only. For a named journal, build a `journal-style-card.md` using current guidelines and recent papers.
+Use relevant portions for management or related audiences. These are editorial heuristics, not verified universal outlet expectations. Hypothesis-testing, theory-building, descriptive and qualitative work need different structures. For named-journal compliance use [journal-style-card](journal-style-card.md): official instructions establish requirements; sample articles only illustrate conventions.
 
 ## General Management And Organization Journals
 
@@ -15,7 +15,7 @@ Typical emphasis:
 Writing style:
 
 - Theory-driven introduction.
-- Hypotheses/propositions with clear logic.
+- Clear questions, hypotheses, propositions or process explanations as appropriate to the study.
 - Discussion organized by theoretical contributions.
 
 Risk:
@@ -107,7 +107,7 @@ Writing style:
 Typical emphasis:
 
 - 管理问题意识.
-- 理论机制和研究假设.
+- 与研究方式相称的理论、过程解释或研究假设.
 - 规范实证或调查/实验设计.
 - 理论贡献和管理启示.
 
@@ -122,7 +122,7 @@ Writing style:
 Typical emphasis:
 
 - Theoretical contribution and fit to the journal's conversation.
-- Stronger style differences across journal families than in Chinese generic management writing.
+- Style varies by journal and article type; use actual instructions and relevant samples for close adaptation.
 
 Writing style:
 
